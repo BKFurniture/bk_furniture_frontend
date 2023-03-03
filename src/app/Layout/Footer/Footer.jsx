@@ -12,7 +12,7 @@ const Footer = () => {
     <Container fixed style={{backgroundColor: '#fff', height: '100%'}}>
       <Grid container>
         <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h5" component="h2" style={{color: '#1264A9'}}>
+          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
             CONTACT US
           </Typography>
           <div>
@@ -29,15 +29,16 @@ const Footer = () => {
               <MailOutlineIcon style={{fontSize: '1.4rem', paddingRight: 5}} />{' '}
             </Grid>
             <Grid>bkfurniture@gmail.com</Grid>
-          </Grid>
+          </Grid>{' '}
         </Grid>
 
         <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h5" component="h2" style={{color: '#1264A9'}}>
+          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
             FILL EMAIL FOR DEALS OR YOUR DESIGN
           </Typography>
           <div>
             <TextField
+              size="small"
               style={{height: 20, width: 300}}
               id="outlined-password-input"
               label="Email Address"
@@ -46,10 +47,9 @@ const Footer = () => {
           </div>
         </Grid>
         <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h5" component="h2" style={{color: '#1264A9'}}>
+          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
             VISIT OUR STORE
           </Typography>
-
           <div>
             <AddLocationAltIcon style={{fontSize: '1.2rem', paddingRight: 5}} />{' '}
             0123456789
@@ -64,18 +64,17 @@ const Footer = () => {
               <AccessTimeIcon style={{fontSize: '1.4rem', paddingRight: 5}} />{' '}
             </Grid>
             <Grid>bkfurniture@gmail.com</Grid>
-          </Grid>
+          </Grid>{' '}
         </Grid>
         <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h5" component="h2" style={{color: '#1264A9'}}>
+          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
             CONNECT WITH US
           </Typography>
-
           <div>
             <FacebookIcon style={{fontSize: '2rem'}} />
             <InstagramIcon style={{fontSize: '2rem'}} />
             <TwitterIcon style={{fontSize: '2rem'}} />
-          </div>
+          </div>{' '}
         </Grid>
       </Grid>
     </Container>

@@ -13,7 +13,14 @@ import MenuIcon from '@mui/icons-material/Menu'
 const Header = () => {
   return (
     <>
-      <Container fixed style={{backgroundColor: '#fff', height: 150}}>
+      <Container
+        fixed
+        style={{
+          backgroundColor: '#fff',
+          height: 150,
+          boxShadow: '0px 15px 10px -15px #111',
+        }}
+      >
         <Box style={{padding: '10px 0'}}>
           <Grid container spacing={2}>
             <Grid item container style={{height: 60}}>
