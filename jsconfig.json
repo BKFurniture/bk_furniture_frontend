@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": "src",
+    "paths": {
+      "asset/*": [
+        "./src/asset/*"
+      ],
+      "component/*": [
+        "./src/component/*"
+      ]
+    }
+  }
+}
