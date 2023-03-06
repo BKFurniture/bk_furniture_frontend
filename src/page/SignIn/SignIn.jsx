@@ -133,7 +133,11 @@ export default function SignIn() {
             <button
               onClick={renderProps.onClick}
               disabled={renderProps.disabled}
-              style={{cursor: 'pointer'}}
+              style={{
+                cursor: 'pointer',
+                border: 'none',
+                backgroundColor: '#E0E0',
+              }}
             >
               <img src={GoogleImg} style={{height: 35, marginRight: 15}} />
             </button>
