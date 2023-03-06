@@ -14,7 +14,6 @@ const Header = () => {
   return (
     <>
       <Container
-        fixed
         style={{
           backgroundColor: '#fff',
           height: 150,
@@ -34,9 +33,15 @@ const Header = () => {
                 alignItems="center"
                 justifyContent="flex-end"
               >
-                <div style={{marginRight: 30}}>
+                <Box
+                  component="div"
+                  sx={{
+                    marginRight: 3,
+                    display: {xs: 'none', sm: 'block'},
+                  }}
+                >
                   <SearchBar />
-                </div>
+                </Box>
                 <div style={{marginRight: 10}}>
                   <Avatar src={LOGO} sx={{height: 30, width: 30}} />
                 </div>
@@ -63,11 +68,12 @@ const Header = () => {
               style={{height: 40}}
             >
               <TabContext value={'1'}>
-                <Box>
+                <Box sx={{maxWidth: '100%'}}>
                   <TabList
                     style={{height: 60}}
                     onChange={() => {}}
-                    aria-label="lab API tabs example"
+                    variant="scrollable"
+                    scrollButtons="auto"
                   >
                     <Tab
                       label="HOME"

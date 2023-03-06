@@ -8,7 +8,7 @@ const theme = createTheme({
       default: '#E0E0E0',
     },
     primary: {
-      main: '#556cd6',
+      main: '#1264A9',
     },
     secondary: {
       main: '#19857b',

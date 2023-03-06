@@ -1,0 +1,144 @@
+import {
+  Box,
+  Container,
+  FormControl,
+  FormGroup,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material'
+import CardProduct from 'component/CardProduct'
+import React from 'react'
+import useMediaQuery from '@mui/material/useMediaQuery'
+const ProductList = () => {
+  const matches = useMediaQuery('(max-width:450px)')
+  return (
+    <Container>
+      <Typography
+        variant="h5"
+        component="h2"
+        style={{color: '#1264A9', fontWeight: 700}}
+      >
+        Products
+      </Typography>
+      <FormGroup row>
+        <Grid
+          container
+          style={{fontWeight: '600', marginTop: 30}}
+          spacing={2}
+          alignItems="center"
+        >
+          <Grid item>Filter</Grid>
+          <Grid item>
+            <FormControl size="small">
+              <InputLabel id="category">Category</InputLabel>
+              <Select
+                sx={{width: 100}}
+                labelId="category"
+                id="category"
+                value={18}
+                label="Category"
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FormControl size="small">
+              <InputLabel id="brand">Brand</InputLabel>
+              <Select
+                sx={{width: 100}}
+                labelId="brand"
+                id="brand"
+                value={18}
+                label="Brand"
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            {' '}
+            <FormControl size="small">
+              <InputLabel id="price">Price</InputLabel>
+              <Select
+                sx={{width: 100}}
+                labelId="price"
+                id="price"
+                value={18}
+                label="Price"
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FormControl size="small">
+              <InputLabel id="rating">Rating</InputLabel>
+              <Select
+                sx={{width: 100}}
+                labelId="rating"
+                id="rating"
+                value={18}
+                label="Rating"
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </FormGroup>
+
+      <Box sx={{marginTop: 5, maxWidth: matches ? 450 : '100%'}}>
+        <Tabs
+          value={0}
+          onChange={() => {}}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Popular" style={{textTransform: 'none'}} />
+          <Tab label="Latest" style={{textTransform: 'none'}} />
+          <Tab label="Price low to high" style={{textTransform: 'none'}} />
+          <Tab label="Price high to low" style={{textTransform: 'none'}} />
+        </Tabs>
+      </Box>
+      <Grid container style={{padding: '20px 0'}} spacing={2}>
+        <Grid lg={3} md={4} sm={6} xs={12} item>
+          <CardProduct />
+        </Grid>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
+          <CardProduct />
+        </Grid>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
+          <CardProduct />
+        </Grid>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
+          <CardProduct />
+        </Grid>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
+          <CardProduct />
+        </Grid>
+      </Grid>
+
+      <Grid container justifyContent="end">
+        <Pagination count={10} variant="text" color="primary" />
+      </Grid>
+    </Container>
+  )
+}
+
+export default ProductList

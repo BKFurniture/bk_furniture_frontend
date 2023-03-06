@@ -9,7 +9,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import TwitterIcon from '@mui/icons-material/Twitter'
 const Footer = () => {
   return (
-    <Container fixed style={{backgroundColor: '#fff', height: '100%'}}>
+    <Container  style={{backgroundColor: '#fff', height: '100%'}}>
       <Grid container>
         <Grid xs={12} md={6} style={{padding: 10}}>
             <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>

@@ -15,7 +15,7 @@ export default function CustomizedInputBase() {
         p: '2px 4px',
         display: 'flex',
         alignItems: 'center',
-        width: 400,
+        width: {md: 320, lg: 400},
         height: 40,
       }}
     >
