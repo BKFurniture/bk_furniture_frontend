@@ -10,13 +10,15 @@
   },
   "dependencies": {
     "@emotion/react": "latest",
-    "@emotion/styled": "latest", 
+    "@emotion/styled": "latest",
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.121",
     "@mui/material": "latest",
     "@reduxjs/toolkit": "^1.9.3",
     "react": "latest",
     "react-dom": "latest",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "latest"

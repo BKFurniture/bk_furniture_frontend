@@ -12,9 +12,9 @@ const Footer = () => {
     <Container fixed style={{backgroundColor: '#fff', height: '100%'}}>
       <Grid container>
         <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
-            CONTACT US
-          </Typography>
+            <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
+              CONTACT US
+            </Typography>
           <div>
             <AddIcCallIcon style={{fontSize: '1.2rem', paddingRight: 5}} />{' '}
             0123456789
