@@ -5,6 +5,7 @@ import Home from '../page/Home'
 import SignIn from '../page/SignIn'
 import SignUp from '../page/SignUp'
 import Layout from './Layout'
+import Details from '../page/Details'
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: '/products',
         element: <ProductList />,
+      },
+      {
+        path: '/item/:id',
+        element: <Details />,
       },
     ],
   },
