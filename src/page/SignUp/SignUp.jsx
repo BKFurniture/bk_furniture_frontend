@@ -93,12 +93,13 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
         <ValidatorForm onSubmit={handleSubmit} sx={{mt: 1}}>
           <Box
             sx={{
               display: 'flex',
+              mt: 2,
             }}
           >
             <TextValidator
@@ -163,17 +164,12 @@ export default function SignUp() {
             variant="contained"
             sx={{mt: 3, mb: 2}}
           >
-            Sign In
+            Sign up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+          <Grid container justifyContent="center">
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/sign-in" variant="body2">
+                {'Already had an account? Sign In'}
               </Link>
             </Grid>
           </Grid>
