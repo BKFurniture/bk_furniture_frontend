@@ -15,6 +15,9 @@ import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
 import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
+import userApi from 'api/user'
+import {setAccessToken} from 'helpers'
+import {useNavigate} from 'react-router-dom'
 function Copyright(props) {
   return (
     <Typography
@@ -36,13 +39,16 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignIn() {
+  let navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+    userApi
+      .login({username: data.get('email'), password: data.get('password')})
+      .then((res) => {
+        setAccessToken(res['access'])
+        navigate('/')
+      })
   }
   const responseFacebook = (response) => {
     console.log(response)

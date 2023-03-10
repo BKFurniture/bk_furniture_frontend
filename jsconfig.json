@@ -6,6 +6,15 @@
       "asset/*": [
         "./src/asset/*"
       ],
+      "api/*": [
+        "./src/api/*"
+      ],
+      "helpers/*": [
+        "./src/helpers/*"
+      ],
+      "page/*": [
+        "./src/page/*"
+      ],
       "component/*": [
         "./src/component/*"
       ]
