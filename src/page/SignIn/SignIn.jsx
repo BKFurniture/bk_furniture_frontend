@@ -18,6 +18,9 @@ import {GoogleLogin} from 'react-google-login'
 import userApi from 'api/user'
 import {setAccessToken} from 'helpers'
 import {useNavigate} from 'react-router-dom'
+import {setSnackbar} from 'store/appSlice'
+import {useDispatch} from 'react-redux'
+import {setUser} from 'store/userSlice'
 function Copyright(props) {
   return (
     <Typography
@@ -40,21 +43,54 @@ const theme = createTheme()
 
 export default function SignIn() {
   let navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     userApi
       .login({username: data.get('email'), password: data.get('password')})
       .then((res) => {
-        setAccessToken(res['access'])
-        navigate('/')
+        console.log(res, 'response login')
+        if (res.code == 401) {
+          dispatch(
+            setSnackbar({
+              open: true,
+              message: res.data.detail,
+              severity: 'error',
+            }),
+          )
+        } else {
+          dispatch(
+            setSnackbar({
+              open: true,
+              message: 'Login successfully!',
+              severity: 'success',
+            }),
+          )
+          dispatch(setUser({accessToken: res['access']}))
+          setAccessToken(res['access'])
+
+          navigate('/')
+        }
       })
   }
   const responseFacebook = (response) => {
     console.log(response)
   }
   const responseGoogle = (response) => {
-    console.log(response)
+    userApi.googleLogin(response.tokenId).then((res) => {
+      dispatch(
+        setSnackbar({
+          open: true,
+          message: 'Login successfully!',
+          severity: 'success',
+        }),
+      )
+      dispatch(setUser({accessToken: res['access']}))
+      setAccessToken(res['access'])
+
+      navigate('/')
+    })
   }
   return (
     <Container component="main" maxWidth="xs">

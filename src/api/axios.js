@@ -31,18 +31,17 @@ axiosClient.interceptors.response.use(
       switch (res.status) {
         case 401:
           console.error('UNAUTHORIZED', res)
-          window.location.href = '/sign-in'
+          // window.location.href = '/sign-in'
           break
         case 403:
           console.error('ACCESSDENIED', res)
-          window.location.href = '/sign-in'
+          // window.location.href = '/sign-in'
           break
         default:
           break
       }
     }
-    console.error('Looks like there was a problem. Status Code: ' + res)
-    return Promise.reject(error)
+    return {code: res.status, data: res.data}
   },
 )
 

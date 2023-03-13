@@ -1,16 +1,34 @@
-import {Avatar, Box, Grid} from '@mui/material'
-import Container from '@mui/material/Container'
-import React from 'react'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import LOGO from 'asset/img/logo.svg'
-import SearchBar from 'component/SearchBar'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import HomeIcon from '@mui/icons-material/Home'
 import MenuIcon from '@mui/icons-material/Menu'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import {Avatar, Box, Grid, IconButton, Menu, MenuItem} from '@mui/material'
+import Container from '@mui/material/Container'
+import Tab from '@mui/material/Tab'
+import LOGO from 'asset/img/logo.svg'
+import SearchBar from 'component/SearchBar'
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {logout} from 'store/userSlice'
 const Header = () => {
+  const isUser = !!useSelector((state) => state.user.accessToken)
+  const dispatch = useDispatch()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+  const handleLogout = () => {
+    handleClose()
+    dispatch(logout())
+  }
   return (
     <>
       <Container
@@ -43,7 +61,41 @@ const Header = () => {
                   <SearchBar />
                 </Box>
                 <div style={{marginRight: 10}}>
-                  <Avatar src={LOGO} sx={{height: 30, width: 30}} />
+                  {!isUser ? (
+                    <Link to="./sign-in">Login</Link>
+                  ) : (
+                    <div>
+                      <IconButton
+                        size="small"
+                        aria-describedby="menu-user"
+                        onClick={handleClick}
+                        sx={{borderRadius: 50}}
+                      >
+                        <AccountCircleIcon sx={{height: 30, width: 30}} />
+                      </IconButton>
+                      <Menu
+                        id="menu-user"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                      >
+                        <MenuItem onClick={handleClose}>
+                          Account setting
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>My order</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                      </Menu>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Avatar
