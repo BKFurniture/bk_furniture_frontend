@@ -44,6 +44,7 @@ export default function SignUp() {
     last_name: '',
     username: '',
     password: '',
+    email: '',
     repeatPassword: '',
   })
 
@@ -65,7 +66,9 @@ export default function SignUp() {
     }
   }, [user])
   const handleSubmit = () => {
-    userApi.signUp(user).then(() => {
+    const {repeatPassword, ...rest} = user
+    userApi.signUp(rest).then((res) => {
+      console.log(res, 'sign-up')
       navigate('/sign-in')
     })
     console.log('Submit', user)
@@ -78,6 +81,7 @@ export default function SignUp() {
   }
   const responseGoogle = (response) => {
     console.log(response)
+    userApi.googleLogin(response.tokenId)
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -126,11 +130,22 @@ export default function SignUp() {
             onChange={handleChange}
             margin="normal"
             fullWidth
-            id="username"
+            id="email"
             label="Email Address"
-            name="username"
+            name="email"
             errorMessages={['This field is required', 'Email is not valid']}
             validators={['required', 'isEmail']}
+            value={user.email}
+          />
+          <TextValidator
+            onChange={handleChange}
+            margin="normal"
+            fullWidth
+            id="username"
+            label="User Name"
+            name="username"
+            errorMessages={['This field is required']}
+            validators={['required']}
             value={user.username}
           />
           <TextValidator

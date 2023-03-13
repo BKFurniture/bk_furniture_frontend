@@ -46,6 +46,7 @@ export default function SignIn() {
     userApi
       .login({username: data.get('email'), password: data.get('password')})
       .then((res) => {
+        console.log(res, 'token')
         setAccessToken(res['access'])
         navigate('/')
       })
@@ -55,6 +56,7 @@ export default function SignIn() {
   }
   const responseGoogle = (response) => {
     console.log(response)
+    userApi.googleLogin(response.tokenId)
   }
   return (
     <Container component="main" maxWidth="xs">
