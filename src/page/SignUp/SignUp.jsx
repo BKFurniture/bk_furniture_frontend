@@ -12,11 +12,14 @@ import Typography from '@mui/material/Typography'
 import userApi from 'api/user'
 import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
+import {objectToArray} from 'helpers'
 import {useEffect, useState} from 'react'
 import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
+import {setSnackbar} from 'store/appSlice'
 function Copyright(props) {
   return (
     <Typography
@@ -38,6 +41,7 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
+  const dispatch = useDispatch()
   let navigate = useNavigate()
   const [user, setUser] = useState({
     first_name: '',
@@ -69,7 +73,26 @@ export default function SignUp() {
     const {repeatPassword, ...rest} = user
     userApi.signUp(rest).then((res) => {
       console.log(res, 'sign-up')
-      navigate('/sign-in')
+
+      if (res.code == 400) {
+        const messageError = objectToArray(res.data)
+        dispatch(
+          setSnackbar({
+            open: true,
+            message: messageError[0],
+            severity: 'error',
+          }),
+        )
+      } else {
+        dispatch(
+          setSnackbar({
+            open: true,
+            message: 'Create account successfully!',
+            severity: 'success',
+          }),
+        )
+        navigate('/sign-in')
+      }
     })
     console.log('Submit', user)
   }

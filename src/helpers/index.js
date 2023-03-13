@@ -8,3 +8,10 @@ export const setAccessToken = (accessToken) => {
     ? window.localStorage.setItem('access_token', accessToken)
     : null
 }
+export const objectToArray = (object) => {
+  let arrayString = []
+  Object.keys(object).map((item) => {
+    arrayString = arrayString.concat(object[item])
+  })
+  return arrayString
+}

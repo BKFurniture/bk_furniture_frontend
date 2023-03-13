@@ -41,8 +41,7 @@ axiosClient.interceptors.response.use(
           break
       }
     }
-    console.error('Looks like there was a problem. Status Code: ' + res)
-    return Promise.reject(error)
+    return {code: res.status, data: res.data}
   },
 )
 
