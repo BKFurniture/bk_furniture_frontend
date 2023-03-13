@@ -1,3 +1,4 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import HomeIcon from '@mui/icons-material/Home'
 import MenuIcon from '@mui/icons-material/Menu'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -9,19 +10,24 @@ import Tab from '@mui/material/Tab'
 import LOGO from 'asset/img/logo.svg'
 import SearchBar from 'component/SearchBar'
 import React from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {logout} from 'store/userSlice'
 const Header = () => {
   const isUser = !!useSelector((state) => state.user.accessToken)
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const handleLogout = () => {
+    handleClose()
+    dispatch(logout())
   }
   return (
     <>
@@ -65,7 +71,7 @@ const Header = () => {
                         onClick={handleClick}
                         sx={{borderRadius: 50}}
                       >
-                        <Avatar src={LOGO} sx={{height: 30, width: 30}} />
+                        <AccountCircleIcon sx={{height: 30, width: 30}} />
                       </IconButton>
                       <Menu
                         id="menu-user"
@@ -86,7 +92,7 @@ const Header = () => {
                           Account setting
                         </MenuItem>
                         <MenuItem onClick={handleClose}>My order</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
                   )}

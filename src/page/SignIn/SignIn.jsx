@@ -70,7 +70,7 @@ export default function SignIn() {
           dispatch(setUser({accessToken: res['access']}))
           setAccessToken(res['access'])
 
-          // navigate('/')
+          navigate('/')
         }
       })
   }
@@ -78,8 +78,19 @@ export default function SignIn() {
     console.log(response)
   }
   const responseGoogle = (response) => {
-    console.log(response)
-    userApi.googleLogin(response.tokenId)
+    userApi.googleLogin(response.tokenId).then((res) => {
+      dispatch(
+        setSnackbar({
+          open: true,
+          message: 'Login successfully!',
+          severity: 'success',
+        }),
+      )
+      dispatch(setUser({accessToken: res['access']}))
+      setAccessToken(res['access'])
+
+      navigate('/')
+    })
   }
   return (
     <Container component="main" maxWidth="xs">

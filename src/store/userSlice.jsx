@@ -14,7 +14,11 @@ export const UserSlice = createSlice({
     setUser(state, action) {
       return {...state, ...action.payload}
     },
+    logout() {
+      window.localStorage.removeItem('access_token')
+      return {...initialState}
+    },
   },
 })
-export const {setUser} = UserSlice.actions
+export const {setUser, logout} = UserSlice.actions
 export default UserSlice.reducer
