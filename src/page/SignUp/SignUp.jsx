@@ -12,11 +12,14 @@ import Typography from '@mui/material/Typography'
 import userApi from 'api/user'
 import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
+import {objectToArray} from 'helpers'
 import {useEffect, useState} from 'react'
 import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
+import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
+import {setSnackbar} from 'store/appSlice'
 function Copyright(props) {
   return (
     <Typography
@@ -38,12 +41,14 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
+  const dispatch = useDispatch()
   let navigate = useNavigate()
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
     username: '',
     password: '',
+    email: '',
     repeatPassword: '',
   })
 
@@ -65,8 +70,29 @@ export default function SignUp() {
     }
   }, [user])
   const handleSubmit = () => {
-    userApi.signUp(user).then(() => {
-      navigate('/sign-in')
+    const {repeatPassword, ...rest} = user
+    userApi.signUp(rest).then((res) => {
+      console.log(res, 'sign-up')
+
+      if (res.code == 400) {
+        const messageError = objectToArray(res.data)
+        dispatch(
+          setSnackbar({
+            open: true,
+            message: messageError[0],
+            severity: 'error',
+          }),
+        )
+      } else {
+        dispatch(
+          setSnackbar({
+            open: true,
+            message: 'Create account successfully!',
+            severity: 'success',
+          }),
+        )
+        navigate('/sign-in')
+      }
     })
     console.log('Submit', user)
   }
@@ -78,6 +104,7 @@ export default function SignUp() {
   }
   const responseGoogle = (response) => {
     console.log(response)
+    userApi.googleLogin(response.tokenId)
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -126,11 +153,22 @@ export default function SignUp() {
             onChange={handleChange}
             margin="normal"
             fullWidth
-            id="username"
+            id="email"
             label="Email Address"
-            name="username"
+            name="email"
             errorMessages={['This field is required', 'Email is not valid']}
             validators={['required', 'isEmail']}
+            value={user.email}
+          />
+          <TextValidator
+            onChange={handleChange}
+            margin="normal"
+            fullWidth
+            id="username"
+            label="User Name"
+            name="username"
+            errorMessages={['This field is required']}
+            validators={['required']}
             value={user.username}
           />
           <TextValidator
