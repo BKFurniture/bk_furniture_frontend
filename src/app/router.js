@@ -8,6 +8,7 @@ import SignUp from '../page/SignUp'
 import AppProvider from './hoc/AppProvider'
 import CheckedUser from './hoc/CheckedUser'
 import Layout from './Layout'
+import Details from '../page/Details'
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             path: '/account',
             element: <Account />,
           },
+          {
+            path: '/item/:id',
+            element: <Details />,
+          },
         ],
       },
       {
@@ -47,6 +52,10 @@ export const router = createBrowserRouter([
           //   element: <SignIn />,
           // },
         ],
+      },
+      {
+        path: '/item/:id',
+        element: <Details />,
       },
     ],
   },
