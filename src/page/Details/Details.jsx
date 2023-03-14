@@ -18,6 +18,11 @@ import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import Img1 from 'asset/img/img2.jpg';
+import Img2 from 'asset/img/img3.jpg';
+import Img3 from 'asset/img/img1.jpg';
+
+const productImage = { img1: Img1, img2: Img2, img3: Img3 };
 
 const customer = { name: 'Lam Thanh Duong', avatar: Avt }
 
@@ -192,6 +197,11 @@ const Details = () => {
         Product detail
       </Typography>
       <Box margin='40px' padding={5} display='flex' style={{ backgroundColor: '#fff', borderRadius: 10, marginTop: 30 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <img src={productImage.img1} alt="img1" style={{ width: '81px', height: '81px' }} />
+          <img src={productImage.img2} alt="img2" style={{ width: '81px', height: '81px' }} />
+          <img src={productImage.img3} alt="img3" style={{ width: '81px', height: '81px' }} />
+        </div>
         <CardDetails></CardDetails>
         <div>
           <Typography variant="h3" component="h2" style={{ color: '#1264A9' }}>{(product.category).toUpperCase()}</Typography>
