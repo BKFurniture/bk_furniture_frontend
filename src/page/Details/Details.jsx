@@ -16,8 +16,13 @@ import Avt from 'asset/img/avtcus.jpg'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import Img1 from 'asset/img/img1.jpg';
+import Img2 from 'asset/img/img2.jpg';
+import Img3 from 'asset/img/img3.jpg';
+
+const productImage = { img1: Img1, img2: Img2, img3: Img3 };
 
 const customer = { name: 'Lam Thanh Duong', avatar: Avt }
 
@@ -136,7 +141,6 @@ const RatingBox = () => {
   );
 };
 
-
 const StyledRating = styled(Rating)({
   '& .MuiRating-iconFilled': {
     color: '#1264A9',
@@ -150,8 +154,9 @@ const product =
   name: 'Glossy Cube',
   description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
   rating: 3,
-  price: 1000000,
+  price: 49.90,
   src: ChairImg,
+  origin: 'Germany',
 }
 
 function QuantityButton() {
@@ -170,7 +175,7 @@ function QuantityButton() {
       <IconButton aria-label="remove" onClick={handleDecrement}>
         <IndeterminateCheckBoxIcon fontSize='large' style={{ color: '#1264a9' }} />
       </IconButton>
-      <Typography variant="span" style={{ fontSize: '20px', color: '#1264a9' }}>
+      <Typography variant="span"  style={{ fontSize: '20px', color: '#000000' }}>
         <span>{quantity}</span>
       </Typography>
       <IconButton aria-label="add" onClick={handleIncrement}>
@@ -188,10 +193,16 @@ const Details = () => {
         variant="h5"
         component="h2"
         style={{ color: '#1264A9', fontWeight: 700 }}
+        margin='40px'
       >
         Product detail
       </Typography>
       <Box margin='40px' padding={5} display='flex' style={{ backgroundColor: '#fff', borderRadius: 10, marginTop: 30 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <img src={productImage.img1} alt="img1" style={{ width: '81px', height: '81px' }} />
+          <img src={productImage.img2} alt="img2" style={{ width: '81px', height: '81px' }} />
+          <img src={productImage.img3} alt="img3" style={{ width: '81px', height: '81px' }} />
+        </div>
         <CardDetails></CardDetails>
         <div>
           <Typography variant="h3" component="h2" style={{ color: '#1264A9' }}>{(product.category).toUpperCase()}</Typography>
@@ -205,10 +216,19 @@ const Details = () => {
               <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>Price:  </Typography>
             </Grid>
             <Grid>
-              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>{product.price.toLocaleString('en-US')} đ</Typography>
+              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>$ {' '}{product.price}</Typography>
             </Grid>
           </Grid>
           <Box mb={0.5} />
+          <Grid container alignItems='center'>
+            <Grid xs={5.5}>
+              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>Color:  </Typography>
+            </Grid>
+            <Box style={{ backgroundColor: '#1264A9', borderRadius: 3, height: 35, width: 35, marginRight: 7, border: '2px solid #212427' }}></Box>
+            <Box style={{ backgroundColor: '#999999', borderRadius: 3, height: 35, width: 35, marginRight: 7, border: '2px solid #212427' }}></Box>
+            <Box style={{ backgroundColor: '#D8D8D8', borderRadius: 3, height: 35, width: 35, border: '2px solid #212427' }}></Box>
+    
+          </Grid>
 
           <Grid container alignItems='center'>
             <Grid xs={5} >
@@ -218,11 +238,21 @@ const Details = () => {
               <QuantityButton />
             </Grid>
           </Grid>
+          <Box mb={0.5} />
+          <Grid container alignItems='center'>
+              <Grid xs={5.5} >
+              <Typography fontSize={24} variant="h6" component="h2" style={{ color: '#1264A9' }}>Origin: </Typography>
+              </Grid>
+              <Grid xs={5} >
+              <Typography fontSize={24} variant="h3" component="h2">Germany </Typography>
+              </Grid>
 
+          </Grid>
+          <Box mb={1.5} />
           <Typography fontSize={24} variant="h6" component="h2" style={{ color: '#1264A9' }}>Product description: </Typography>
           <Box mb={0.25} />
           <div>
-            <Typography fontSize={16} width={350} variant="body1" wrap={true}>{product.description}</Typography>
+            <Typography fontSize={16} width={340} variant="body1" wrap={true} align='justify'>{product.description}</Typography>
           </div>
           <Box mb={2} />
           <Button fullWidth variant="contained" color='primary' height={100} sx={{ borderRadius: '10px', height: '60px' }} endIcon={<ShoppingBagIcon />}>
@@ -238,7 +268,7 @@ const Details = () => {
         <Grid container>
           <Grid>
             <Typography variant="h5" component="h2" style={{ color: '#1264A9', fontWeight: 700 }}>
-              Product detail
+              Product rating
             </Typography>
             <Box mb={1.4} />
           </Grid>
