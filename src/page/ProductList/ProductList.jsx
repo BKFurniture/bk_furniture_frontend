@@ -17,10 +17,13 @@ import CardProduct from 'component/CardProduct'
 import React, {useEffect, useState} from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import productApi from 'api/product'
+
+const TAB_VALUE = ['', '', 'price', '-price']
 const ProductList = () => {
   const matches = useMediaQuery('(max-width:450px)')
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
+  const [tab, setTab] = useState(0)
   const [filter, setFilter] = useState({
     offset: 0,
     limit: 10,
@@ -35,6 +38,10 @@ const ProductList = () => {
 
   const handleChangePage = (event, value) => {
     setFilter({...filter, offset: value - 1})
+  }
+  const handleChangeTab = (event, value) => {
+    setTab(value)
+    setFilter({...filter, ordering: TAB_VALUE[value]})
   }
   return (
     <Container>
@@ -86,7 +93,6 @@ const ProductList = () => {
             </FormControl>
           </Grid>
           <Grid item>
-            {' '}
             <FormControl size="small">
               <InputLabel id="price">Price</InputLabel>
               <Select
@@ -123,8 +129,8 @@ const ProductList = () => {
 
       <Box sx={{marginTop: 5, maxWidth: matches ? 450 : '100%'}}>
         <Tabs
-          value={0}
-          onChange={() => {}}
+          value={tab}
+          onChange={handleChangeTab}
           variant="scrollable"
           scrollButtons="auto"
         >

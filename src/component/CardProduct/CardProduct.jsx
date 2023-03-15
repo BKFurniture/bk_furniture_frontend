@@ -32,13 +32,13 @@ export default function RecipeReviewCard({item}) {
             {item.name}
           </Typography>
         }
-        subheader="Sofa"
+        subheader={item.category}
       />
       <CardMedia
         component="img"
         height="300"
         image={ChairImg}
-        alt="Paella dish"
+        alt={item.name}
       />
 
       <CardActions
