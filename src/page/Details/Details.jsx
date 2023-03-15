@@ -346,9 +346,9 @@ function QuantityButton() {
       <Typography variant="span" style={{fontSize: '20px', color: '#000000'}}>
         <span>{quantity}</span>
       </Typography>
-      <AddBoxIcon aria-label="add" onClick={handleIncrement}>
+      <IconButton aria-label="add" onClick={handleIncrement}>
         <AddBoxIcon fontSize="large" style={{color: '#1264a9'}} />
-      </AddBoxIcon>
+      </IconButton>
     </div>
   )
 }
