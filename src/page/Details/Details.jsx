@@ -156,6 +156,7 @@ const product =
   rating: 3,
   price: 49.90,
   src: ChairImg,
+  origin: 'Germany',
 }
 
 function QuantityButton() {
@@ -237,7 +238,17 @@ const Details = () => {
               <QuantityButton />
             </Grid>
           </Grid>
+          <Box mb={0.5} />
+          <Grid container alignItems='center'>
+              <Grid xs={5.5} >
+              <Typography fontSize={24} variant="h6" component="h2" style={{ color: '#1264A9' }}>Origin: </Typography>
+              </Grid>
+              <Grid xs={5} >
+              <Typography fontSize={24} variant="h3" component="h2">Germany </Typography>
+              </Grid>
 
+          </Grid>
+          <Box mb={0.5} />
           <Typography fontSize={24} variant="h6" component="h2" style={{ color: '#1264A9' }}>Product description: </Typography>
           <Box mb={0.25} />
           <div>
