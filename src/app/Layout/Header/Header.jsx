@@ -4,7 +4,15 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
-import {Avatar, Box, Grid, IconButton, Menu, MenuItem} from '@mui/material'
+import {
+  Avatar,
+  Badge,
+  Box,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+} from '@mui/material'
 import Container from '@mui/material/Container'
 import Tab from '@mui/material/Tab'
 import LOGO from 'asset/img/logo.svg'
@@ -15,6 +23,7 @@ import {Link} from 'react-router-dom'
 import {logout} from 'store/userSlice'
 const Header = () => {
   const isUser = !!useSelector((state) => state.user.accessToken)
+  const countCart = useSelector((state) => state.app.cartItems.length)
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -109,8 +118,11 @@ const Header = () => {
                       backgroundColor: '#fff',
                       color: 'black',
                     }}
+                    onClick={() => {}}
                   >
-                    <ShoppingCartIcon />
+                    <Badge badgeContent={countCart} color="primary">
+                      <ShoppingCartIcon />
+                    </Badge>
                   </IconButton>
                 </div>
               </Grid>

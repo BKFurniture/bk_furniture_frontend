@@ -10,7 +10,13 @@ import CardMedia from '@mui/material/CardMedia'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import ChairImg from 'asset/img/chair.png'
+import {useDispatch} from 'react-redux'
+import {addCartItem} from 'store/appSlice'
 export default function RecipeReviewCard({item}) {
+  const dispatch = useDispatch()
+  const handleAddCard = (value) => () => {
+    dispatch(addCartItem(value))
+  }
   return (
     <Card
       sx={{
@@ -23,9 +29,12 @@ export default function RecipeReviewCard({item}) {
     >
       <CardHeader
         action={
-          <Avatar sx={{backgroundColor: '#fff'}} aria-label="recipe">
+          <IconButton
+            onClick={handleAddCard({...item, quantity: 1})}
+            sx={{backgroundColor: '#fff'}}
+          >
             <AddShoppingCartIcon style={{color: '#1264A9'}} />
-          </Avatar>
+          </IconButton>
         }
         title={
           <Typography variant="h6" style={{color: '#1264A9', fontWeight: 700}}>

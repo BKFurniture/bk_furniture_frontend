@@ -13,6 +13,9 @@ export class User {
       auth_token: token,
     })
   }
+  async detail() {
+    return axiosClient.get(`${this.endpoint}/details/`)
+  }
 }
 
 export default new User()
