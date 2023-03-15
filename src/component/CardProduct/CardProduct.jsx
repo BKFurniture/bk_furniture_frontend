@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import ChairImg from 'asset/img/chair.png'
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({item}) {
   return (
     <Card
       sx={{
@@ -29,7 +29,7 @@ export default function RecipeReviewCard() {
         }
         title={
           <Typography variant="h6" style={{color: '#1264A9', fontWeight: 700}}>
-            Glossy Cube
+            {item.name}
           </Typography>
         }
         subheader="Sofa"
@@ -47,7 +47,7 @@ export default function RecipeReviewCard() {
       >
         <Chip
           label={
-            <div style={{fontWeight: 700, color: '#1264A9'}}>1.000.000 VND</div>
+            <div style={{fontWeight: 700, color: '#1264A9'}}>{item.price}$</div>
           }
           style={{backgroundColor: 'rgba(255, 255, 255, 0.45)'}}
         />

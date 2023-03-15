@@ -67,9 +67,7 @@ export default function SignIn() {
               severity: 'success',
             }),
           )
-          dispatch(setUser({accessToken: res['access']}))
           setAccessToken(res['access'])
-
           navigate('/')
         }
       })
@@ -86,9 +84,7 @@ export default function SignIn() {
           severity: 'success',
         }),
       )
-      dispatch(setUser({accessToken: res['access']}))
       setAccessToken(res['access'])
-
       navigate('/')
     })
   }

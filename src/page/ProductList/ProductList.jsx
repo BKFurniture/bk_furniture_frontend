@@ -14,10 +14,28 @@ import {
   Typography,
 } from '@mui/material'
 import CardProduct from 'component/CardProduct'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import productApi from 'api/product'
 const ProductList = () => {
   const matches = useMediaQuery('(max-width:450px)')
+  const [data, setData] = useState([])
+  const [total, setTotal] = useState(0)
+  const [filter, setFilter] = useState({
+    offset: 0,
+    limit: 10,
+  })
+
+  useEffect(() => {
+    productApi.getList(filter).then((res) => {
+      if (res.results) setData(res.results)
+      else if (res.count) setTotal(res.count)
+    })
+  }, [filter])
+
+  const handleChangePage = (event, value) => {
+    setFilter({...filter, offset: value - 1})
+  }
   return (
     <Container>
       <Typography
@@ -117,25 +135,21 @@ const ProductList = () => {
         </Tabs>
       </Box>
       <Grid container style={{padding: '20px 0'}} spacing={2}>
-        <Grid lg={3} md={4} sm={6} xs={12} item>
-          <CardProduct />
-        </Grid>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-          <CardProduct />
-        </Grid>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-          <CardProduct />
-        </Grid>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-          <CardProduct />
-        </Grid>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-          <CardProduct />
-        </Grid>
+        {data.map((item) => (
+          <Grid lg={3} md={4} sm={6} xs={12} item>
+            <CardProduct item={item} />
+          </Grid>
+        ))}
       </Grid>
 
       <Grid container justifyContent="end">
-        <Pagination count={10} variant="text" color="primary" />
+        <Pagination
+          count={total / filter.limit}
+          page={filter.offset + 1}
+          onChange={handleChangePage}
+          variant="text"
+          color="primary"
+        />
       </Grid>
     </Container>
   )

@@ -42,7 +42,9 @@ const Header = () => {
           <Grid container spacing={2}>
             <Grid item container style={{height: 60}}>
               <Grid item xs={4}>
-                <img style={{height: 50}} alt="Remy Sharp" src={LOGO} />
+                <Link to="/">
+                  <img style={{height: 50}} alt="Remy Sharp" src={LOGO} />
+                </Link>
               </Grid>
               <Grid
                 item
@@ -60,7 +62,7 @@ const Header = () => {
                 >
                   <SearchBar />
                 </Box>
-                <div style={{marginRight: 10}}>
+                <div>
                   {!isUser ? (
                     <Link to="./sign-in">Login</Link>
                   ) : (
@@ -88,7 +90,11 @@ const Header = () => {
                           horizontal: 'right',
                         }}
                       >
-                        <MenuItem onClick={handleClose}>
+                        <MenuItem
+                          onClick={handleClose}
+                          component={Link}
+                          to="/account"
+                        >
                           Account setting
                         </MenuItem>
                         <MenuItem onClick={handleClose}>My order</MenuItem>
@@ -98,16 +104,14 @@ const Header = () => {
                   )}
                 </div>
                 <div>
-                  <Avatar
+                  <IconButton
                     sx={{
-                      height: 30,
-                      width: 30,
                       backgroundColor: '#fff',
                       color: 'black',
                     }}
                   >
                     <ShoppingCartIcon />
-                  </Avatar>
+                  </IconButton>
                 </div>
               </Grid>
             </Grid>

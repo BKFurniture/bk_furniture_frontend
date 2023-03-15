@@ -12,6 +12,7 @@ import Details from '../page/Details'
 
 export const router = createBrowserRouter([
   {
+    path: '/',
     element: <AppProvider />,
     children: [
       {
@@ -22,15 +23,15 @@ export const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: '/products',
+            path: 'products',
             element: <ProductList />,
           },
           {
-            path: '/account',
+            path: 'account',
             element: <Account />,
           },
           {
-            path: '/item/:id',
+            path: 'item/:id',
             element: <Details />,
           },
         ],
@@ -39,23 +40,19 @@ export const router = createBrowserRouter([
         element: <CheckedUser />,
         children: [
           {
-            path: '/sign-up',
+            path: 'sign-up',
             element: <SignUp />,
           },
           {
-            path: '/sign-in',
+            path: 'sign-in',
             element: <SignIn />,
           },
 
           // {
-          //   path: '/sign-out',
+          //   path: 'sign-out',
           //   element: <SignIn />,
           // },
         ],
-      },
-      {
-        path: '/item/:id',
-        element: <Details />,
       },
     ],
   },
