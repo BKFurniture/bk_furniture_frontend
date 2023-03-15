@@ -16,11 +16,11 @@ import Avt from 'asset/img/avtcus.jpg'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
-import Img1 from 'asset/img/img2.jpg';
-import Img2 from 'asset/img/img3.jpg';
-import Img3 from 'asset/img/img1.jpg';
+import Img1 from 'asset/img/img1.jpg';
+import Img2 from 'asset/img/img2.jpg';
+import Img3 from 'asset/img/img3.jpg';
 
 const productImage = { img1: Img1, img2: Img2, img3: Img3 };
 
@@ -175,7 +175,7 @@ function QuantityButton() {
       <IconButton aria-label="remove" onClick={handleDecrement}>
         <IndeterminateCheckBoxIcon fontSize='large' style={{ color: '#1264a9' }} />
       </IconButton>
-      <Typography variant="span" style={{ fontSize: '20px', color: '#1264a9' }}>
+      <Typography variant="span"  style={{ fontSize: '20px', color: '#000000' }}>
         <span>{quantity}</span>
       </Typography>
       <IconButton aria-label="add" onClick={handleIncrement}>
@@ -248,11 +248,11 @@ const Details = () => {
               </Grid>
 
           </Grid>
-          <Box mb={0.5} />
+          <Box mb={1.5} />
           <Typography fontSize={24} variant="h6" component="h2" style={{ color: '#1264A9' }}>Product description: </Typography>
           <Box mb={0.25} />
           <div>
-            <Typography fontSize={16} width={350} variant="body1" wrap={true}>{product.description}</Typography>
+            <Typography fontSize={16} width={340} variant="body1" wrap={true} align='justify'>{product.description}</Typography>
           </div>
           <Box mb={2} />
           <Button fullWidth variant="contained" color='primary' height={100} sx={{ borderRadius: '10px', height: '60px' }} endIcon={<ShoppingBagIcon />}>

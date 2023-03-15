@@ -5,13 +5,11 @@ import {Chip} from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
-import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import ChairImg from 'asset/img/chair.png'
-
-
 export default function RecipeReviewCard() {
   return (
     <Card
@@ -19,7 +17,7 @@ export default function RecipeReviewCard() {
         maxWidth: 360,
         backgroundColor: '#C9ECFF',
         position: 'relative',
-        padding: '10px 10',
+        padding: '10px 0',
         margin: 'auto',
       }}
     >
