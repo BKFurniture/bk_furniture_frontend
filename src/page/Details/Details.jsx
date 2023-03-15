@@ -141,7 +141,6 @@ const RatingBox = () => {
   );
 };
 
-
 const StyledRating = styled(Rating)({
   '& .MuiRating-iconFilled': {
     color: '#1264A9',
@@ -155,7 +154,7 @@ const product =
   name: 'Glossy Cube',
   description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
   rating: 3,
-  price: 1000000,
+  price: 49.90,
   src: ChairImg,
 }
 
@@ -193,6 +192,7 @@ const Details = () => {
         variant="h5"
         component="h2"
         style={{ color: '#1264A9', fontWeight: 700 }}
+        margin='40px'
       >
         Product detail
       </Typography>
@@ -215,10 +215,19 @@ const Details = () => {
               <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>Price:  </Typography>
             </Grid>
             <Grid>
-              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>{product.price.toLocaleString('en-US')} đ</Typography>
+              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>$ {' '}{product.price}</Typography>
             </Grid>
           </Grid>
           <Box mb={0.5} />
+          <Grid container alignItems='center'>
+            <Grid xs={5.5}>
+              <Typography fontSize={24} variant="h6" component="h2" xs={5} style={{ color: '#1264A9' }}>Color:  </Typography>
+            </Grid>
+            <Box style={{ backgroundColor: '#1264A9', borderRadius: 3, height: 35, width: 35, marginRight: 7, border: '2px solid #212427' }}></Box>
+            <Box style={{ backgroundColor: '#999999', borderRadius: 3, height: 35, width: 35, marginRight: 7, border: '2px solid #212427' }}></Box>
+            <Box style={{ backgroundColor: '#D8D8D8', borderRadius: 3, height: 35, width: 35, border: '2px solid #212427' }}></Box>
+    
+          </Grid>
 
           <Grid container alignItems='center'>
             <Grid xs={5} >
@@ -248,7 +257,7 @@ const Details = () => {
         <Grid container>
           <Grid>
             <Typography variant="h5" component="h2" style={{ color: '#1264A9', fontWeight: 700 }}>
-              Product detail
+              Product rating
             </Typography>
             <Box mb={1.4} />
           </Grid>
