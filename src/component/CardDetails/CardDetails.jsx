@@ -21,8 +21,8 @@ export default function RecipeReviewCard() {
         backgroundColor: '#C9ECFF',
         position: 'relative',
         padding: '10px 0',
-        marginLeft: '100px',
-        marginRight: '100px',
+        marginLeft: '70px',
+        marginRight: '70px',
       }}
     >   
 
