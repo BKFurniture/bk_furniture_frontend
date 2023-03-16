@@ -39,7 +39,7 @@ const Cart = () => {
           ))}
         </Stepper>
       </Box>
-      <Grid container style={{marginTop: 50}} spacing={1}>
+      <Grid container style={{marginTop: 20}} spacing={1}>
         <Grid item xs={12} md={9}>
           <StepContent step={step} />
         </Grid>
