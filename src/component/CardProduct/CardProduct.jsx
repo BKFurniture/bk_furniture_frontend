@@ -46,7 +46,7 @@ export default function RecipeReviewCard({item}) {
       <CardMedia
         component="img"
         height="300"
-        image={ChairImg}
+        image={item.images[0]?.url || ChairImg}
         alt={item.name}
       />
 

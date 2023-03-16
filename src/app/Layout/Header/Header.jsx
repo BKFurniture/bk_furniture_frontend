@@ -17,15 +17,22 @@ import Container from '@mui/material/Container'
 import Tab from '@mui/material/Tab'
 import LOGO from 'asset/img/logo.svg'
 import SearchBar from 'component/SearchBar'
-import React from 'react'
+import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {logout} from 'store/userSlice'
+import userApi from 'api/user'
+import {getRefreshToken} from 'helpers'
+
+const MENU_LINK = ['/', '/', '/products', '/', '/']
 const Header = () => {
   const isUser = !!useSelector((state) => state.user.accessToken)
   const countCart = useSelector((state) => state.app.cartItems.length)
+  const refreshToken = useSelector((state) => state.user.refreshToken)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const [tab, setTab] = useState(0)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -36,7 +43,13 @@ const Header = () => {
   }
   const handleLogout = () => {
     handleClose()
-    dispatch(logout())
+    userApi.logout(refreshToken).then(() => {
+      dispatch(logout())
+    })
+  }
+  const handelChangeTab = (event, value) => {
+    navigate(MENU_LINK[value])
+    setTab(value)
   }
   return (
     <>
@@ -135,17 +148,17 @@ const Header = () => {
               alignItems="center"
               style={{height: 40}}
             >
-              <TabContext value={'1'}>
+              <TabContext value={tab}>
                 <Box sx={{maxWidth: '100%'}}>
                   <TabList
                     style={{height: 60}}
-                    onChange={() => {}}
+                    onChange={handelChangeTab}
                     variant="scrollable"
                     scrollButtons="auto"
                   >
                     <Tab
                       label="HOME"
-                      value="1"
+                      value="0"
                       icon={<HomeIcon />}
                       iconPosition="start"
                     />
@@ -153,11 +166,12 @@ const Header = () => {
                       icon={<MenuIcon />}
                       label="CATEGORY"
                       iconPosition="start"
-                      value="2"
+                      value="1"
                     />
+                    <Tab label="PRODUCTS" value="2" />
                     <Tab label="LIVING ROOM" value="3" />
-                    <Tab label="BED ROOM" value="3" />
-                    <Tab label="CUSTOM DESIGN" value="3" />
+                    <Tab label="BED ROOM" value="4" />
+                    <Tab label="CUSTOM DESIGN" value="5" />
                   </TabList>
                 </Box>
               </TabContext>

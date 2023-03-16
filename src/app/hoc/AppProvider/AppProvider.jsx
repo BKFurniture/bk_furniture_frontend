@@ -1,4 +1,4 @@
-import {getAccessToken, getItemLocalStorage} from 'helpers'
+import {getAccessToken, getItemLocalStorage, getRefreshToken} from 'helpers'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Outlet, useNavigate} from 'react-router-dom'
@@ -11,10 +11,11 @@ const AppProvider = () => {
   const token = useSelector((state) => state.user.accessToken)
   useEffect(() => {
     const accessToken = getAccessToken()
+    const refreshToken = getRefreshToken()
     const cartItems = JSON.parse(getItemLocalStorage('cartItems'))
     if (accessToken && !token) {
       userApi.detail().then((res) => {
-        dispatch(setUser({accessToken, ...res}))
+        dispatch(setUser({accessToken, refreshToken, ...res}))
       })
     }
 

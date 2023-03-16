@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
-import Link from '@mui/material/Link'
+
 import {createTheme} from '@mui/material/styles'
 
 import Typography from '@mui/material/Typography'
@@ -18,7 +18,7 @@ import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator'
 import {useDispatch} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {setSnackbar} from 'store/appSlice'
 function Copyright(props) {
   return (
@@ -29,7 +29,7 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="./">
+      <Link color="inherit" to="/">
         BK Furniture
       </Link>
       {new Date().getFullYear()}
@@ -103,8 +103,17 @@ export default function SignUp() {
     console.log(response)
   }
   const responseGoogle = (response) => {
-    console.log(response)
-    userApi.googleLogin(response.tokenId)
+    userApi.googleLogin(response.tokenId).then((res) => {
+      dispatch(
+        setSnackbar({
+          open: true,
+          message: 'Login successfully!',
+          severity: 'success',
+        }),
+      )
+      setAccessToken(res['access'])
+      navigate('/')
+    })
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -206,7 +215,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="center">
             <Grid item>
-              <Link href="/sign-in" variant="body2">
+              <Link to="/sign-in" variant="body2">
                 {'Already had an account? Sign In'}
               </Link>
             </Grid>
