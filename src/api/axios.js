@@ -12,7 +12,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   (config) => {
     config.headers = {
-      Authorization: !!getAccessToken() && `Bearer ${getAccessToken()}`,
+      Authorization:
+        getAccessToken() != 'undefined' && `Bearer ${getAccessToken()}`,
     }
     return config
   },

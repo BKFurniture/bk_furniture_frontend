@@ -131,7 +131,9 @@ const Header = () => {
                       backgroundColor: '#fff',
                       color: 'black',
                     }}
-                    onClick={() => {}}
+                    onClick={() => {
+                      navigate('/cart')
+                    }}
                   >
                     <Badge badgeContent={countCart} color="primary">
                       <ShoppingCartIcon />

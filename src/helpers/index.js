@@ -21,6 +21,11 @@ export const setRefreshToken = (accessToken) => {
     ? window.localStorage.setItem('refresh_token', accessToken)
     : null
 }
+export const setStoreCartItems = (items) => {
+  return window.localStorage
+    ? window.localStorage.setItem('cartItems', JSON.stringify(items))
+    : null
+}
 export const objectToArray = (object) => {
   let arrayString = []
   Object.keys(object).map((item) => {

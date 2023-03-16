@@ -9,6 +9,7 @@ import AppProvider from './hoc/AppProvider'
 import CheckedUser from './hoc/CheckedUser'
 import Layout from './Layout'
 import Details from '../page/Details'
+import Cart from 'page/Cart'
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
           {
             path: 'item/:id',
             element: <Details />,
+          },
+          {
+            path: 'cart',
+            element: <Cart />,
           },
         ],
       },
