@@ -12,7 +12,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   (config) => {
     config.headers = {
-      Authorization: getAccessToken(),
+      Authorization: !!getAccessToken() && `Bearer ${getAccessToken()}`,
     }
     return config
   },

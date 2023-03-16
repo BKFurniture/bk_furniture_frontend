@@ -5,6 +5,8 @@ const initialState = {
   refreshToken: null,
   username: null,
   first_name: null,
+  last_name: null,
+  username: null,
 }
 
 export const UserSlice = createSlice({

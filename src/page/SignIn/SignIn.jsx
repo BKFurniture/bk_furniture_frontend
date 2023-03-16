@@ -3,24 +3,21 @@ import {Divider} from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
 import Container from '@mui/material/Container'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
-import Link from '@mui/material/Link'
+
 import {createTheme} from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import userApi from 'api/user'
 import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
+import {setAccessToken, setRefreshToken} from 'helpers'
 import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
-import userApi from 'api/user'
-import {setAccessToken} from 'helpers'
-import {useNavigate} from 'react-router-dom'
-import {setSnackbar} from 'store/appSlice'
 import {useDispatch} from 'react-redux'
-import {setUser} from 'store/userSlice'
+import {Link, useNavigate} from 'react-router-dom'
+import {setSnackbar} from 'store/appSlice'
 function Copyright(props) {
   return (
     <Typography
@@ -30,7 +27,7 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="./">
+      <Link color="inherit" to="/">
         BK Furniture
       </Link>
       {new Date().getFullYear()}
@@ -68,12 +65,14 @@ export default function SignIn() {
             }),
           )
           setAccessToken(res['access'])
+          setRefreshToken(res['refresh'])
           navigate('/')
         }
       })
   }
   const responseFacebook = (response) => {
     console.log(response)
+    userApi.facebookLogin(response.accessToken)
   }
   const responseGoogle = (response) => {
     userApi.googleLogin(response.tokenId).then((res) => {
@@ -141,7 +140,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/sign-up" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -152,7 +151,6 @@ export default function SignIn() {
       <Grid container justifyContent="center" style={{margin: '10px 0'}}>
         <FacebookLogin
           appId="243088701384995"
-          autoLoad
           textButton=""
           buttonStyle={{all: 'unset', marginRight: 15, cursor: 'pointer'}}
           icon={<img src={FaceImg} style={{height: 35}} />}
