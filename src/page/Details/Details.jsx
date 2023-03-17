@@ -7,8 +7,11 @@ import {
   Grid,
   Avatar,
 } from "@mui/material";
-import React, { useState } from "react";
-import CardDetails from "component/CardDetails";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Home from "../Home";
+import RecipeReviewCard from "component/CardDetails";
 import { styled } from "@mui/material/styles";
 import ChairImg from "asset/img/chair.png";
 import ImageReview from "asset/img/imgcmt.jpg";
@@ -21,8 +24,13 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import Img1 from "asset/img/img1.jpg";
 import Img2 from "asset/img/img2.jpg";
 import Img3 from "asset/img/img3.jpg";
+import detailsApi from "api/details";
 
-const productImage = { img1: Img1, img2: Img2, img3: Img3 };
+const detail = {
+  id: 10,
+  rating: 4.5,
+  colors: ["White Cream", "Blue Black"],
+};
 
 const customer = { name: "Lam Thanh Duong", avatar: Avt };
 
@@ -101,9 +109,9 @@ const RatingBox = () => {
     ? productRatings.filter((rating) => rating.rating === selectedRating)
     : productRatings;
 
-  const averageRating =
-    productRatings.reduce((total, rating) => total + rating.rating, 0) /
-    productRatings.length;
+  // const averageRating =
+  //   productRatings.reduce((total, rating) => total + rating.rating, 0) /
+  //   productRatings.length;
 
   return (
     <Grid>
@@ -127,7 +135,7 @@ const RatingBox = () => {
                   variant="h6"
                   sx={{ color: "#F5B000", fontSize: "36px" }}
                 >
-                  {averageRating}
+                  {detail.rating}
                 </Typography>
               </Grid>
               <Grid item>
@@ -154,7 +162,7 @@ const RatingBox = () => {
               </Grid>
             </Grid>
             <Grid item container justifyContent="center" alignItems="center">
-              <Rating value={averageRating} precision={0.5} readOnly />
+              <Rating value={detail.rating} precision={0.5} readOnly />
             </Grid>
           </Grid>
           <Grid
@@ -354,6 +362,33 @@ function QuantityButton() {
 }
 
 const Details = () => {
+  const { name } = useParams();
+  const [details, setDetails] = useState({});
+  const [able, setAble] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const response = await detailsApi.get(name);
+        if (response.code === 404) {
+          setAble(false);
+        } else {
+          setDetails(response);
+        }
+      } catch (error) {
+        console.log("Failed to fetch details: ", error);
+      }
+    };
+    fetchDetails();
+  }, [name]);
+
+  useEffect(() => {
+    if (!able) {
+      navigate("/");
+    }
+  }, [able, navigate]);
+
   return (
     <Container>
       <Typography
@@ -378,26 +413,24 @@ const Details = () => {
             justifyContent: "center",
           }}
         >
-          <img
-            src={productImage.img1}
-            alt="img1"
-            style={{ width: "81px", height: "81px" }}
-          />
-          <img
-            src={productImage.img2}
-            alt="img2"
-            style={{ width: "81px", height: "81px" }}
-          />
-          <img
-            src={productImage.img3}
-            alt="img3"
-            style={{ width: "81px", height: "81px" }}
-          />
+          {details.images &&
+            details.images.map((image, index) => (
+              <img
+                src={image.url}
+                alt={`img${index + 1}`}
+                key={index}
+                style={{ width: "100px", height: "auto", marginTop: "10px" }}
+              />
+            ))}
         </div>
-        <CardDetails></CardDetails>
+        <RecipeReviewCard
+          item={
+            details.images && details.images.length > 0 && details.images[0].url
+          }
+        ></RecipeReviewCard>
         <div>
           <Typography variant="h3" component="h2" style={{ color: "#1264A9" }}>
-            {product.category.toUpperCase()}
+            {details.category && details.category.toUpperCase()}
           </Typography>
           <Box mb={1} />
           <Typography
@@ -406,7 +439,7 @@ const Details = () => {
             component="h2"
             style={{ color: "#1264A9", fontWeight: 50 }}
           >
-            Glossy Cube
+            {details.name}
           </Typography>
           <Box mb={0.5} />
           <StyledRating name="my-rating" value={product.rating} max={5} />
@@ -431,7 +464,7 @@ const Details = () => {
                 xs={5}
                 style={{ color: "#1264A9" }}
               >
-                $ {product.price}
+                $ {details.price}
               </Typography>
             </Grid>
           </Grid>
@@ -508,7 +541,7 @@ const Details = () => {
             </Grid>
             <Grid xs={5}>
               <Typography fontSize={24} variant="h3" component="h2">
-                Germany{" "}
+                {details.origin}
               </Typography>
             </Grid>
           </Grid>
@@ -530,7 +563,7 @@ const Details = () => {
               wrap={true}
               align="justify"
             >
-              {product.description}
+              {details.description}
             </Typography>
           </div>
           <Box mb={2} />
@@ -592,7 +625,7 @@ const Details = () => {
             <Box mb={1.4} />
           </Grid>
           <Grid item xs={12}>
-            <RatingBox />
+            <RatingBox rating={detail.rating} />
           </Grid>
         </Grid>
       </Box>
