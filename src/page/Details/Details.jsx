@@ -10,7 +10,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Home from "../Home";
 import RecipeReviewCard from "component/CardDetails";
 import { styled } from "@mui/material/styles";
 import ChairImg from "asset/img/chair.png";
@@ -21,9 +20,6 @@ import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import IconButton from "@mui/material/IconButton";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
-import Img1 from "asset/img/img1.jpg";
-import Img2 from "asset/img/img2.jpg";
-import Img3 from "asset/img/img3.jpg";
 import detailsApi from "api/details";
 
 const detail = {
@@ -371,6 +367,7 @@ const Details = () => {
     const fetchDetails = async () => {
       try {
         const response = await detailsApi.get(name);
+        console.log(response);
         if (response.code === 404) {
           setAble(false);
         } else {
