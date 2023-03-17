@@ -37,7 +37,18 @@ export default function RecipeReviewCard({item}) {
           </IconButton>
         }
         title={
-          <Typography variant="h6" style={{color: '#1264A9', fontWeight: 700}}>
+          <Typography
+            variant="h6"
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical',
+              color: '#1264A9',
+              fontWeight: 700,
+            }}
+          >
             {item.name}
           </Typography>
         }
