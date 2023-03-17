@@ -1,7 +1,7 @@
-import Account from 'page/Account'
-import ProductList from 'page/ProductList'
-import {createBrowserRouter} from 'react-router-dom'
-import Home from '../page/Home'
+import Account from "page/Account";
+import ProductList from "page/ProductList";
+import { createBrowserRouter } from "react-router-dom";
+import Home from "../page/Home";
 
 import SignIn from '../page/SignIn'
 import SignUp from '../page/SignUp'
@@ -13,27 +13,28 @@ import Cart from 'page/Cart'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <AppProvider />,
     children: [
       {
         element: <Layout />,
         children: [
           {
-            path: '/',
+            path: "/",
             element: <Home />,
           },
           {
-            path: 'products',
+            path: "products",
             element: <ProductList />,
           },
           {
-            path: 'account',
+            path: "account",
             element: <Account />,
           },
           {
-            path: 'item/:id',
+            path: "details/:name",
             element: <Details />,
+            exact: true,
           },
           {
             path: 'cart',
@@ -45,11 +46,11 @@ export const router = createBrowserRouter([
         element: <CheckedUser />,
         children: [
           {
-            path: 'sign-up',
+            path: "sign-up",
             element: <SignUp />,
           },
           {
-            path: 'sign-in',
+            path: "sign-in",
             element: <SignIn />,
           },
 
@@ -61,4 +62,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
+

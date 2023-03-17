@@ -1,16 +1,11 @@
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
-import {Chip, Grid, Paper} from '@mui/material'
-import Avatar from '@mui/material/Avatar'
+
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
-import CardHeader from '@mui/material/CardHeader'
+
 import CardMedia from '@mui/material/CardMedia'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import ChairImg from 'asset/img/chair.png'
-export default function RecipeReviewCard() {
+
+
+export default function RecipeReviewCard({item}) {
   return (
     <Card
       sx={{
@@ -30,7 +25,7 @@ export default function RecipeReviewCard() {
         component="img"
         height="410"
         width="350"
-        image={ChairImg}
+        image={item}
         alt="Paella dish"
       />
         
