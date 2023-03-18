@@ -1,7 +1,9 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
-import {Chip} from '@mui/material'
+import {Chip, Link} from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom';
+import slugify from 'slugify';
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
@@ -13,9 +15,15 @@ import ChairImg from 'asset/img/chair.png'
 import {useDispatch} from 'react-redux'
 import {addCartItem} from 'store/appSlice'
 export default function RecipeReviewCard({item}) {
+  const slug = slugify(item.name, { lower: true });
   const dispatch = useDispatch()
   const handleAddCard = (value) => () => {
     dispatch(addCartItem(value))
+  }
+  function convertToSlug(Text) {
+    return Text.toLowerCase()
+               .replace(/[^\w ]+/g, '')
+               .replace(/ +/g, '-');
   }
   return (
     <Card
@@ -37,8 +45,10 @@ export default function RecipeReviewCard({item}) {
           </IconButton>
         }
         title={
-          <Typography
+          <Link
             variant="h6"
+            component={RouterLink}
+            to={`/details/${slug}`}
             sx={{
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -50,7 +60,7 @@ export default function RecipeReviewCard({item}) {
             }}
           >
             {item.name}
-          </Typography>
+          </Link>
         }
         subheader={item.category}
       />
