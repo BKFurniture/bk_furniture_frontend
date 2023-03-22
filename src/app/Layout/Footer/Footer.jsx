@@ -9,75 +9,81 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import TwitterIcon from '@mui/icons-material/Twitter'
 const Footer = () => {
   return (
-    <Container  style={{backgroundColor: '#fff', height: '100%'}}>
-      <Grid container>
-        <Grid xs={12} md={6} style={{padding: 10}}>
+    <div style={{backgroundColor: '#fff', height: '100%'}}>
+      <Container style={{backgroundColor: '#fff', height: '100%'}}>
+        <Grid container>
+          <Grid xs={12} md={6} style={{padding: 10}}>
             <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
               CONTACT US
             </Typography>
-          <div>
-            <AddIcCallIcon style={{fontSize: '1.2rem', paddingRight: 5}} />{' '}
-            0123456789
-          </div>
-          <Grid
-            container
-            direction="row"
-            alignContent="center"
-            alignItems="center"
-          >
-            <Grid>
-              <MailOutlineIcon style={{fontSize: '1.4rem', paddingRight: 5}} />{' '}
-            </Grid>
-            <Grid>bkfurniture@gmail.com</Grid>
-          </Grid>{' '}
-        </Grid>
+            <div>
+              <AddIcCallIcon style={{fontSize: '1.2rem', paddingRight: 5}} />{' '}
+              0123456789
+            </div>
+            <Grid
+              container
+              direction="row"
+              alignContent="center"
+              alignItems="center"
+            >
+              <Grid>
+                <MailOutlineIcon
+                  style={{fontSize: '1.4rem', paddingRight: 5}}
+                />{' '}
+              </Grid>
+              <Grid>bkfurniture@gmail.com</Grid>
+            </Grid>{' '}
+          </Grid>
 
-        <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
-            FILL EMAIL FOR DEALS OR YOUR DESIGN
-          </Typography>
-          <div>
-            <TextField
-              size="small"
-              style={{height: 20, width: 300}}
-              id="outlined-password-input"
-              label="Email Address"
-              autoComplete="current-password"
-            />
-          </div>
+          <Grid xs={12} md={6} style={{padding: 10}}>
+            <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
+              FILL EMAIL FOR DEALS OR YOUR DESIGN
+            </Typography>
+            <div>
+              <TextField
+                size="small"
+                style={{height: 20, width: 300}}
+                id="outlined-password-input"
+                label="Email Address"
+                autoComplete="current-password"
+              />
+            </div>
+          </Grid>
+          <Grid xs={12} md={6} style={{padding: 10}}>
+            <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
+              VISIT OUR STORE
+            </Typography>
+            <div>
+              <AddLocationAltIcon
+                style={{fontSize: '1.2rem', paddingRight: 5}}
+              />{' '}
+              0123456789
+            </div>
+            <Grid
+              container
+              direction="row"
+              alignContent="center"
+              alignItems="center"
+            >
+              <Grid>
+                <AccessTimeIcon style={{fontSize: '1.4rem', paddingRight: 5}} />{' '}
+              </Grid>
+              <Grid>bkfurniture@gmail.com</Grid>
+            </Grid>{' '}
+          </Grid>
+          <Grid xs={12} md={6} style={{padding: 10}}>
+            <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
+              CONNECT WITH US
+            </Typography>
+            <div>
+              <FacebookIcon style={{fontSize: '2rem'}} />
+              <InstagramIcon style={{fontSize: '2rem'}} />
+              <TwitterIcon style={{fontSize: '2rem'}} />
+            </div>{' '}
+          </Grid>
         </Grid>
-        <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
-            VISIT OUR STORE
-          </Typography>
-          <div>
-            <AddLocationAltIcon style={{fontSize: '1.2rem', paddingRight: 5}} />{' '}
-            0123456789
-          </div>
-          <Grid
-            container
-            direction="row"
-            alignContent="center"
-            alignItems="center"
-          >
-            <Grid>
-              <AccessTimeIcon style={{fontSize: '1.4rem', paddingRight: 5}} />{' '}
-            </Grid>
-            <Grid>bkfurniture@gmail.com</Grid>
-          </Grid>{' '}
-        </Grid>
-        <Grid xs={12} md={6} style={{padding: 10}}>
-          <Typography variant="h6" component="h2" style={{color: '#1264A9'}}>
-            CONNECT WITH US
-          </Typography>
-          <div>
-            <FacebookIcon style={{fontSize: '2rem'}} />
-            <InstagramIcon style={{fontSize: '2rem'}} />
-            <TwitterIcon style={{fontSize: '2rem'}} />
-          </div>{' '}
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   )
 }
 

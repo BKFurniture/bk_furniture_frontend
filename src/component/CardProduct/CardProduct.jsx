@@ -1,7 +1,6 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
-import {Chip, Link} from '@mui/material'
 import {Link as RouterLink} from 'react-router-dom'
 import slugify from 'slugify'
 import Avatar from '@mui/material/Avatar'

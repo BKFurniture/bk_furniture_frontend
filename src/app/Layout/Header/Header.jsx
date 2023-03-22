@@ -52,7 +52,12 @@ const Header = () => {
     setTab(value)
   }
   return (
-    <>
+    <div
+      style={{
+        backgroundColor: '#fff',
+        height: 150,
+      }}
+    >
       <Container
         style={{
           backgroundColor: '#fff',
@@ -181,7 +186,7 @@ const Header = () => {
           </Grid>
         </Box>
       </Container>
-    </>
+    </div>
   )
 }
 
