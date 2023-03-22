@@ -38,7 +38,7 @@ const Option = () => {
           component="h2"
           style={{color: '#1264A9', fontWeight: 700, marginBottom: 20}}
         >
-          Option
+          O ption
         </Typography>
         <Divider />
         {items.map((item, index) => (

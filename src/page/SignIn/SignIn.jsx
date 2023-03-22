@@ -56,7 +56,7 @@ export default function SignIn() {
               severity: 'error',
             }),
           )
-        } else {
+        } else if (res['access']) {
           dispatch(
             setSnackbar({
               open: true,

@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import ChairImg from 'asset/img/chair.png'
 import {useDispatch} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {addCartItem} from 'store/appSlice'
 export default function RecipeReviewCard({item}) {
   const dispatch = useDispatch()
@@ -37,20 +38,22 @@ export default function RecipeReviewCard({item}) {
           </IconButton>
         }
         title={
-          <Typography
-            variant="h6"
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: '1',
-              WebkitBoxOrient: 'vertical',
-              color: '#1264A9',
-              fontWeight: 700,
-            }}
-          >
-            {item.name}
-          </Typography>
+          <Link to={`details/${item.slug}`} style={{textDecoration: 'none'}}>
+            <Typography
+              variant="h6"
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '1',
+                WebkitBoxOrient: 'vertical',
+                color: '#1264A9',
+                fontWeight: 700,
+              }}
+            >
+              {item.name}
+            </Typography>
+          </Link>
         }
         subheader={item.category}
       />
