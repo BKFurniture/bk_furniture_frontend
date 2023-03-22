@@ -439,7 +439,12 @@ const Details = () => {
             {details.name}
           </Typography>
           <Box mb={0.5} />
-          <StyledRating name="my-rating" value={product.rating} max={5} />
+          <StyledRating
+            name="my-rating"
+            value={product.rating}
+            max={5}
+            readOnly
+          />
           <Box mb={1.5} />
           <Grid container>
             <Grid xs={5.5}>

@@ -1,7 +1,9 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
-import {Chip} from '@mui/material'
+import {Chip, Link} from '@mui/material'
+import {Link as RouterLink} from 'react-router-dom'
+import slugify from 'slugify'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
@@ -14,9 +16,15 @@ import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {addCartItem} from 'store/appSlice'
 export default function RecipeReviewCard({item}) {
+  const slug = slugify(item.name, {lower: true})
   const dispatch = useDispatch()
   const handleAddCard = (value) => () => {
     dispatch(addCartItem(value))
+  }
+  function convertToSlug(Text) {
+    return Text.toLowerCase()
+      .replace(/[^\w ]+/g, '')
+      .replace(/ +/g, '-')
   }
   return (
     <Card
@@ -38,21 +46,22 @@ export default function RecipeReviewCard({item}) {
           </IconButton>
         }
         title={
-          <Link to={`details/${item.slug}`} style={{textDecoration: 'none'}}>
-            <Typography
-              variant="h6"
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                display: '-webkit-box',
-                WebkitLineClamp: '1',
-                WebkitBoxOrient: 'vertical',
-                color: '#1264A9',
-                fontWeight: 700,
-              }}
-            >
-              {item.name}
-            </Typography>
+          <Link
+            variant="h6"
+            component={RouterLink}
+            to={`/details/${slug}`}
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical',
+              color: '#1264A9',
+              fontWeight: 700,
+              textDecoration: 'none',
+            }}
+          >
+            {item.name}
           </Link>
         }
         subheader={item.category}
