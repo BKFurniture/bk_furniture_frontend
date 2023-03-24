@@ -370,7 +370,7 @@ const Details = () => {
     const fetchDetails = async () => {
       try {
         const response = await detailsApi.get(name)
-        console.log(response)
+
         if (response.code === 404) {
           setAble(false)
         } else {

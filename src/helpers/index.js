@@ -1,8 +1,4 @@
 export const getAccessToken = () => {
-  console.log(
-    window.localStorage ? window.localStorage.getItem('access_token') : null,
-    'thien',
-  )
   return window.localStorage
     ? window.localStorage.getItem('access_token')
     : null

@@ -47,7 +47,6 @@ export default function SignIn() {
     userApi
       .login({username: data.get('email'), password: data.get('password')})
       .then((res) => {
-        console.log(res, 'response login')
         if (res.code == 401) {
           dispatch(
             setSnackbar({
@@ -71,7 +70,6 @@ export default function SignIn() {
       })
   }
   const responseFacebook = (response) => {
-    console.log(response)
     userApi.facebookLogin(response.accessToken)
   }
   const responseGoogle = (response) => {

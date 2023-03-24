@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import userApi from 'api/user'
 import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
-import {objectToArray} from 'helpers'
+import {objectToArray, setAccessToken} from 'helpers'
 import {useEffect, useState} from 'react'
 import FacebookLogin from 'react-facebook-login'
 import {GoogleLogin} from 'react-google-login'
@@ -72,8 +72,6 @@ export default function SignUp() {
   const handleSubmit = () => {
     const {repeatPassword, ...rest} = user
     userApi.signUp(rest).then((res) => {
-      console.log(res, 'sign-up')
-
       if (res.code == 400) {
         const messageError = objectToArray(res.data)
         dispatch(
@@ -94,7 +92,6 @@ export default function SignUp() {
         navigate('/sign-in')
       }
     })
-    console.log('Submit', user)
   }
   const handleChange = (event) => {
     setUser({...user, [event.target.name]: event.target.value})
@@ -165,8 +162,8 @@ export default function SignUp() {
             id="email"
             label="Email Address"
             name="email"
-            errorMessages={['This field is required', 'Email is not valid']}
-            validators={['required', 'isEmail']}
+            // errorMessages={['This field is required', 'Email is not valid']}
+            // validators={['required', 'isEmail']}
             value={user.email}
           />
           <TextValidator
@@ -176,8 +173,8 @@ export default function SignUp() {
             id="username"
             label="User Name"
             name="username"
-            errorMessages={['This field is required']}
-            validators={['required']}
+            // errorMessages={['This field is required']}
+            // validators={['required']}
             value={user.username}
           />
           <TextValidator
@@ -186,11 +183,11 @@ export default function SignUp() {
             onChange={handleChange}
             name="password"
             type="password"
-            validators={['required', 'minLength']}
-            errorMessages={[
-              'This field is required',
-              'Password must be at least 6 characters',
-            ]}
+            // validators={['required', 'minLength']}
+            // errorMessages={[
+            //   'This field is required',
+            //   'Password must be at least 6 characters',
+            // ]}
             value={user.password}
             fullWidth
           />
@@ -201,8 +198,8 @@ export default function SignUp() {
             onChange={handleChange}
             name="repeatPassword"
             type="password"
-            validators={['isPasswordMatch', 'required']}
-            errorMessages={['password mismatch', 'this field is required']}
+            validators={['isPasswordMatch']}
+            errorMessages={['password mismatch']}
             value={user.repeatPassword}
           />
           <Button
