@@ -22,6 +22,7 @@
     "http": "^0.0.1-security",
     "https": "^1.0.0",
     "react": "latest",
+    "react-chat-widget": "^3.1.4",
     "react-dom": "latest",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",

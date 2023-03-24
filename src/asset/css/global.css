@@ -1,0 +1,10 @@
+.rcw-conversation-container .rcw-header {
+  padding: 0;
+  background-color: white;
+  color: #1264a9;
+}
+.rcw-conversation-container .rcw-title {
+  text-align: left;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+}

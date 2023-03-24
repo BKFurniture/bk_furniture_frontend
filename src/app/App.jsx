@@ -7,6 +7,7 @@ import SnackbarProvider from './hoc/SnackbarProvider'
 
 import {router} from './router'
 import theme from './theme'
+import 'asset/css/global.css'
 export default function App() {
   return (
     <div>

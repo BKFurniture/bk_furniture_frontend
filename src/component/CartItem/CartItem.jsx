@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import {useDispatch} from 'react-redux'
 import {setQuantityCartItem} from 'store/appSlice'
+import {Link} from 'react-router-dom'
 const StyledIconButton = styled(IconButton)(({theme, variant, color}) => {
   const overrides = {}
 
@@ -81,17 +82,22 @@ const CartItem = ({item}) => {
             </Grid>
             <Grid item xs={8}>
               <div style={{fontWeight: 600}}>
-                <Typography
-                  sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: '1',
-                    WebkitBoxOrient: 'vertical',
-                  }}
+                <Link
+                  to={`/details/${item.slug}`}
+                  style={{textDecoration: 'none', color: '#1264A9'}}
                 >
-                  {item.name}
-                </Typography>
+                  <Typography
+                    sx={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: '1',
+                      WebkitBoxOrient: 'vertical',
+                    }}
+                  >
+                    {item.name}
+                  </Typography>
+                </Link>
               </div>
               <div> {item.category}</div>
               <div> {item.origin}</div>
@@ -102,7 +108,7 @@ const CartItem = ({item}) => {
               >
                 <Grid item>
                   <Typography
-                    sx={{
+                    style={{
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
@@ -110,7 +116,7 @@ const CartItem = ({item}) => {
                       WebkitBoxOrient: 'vertical',
                     }}
                   >
-                    ${item.price * item.quantity}
+                    ${(item.price * item.quantity).toFixed(2)}
                   </Typography>
                 </Grid>
                 <Grid item style={{paddingRight: 20}}>
@@ -139,7 +145,7 @@ const CartItem = ({item}) => {
           sx={{display: {xs: 'none', sm: 'block'}, textAlign: 'center'}}
         >
           <Typography
-            sx={{
+            style={{
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
@@ -147,7 +153,7 @@ const CartItem = ({item}) => {
               WebkitBoxOrient: 'vertical',
             }}
           >
-            ${item.price * item.quantity}
+            ${(item.price * item.quantity).toFixed(2)}
           </Typography>
         </Grid>
         <Grid
