@@ -26,18 +26,18 @@ const ProductList = () => {
   const [tab, setTab] = useState(0)
   const [filter, setFilter] = useState({
     offset: 0,
-    limit: 10,
+    limit: 12,
   })
 
   useEffect(() => {
     productApi.getList(filter).then((res) => {
       if (res.results) setData(res.results)
-      else if (res.count) setTotal(res.count)
+      if (res.count) setTotal(res.count)
     })
   }, [filter])
 
   const handleChangePage = (event, value) => {
-    setFilter({...filter, offset: value - 1})
+    setFilter({...filter, offset: (Number(value) - 1) * filter.limit})
   }
   const handleChangeTab = (event, value) => {
     setTab(value)
@@ -151,7 +151,7 @@ const ProductList = () => {
       <Grid container justifyContent="end">
         <Pagination
           count={total / filter.limit}
-          page={filter.offset + 1}
+          page={filter.offset / filter.limit + 1}
           onChange={handleChangePage}
           variant="text"
           color="primary"

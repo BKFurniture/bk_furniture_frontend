@@ -47,10 +47,9 @@ export default function RecipeReviewCard({item}) {
         }
         title={
           <Link
-            variant="h6"
             component={RouterLink}
             to={`/details/${slug}`}
-            sx={{
+            style={{
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
