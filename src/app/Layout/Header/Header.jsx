@@ -124,7 +124,14 @@ const Header = () => {
                         >
                           Account setting
                         </MenuItem>
-                        <MenuItem onClick={handleClose}>My order</MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            navigate('/orders')
+                            handleClose()
+                          }}
+                        >
+                          My order
+                        </MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
