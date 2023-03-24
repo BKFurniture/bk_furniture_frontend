@@ -22,7 +22,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera'
 import CreateIcon from '@mui/icons-material/Create'
 const OrderDetail = () => {
   const cartItems = useSelector((state) => state.app.cartItems)
-  const [openDialog, setOpenDialog] = useState(true)
+  const [openDialog, setOpenDialog] = useState(false)
   const handleCloseDialog = () => {
     setOpenDialog(false)
   }
