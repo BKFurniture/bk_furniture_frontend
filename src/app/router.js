@@ -10,6 +10,7 @@ import CheckedUser from './hoc/CheckedUser'
 import Layout from './Layout'
 import Details from '../page/Details'
 import Cart from 'page/Cart'
+import Order from 'page/Order'
 import OrderDetail from 'page/OrderDetail'
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
           {
             path: 'cart',
             element: <Cart />,
+          },
+          {
+            path: 'orders',
+            element: <Order />,
           },
           {
             path: 'order/:id',
