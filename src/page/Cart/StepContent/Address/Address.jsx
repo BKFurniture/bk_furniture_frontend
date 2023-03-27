@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Button,
   Divider,
   ListItem,
   ListItemAvatar,
@@ -7,100 +7,113 @@ import {
   Paper,
   Radio,
   Typography,
-} from '@mui/material'
-import React, {useState} from 'react'
+} from "@mui/material";
+import React, { useState } from "react";
+import NewAddressModal from "./AddNewModal";
+import UpdateAddressModal from "./UpdateModal";
 
-const ITEMS = [
-  {
-    title: 'Standard Shipping',
-    subTitle: 'Land Shipping',
-    content: '7 to 14 days shipping after purchase',
-    span: 'Nationwide shipping only',
-    cost: 2,
-    isActive: true,
-  },
-  {
-    title: 'Express Shipping',
-    subTitle: 'Air Shipping',
-    content: '2 to 6 days shipping after purchase',
-    span: 'Nationwide and Global shipping',
-    cost: 4,
-    isActive: false,
-  },
-]
+const ITEMS = {
+  fullName: "Duong Lam",
+  phoneNumber: "(+84) 942826536",
+  location: "248 Ly Thuong Kiet, Quan 10, Ho Chi Minh City, Viet Nam",
+  cost: 2,
+  isActive: false,
+};
 const Address = () => {
-  const [items, setItems] = useState(ITEMS)
+  const [item, setItem] = useState(ITEMS);
+  const [modalAdd, setModalAdd] = React.useState({
+    open: false,
+  });
+  const [modalUpdate, setModalUpdate] = React.useState({
+    open: false,
+    value: {
+      fullName: "",
+      phoneNumber: "",
+    },
+  });
+
   return (
-    <div>
-      <Paper elevation={0} style={{padding: 10}}>
+    <>
+      <Paper elevation={0} style={{ padding: 10 }}>
         <Typography
           variant="h6"
           component="h2"
-          style={{color: '#1264A9', fontWeight: 700, marginBottom: 20}}
-        >
-          Address
+          style={{ color: "#1264A9", fontWeight: 700, marginBottom: 20 }}>
+          Your Address
+          <Button
+            color="primary"
+            variant="contained"
+            style={{ float: "right" }}
+            onClick={() => setModalAdd({ open: true })}>
+            + Add new address
+          </Button>
         </Typography>
         <Divider />
-        {items.map((item, index) => (
-          <>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Radio
-                  checked={item.isActive}
-                  onChange={(event) => {
-                    setItems(
-                      items.map((el, idx) => {
-                        if (idx === index)
-                          return {
-                            ...el,
-                            isActive: true,
-                          }
-                        else return {...el, isActive: false}
-                      }),
-                    )
-                  }}
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary=<div style={{fontWeight: 500}}>{item.title}</div>
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{display: 'inline'}}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      {item.subTitle}
-                    </Typography>
-                    <div>
-                      {' '}
-                      <Typography
-                        sx={{display: 'inline'}}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        {item.content}
-                      </Typography>
-                    </div>
-                    <div> {`${item.span}`}</div>
-                  </React.Fragment>
-                }
-              />
-              <Typography
-                variant
-                style={{color: '#1264A9', paddingTop: 35, fontWeight: 500}}
-              >
-                ${item.cost}
-              </Typography>
-            </ListItem>
-            <Divider />
-          </>
-        ))}
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Radio
+              checked={item.isActive}
+              onChange={() => {
+                console.log(item);
+              }}
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary=<div style={{ fontWeight: 500 }}>{item.fullName}</div>
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: "inline" }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary">
+                  {item.phoneNumber}
+                </Typography>
+                <div style={{ width: 500 }}>
+                  {" "}
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary">
+                    {item.location}
+                  </Typography>
+                </div>
+              </React.Fragment>
+            }
+          />
+          <Typography
+            variant
+            style={{ color: "#1264A9", paddingTop: 35, cursor: "pointer" }}
+            onClick={() =>
+              setModalUpdate({
+                open: true,
+                value: {
+                  fullName: item.fullName,
+                  phoneNumber: item.phoneNumber,
+                },
+              })
+            }>
+            Edit
+          </Typography>
+        </ListItem>
       </Paper>
-    </div>
-  )
-}
+      <NewAddressModal
+        open={modalAdd.open}
+        handleClose={() => setModalAdd({ open: false })}
+      />
+      <UpdateAddressModal
+        open={modalUpdate.open}
+        value={modalUpdate.value}
+        handleClose={() =>
+          setModalUpdate({
+            open: false,
+            value: { fullName: "", phoneNumber: "" },
+          })
+        }
+      />
+    </>
+  );
+};
 
-export default Address
+export default Address;
