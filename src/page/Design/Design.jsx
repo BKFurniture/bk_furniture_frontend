@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Typography, Button, Stack } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import SendIcon from '@mui/icons-material/Send';
-
+import SendIcon from "@mui/icons-material/Send";
 
 const Design = () => {
   const [images, setImages] = useState([]);
@@ -12,8 +11,28 @@ const Design = () => {
     setImages([...images, ...newImages]);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // prevent default form submission behavior
+
+    // prepare the request data
+    const formData = new FormData();
+    images.forEach((image) => formData.append("images", image));
+    formData.append("description", description);
+
+    // make the API request
+    try {
+      await axios.post(
+        `/mailer/${gmail}/${userFullName}/design/${numDay}`,
+        formData
+      );
+      // display a success message or redirect to a success page
+    } catch (error) {
+      // handle the error
+    }
+  };
+
   return (
-    <Stack spacing='20px'>
+    <Stack spacing="20px">
       <Typography
         variant="h5"
         component="h2"
@@ -22,7 +41,7 @@ const Design = () => {
       >
         Upload design
       </Typography>
-      <div align="center" >
+      <div align="center">
         {images.length > 0 ? (
           <div
             style={{
@@ -74,7 +93,13 @@ const Design = () => {
             multiline
             rows={6}
             variant="outlined"
-            style={{ marginTop: "10px" }}
+            style={{
+              marginTop: "10px",
+              borderWidth: "2px",
+              borderStyle: "solid",
+              borderColor: "#1264A9",
+              borderRadius: "5px",
+            }}
           />
         </div>
       </div>
@@ -86,17 +111,19 @@ const Design = () => {
           multiple
           style={{ display: "none" }}
           onChange={handleImageChange}
-    
         />
         <label htmlFor="image-upload">
-          <Button variant="contained" component="span" 
-          endIcon={<UploadFileIcon color="primary" />}
-          style={{
+          <Button
+            variant="contained"
+            component="span"
+            endIcon={<UploadFileIcon color="primary" />}
+            style={{
               border: `2px solid #1264A9`,
               backgroundColor: "#ffffff",
               borderRadius: "5px",
               height: "40px",
-            }}>
+            }}
+          >
             <Typography
               color="primary"
               fontSize={18}
@@ -116,9 +143,10 @@ const Design = () => {
           sx={{
             borderRadius: "10px",
             height: "45px",
-            width: "180px", // add this line
+            width: "180px",
           }}
           endIcon={<SendIcon />}
+          onClick={handleSubmit}
         >
           <Typography
             fontSize={18}
