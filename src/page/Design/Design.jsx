@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { TextField, Button, Grid, Typography } from "@material-ui/core";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { TextField, Typography, Button, Stack } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { Upload } from "@mui/icons-material";
+import SendIcon from '@mui/icons-material/Send';
+
 
 const Design = () => {
   const [images, setImages] = useState([]);
@@ -13,7 +13,7 @@ const Design = () => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Stack spacing='20px'>
       <Typography
         variant="h5"
         component="h2"
@@ -22,7 +22,7 @@ const Design = () => {
       >
         Upload design
       </Typography>
-      <Grid item xs={12} align="center" backgroundColor="#C9ECFF">
+      <div align="center" >
         {images.length > 0 ? (
           <div
             style={{
@@ -63,8 +63,8 @@ const Design = () => {
         ) : (
           <Typography>No images uploaded yet</Typography>
         )}
-      </Grid>
-      <Grid item xs={12} style={{ marginLeft: "10px" }}>
+      </div>
+      <div style={{ marginLeft: "10px" }}>
         <Typography variant="h6" component="h2" style={{ marginLeft: "90px" }}>
           Short description
         </Typography>
@@ -77,8 +77,8 @@ const Design = () => {
             style={{ marginTop: "10px" }}
           />
         </div>
-      </Grid>
-      <Grid item xs={12} align="center">
+      </div>
+      <div align="center">
         <input
           accept="image/*"
           id="image-upload"
@@ -90,10 +90,9 @@ const Design = () => {
         />
         <label htmlFor="image-upload">
           <Button variant="contained" component="span" 
-          endIcon={<UploadFileIcon color="primary"/>}
+          endIcon={<UploadFileIcon color="primary" />}
           style={{
-              borderColor: "primary",
-              borderWidth: "9",
+              border: `2px solid #1264A9`,
               backgroundColor: "#ffffff",
               borderRadius: "5px",
               height: "40px",
@@ -108,29 +107,29 @@ const Design = () => {
             </Typography>
           </Button>
         </label>
-      </Grid>
+      </div>
 
-      <Grid item xs={12} align="center">
+      <div align="center">
         <Button
           variant="contained"
           color="primary"
           sx={{
             borderRadius: "10px",
-            height: "60px",
-            width: "500px", // add this line
+            height: "45px",
+            width: "180px", // add this line
           }}
-          endIcon={<ShoppingBagIcon />}
+          endIcon={<SendIcon />}
         >
           <Typography
             fontSize={18}
             variant="button"
             style={{ textTransform: "none" }}
           >
-            Add to Cart
+            Send Request
           </Typography>
         </Button>
-      </Grid>
-    </Grid>
+      </div>
+    </Stack>
   );
 };
 

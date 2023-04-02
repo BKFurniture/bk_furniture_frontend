@@ -24,7 +24,7 @@ import {logout} from 'store/userSlice'
 import userApi from 'api/user'
 import {getRefreshToken} from 'helpers'
 
-const MENU_LINK = ['/', '/', '/products', '/', '/']
+const MENU_LINK = ['/', '/', '/products', '/', '/', '/design']
 const Header = () => {
   const isUser = !!useSelector((state) => state.user.accessToken)
   const countCart = useSelector((state) => state.app.cartItems.length)
@@ -172,7 +172,6 @@ const Header = () => {
                   >
                     <Tab
                       label="HOME"
-                      value="0"
                       icon={<HomeIcon />}
                       iconPosition="start"
                     />
@@ -180,12 +179,11 @@ const Header = () => {
                       icon={<MenuIcon />}
                       label="CATEGORY"
                       iconPosition="start"
-                      value="1"
                     />
-                    <Tab label="PRODUCTS" value="2" />
-                    <Tab label="LIVING ROOM" value="3" />
-                    <Tab label="BED ROOM" value="4" />
-                    <Tab label="CUSTOM DESIGN" value="5" />
+                    <Tab label="PRODUCTS" />
+                    <Tab label="LIVING ROOM" />
+                    <Tab label="BED ROOM" />
+                    <Tab label="CUSTOM DESIGN" />
                   </TabList>
                 </Box>
               </TabContext>

@@ -94,7 +94,11 @@ const Order = () => {
         >
           <Tab label="All" value="All" sx={{ color: "#000000" }} />
           <Tab label="To Pay" value="To Pay" sx={{ color: "#000000" }} />
-          <Tab label="Processing" value="Processing" sx={{ color: "#000000" }} />
+          <Tab
+            label="Processing"
+            value="Processing"
+            sx={{ color: "#000000" }}
+          />
           <Tab label="Shipping" value="Shipping" sx={{ color: "#000000" }} />
           <Tab label="Delivered" value="Delivered" sx={{ color: "#000000" }} />
           <Tab label="Cancelled" value="Cancelled" sx={{ color: "#000000" }} />
@@ -102,23 +106,61 @@ const Order = () => {
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="order table">
-          <TableHead sx={{backgroundColor:"#1264A9"}}>
+          <TableHead>
             <TableRow>
-              <TableCell align="center" sx={{ color: "#fff" }} >ID</TableCell>
-              <TableCell align="center" sx={{ color: "#fff" }} >Order Date</TableCell>
-              <TableCell align="center" sx={{ color: "#fff" }} >Products</TableCell>
-              <TableCell align="center" sx={{ color: "#fff" }} >Total</TableCell>
-              <TableCell align="center" sx={{ color: "#fff" }} >Status</TableCell>
+              <TableCell
+                align="center"
+                sx={{ width: "10%", backgroundColor: "#1264A9", color: "#fff" }}
+              >
+                ID
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ width: "20%", backgroundColor: "#1264A9", color: "#fff" }}
+              >
+                Order Date
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ width: "40%", backgroundColor: "#1264A9", color: "#fff" }}
+              >
+                Products
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ width: "15%", backgroundColor: "#1264A9", color: "#fff" }}
+              >
+                Total
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ width: "15%", backgroundColor: "#1264A9", color: "#fff" }}
+              >
+                Status
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredOrders.map((order, index) => (
-              <TableRow key={order.id}  style={index !== orders.length - 1 ? { borderBottom: '2px solid grey' } : {}}>
+              <TableRow
+                key={order.id}
+                style={
+                  index !== orders.length - 1
+                    ? { borderBottom: "2px solid grey" }
+                    : {}
+                }
+              >
                 <TableCell component="th" scope="row" align="center">
                   {order.id}
                 </TableCell>
                 <TableCell align="center">{order.orderDate}</TableCell>
-                <TableCell align="left">{order.products.join(", ")}</TableCell>
+                <TableCell align="left">
+                  {order.products.length > 1
+                    ? `${order.products[0]} and ${
+                        order.products.length - 1
+                      } others`
+                    : order.products[0]}
+                </TableCell>
                 <TableCell align="center">${order.total}</TableCell>
                 <TableCell align="center">{order.status}</TableCell>
               </TableRow>
