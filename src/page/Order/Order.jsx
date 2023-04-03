@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react'
+import {useParams} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {
   Container,
   Typography,
@@ -13,47 +15,30 @@ import {
   Tab,
   Box,
 } from "@mui/material";
-
-const orders = [
-  {
-    id: 1,
-    orderDate: "01/01/2021",
-    products: ["Product A", "Product B", "Product C"],
-    total: 100.0,
-    status: "To Pay",
-  },
-  {
-    id: 2,
-    orderDate: "01/01/2021",
-    products: ["Product A", "Product D"],
-    total: 50.0,
-    status: "On delivery",
-  },
-  {
-    id: 3,
-    orderDate: "01/01/2021",
-    products: ["Product B", "Product C"],
-    total: 75.0,
-    status: "On delivery",
-  },
-  {
-    id: 4,
-    orderDate: "01/01/2021",
-    products: ["Product E"],
-    total: 20.0,
-    status: "Delivered",
-  },
-  {
-    id: 5,
-    orderDate: "01/01/2021",
-    products: ["Product F"],
-    total: 15.0,
-    status: "Cancelled",
-  },
-];
+import ordersApi from "api/orders";
 
 const Order = () => {
   const [filter, setFilter] = useState("All");
+  const [orders, setOrders] = useState({})
+
+  const fetchOrders = async () => {
+    
+    try {
+      const response = await ordersApi.get();
+      console.log(response);
+      if (response.status === 404) {
+        setAble(false);
+      } else {
+        setOrders(response);
+      }
+    } catch (error) {
+      console.log(1);
+    }
+  };
+  
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const handleFilterChange = (event, newValue) => {
     setFilter(newValue);
@@ -141,9 +126,9 @@ const Order = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOrders.map((order, index) => (
+            {filteredOrders.map((orders, index) => (
               <TableRow
-                key={order.id}
+                key={orders.id}
                 style={
                   index !== orders.length - 1
                     ? { borderBottom: "2px solid grey" }
@@ -151,18 +136,18 @@ const Order = () => {
                 }
               >
                 <TableCell component="th" scope="row" align="center">
-                  {order.id}
+                  {orders.id}
                 </TableCell>
-                <TableCell align="center">{order.orderDate}</TableCell>
+                <TableCell align="center">{orders.orderDate}</TableCell>
                 <TableCell align="left">
-                  {order.products.length > 1
-                    ? `${order.products[0]} and ${
-                        order.products.length - 1
+                  {orders.products.length > 1
+                    ? `${orders.products[0]} and ${
+                        orders.products.length - 1
                       } others`
-                    : order.products[0]}
+                    : orders.products[0]}
                 </TableCell>
-                <TableCell align="center">${order.total}</TableCell>
-                <TableCell align="center">{order.status}</TableCell>
+                <TableCell align="center">${orders.total}</TableCell>
+                <TableCell align="center">{orders.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>
