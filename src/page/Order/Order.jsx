@@ -27,14 +27,14 @@ const orders = [
     orderDate: "01/01/2021",
     products: ["Product A", "Product D"],
     total: 50.0,
-    status: "Processing",
+    status: "On delivery",
   },
   {
     id: 3,
     orderDate: "01/01/2021",
     products: ["Product B", "Product C"],
     total: 75.0,
-    status: "Shipping",
+    status: "On delivery",
   },
   {
     id: 4,
@@ -95,11 +95,11 @@ const Order = () => {
           <Tab label="All" value="All" sx={{ color: "#000000" }} />
           <Tab label="To Pay" value="To Pay" sx={{ color: "#000000" }} />
           <Tab
-            label="Processing"
-            value="Processing"
+            label="On delivery"
+            value="On delivery"
             sx={{ color: "#000000" }}
           />
-          <Tab label="Shipping" value="Shipping" sx={{ color: "#000000" }} />
+        
           <Tab label="Delivered" value="Delivered" sx={{ color: "#000000" }} />
           <Tab label="Cancelled" value="Cancelled" sx={{ color: "#000000" }} />
         </Tabs>
