@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import {useParams} from 'react-router-dom'
-import {useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -19,23 +17,21 @@ import ordersApi from "api/orders";
 
 const Order = () => {
   const [filter, setFilter] = useState("All");
-  const [orders, setOrders] = useState({})
+  const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    
     try {
       const response = await ordersApi.get();
-      console.log(response);
       if (response.status === 404) {
         setAble(false);
       } else {
         setOrders(response);
       }
     } catch (error) {
-      console.log(1);
+      console.log(error);
     }
   };
-  
+
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -47,7 +43,19 @@ const Order = () => {
   const filteredOrders =
     filter === "All"
       ? orders
-      : orders.filter((order) => order.status === filter);
+      : orders.filter((order) => {
+          if (filter === "To Pay") {
+            return order.status === "to pay";
+          } else if (filter === "On Delivery") {
+            return order.status === "processing" || order.status === "shipping";
+          } else if (filter === "Delivered") {
+            return order.status === "delivered";
+          } else if (filter === "Canceled") {
+            return order.status === "canceled";
+          } else {
+            return false;
+          }
+        });
 
   return (
     <Container>
@@ -80,13 +88,13 @@ const Order = () => {
           <Tab label="All" value="All" sx={{ color: "#000000" }} />
           <Tab label="To Pay" value="To Pay" sx={{ color: "#000000" }} />
           <Tab
-            label="On delivery"
-            value="On delivery"
+            label="On Delivery"
+            value="On Delivery"
             sx={{ color: "#000000" }}
           />
-        
+
           <Tab label="Delivered" value="Delivered" sx={{ color: "#000000" }} />
-          <Tab label="Cancelled" value="Cancelled" sx={{ color: "#000000" }} />
+          <Tab label="Canceled" value="Canceled" sx={{ color: "#000000" }} />
         </Tabs>
       </Box>
       <TableContainer component={Paper}>
@@ -126,28 +134,26 @@ const Order = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOrders.map((orders, index) => (
+            {filteredOrders.map((order, index) => (
               <TableRow
-                key={orders.id}
-                style={
-                  index !== orders.length - 1
-                    ? { borderBottom: "2px solid grey" }
-                    : {}
-                }
+                key={order.id}
+                style={{
+                  borderBottom: "1px solid grey",
+                }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  {orders.id}
+                  {order.id}
                 </TableCell>
-                <TableCell align="center">{orders.orderDate}</TableCell>
+                <TableCell align="center">{order.order_date}</TableCell>
                 <TableCell align="left">
-                  {orders.products.length > 1
-                    ? `${orders.products[0]} and ${
-                        orders.products.length - 1
-                      } others`
-                    : orders.products[0]}
+                  {order.order_items.length > 1
+                    ? `${order.order_items[0].product.name} and ${
+                        order.order_items.length - 1
+                      } other${order.order_items.length > 2 ? "s" : ""}`
+                    : order.order_items[0].product.name}
                 </TableCell>
-                <TableCell align="center">${orders.total}</TableCell>
-                <TableCell align="center">{orders.status}</TableCell>
+                <TableCell align="center">${order.total_price}</TableCell>
+                <TableCell align="center">{order.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

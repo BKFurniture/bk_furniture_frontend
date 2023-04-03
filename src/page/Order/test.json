@@ -1,0 +1,270 @@
+[
+    {
+      "id": 1,
+      "address": "KTX khu A - DHQG-HCM, Linh Trung, Thu Duc, Ho Chi Minh",
+      "order_date": "2023-04-03",
+      "expected_delivery_date": null,
+      "delivery_date": null,
+      "mobile": "+84335570069",
+      "discount": 0,
+      "total_price": "1313.99",
+      "status": "canceled",
+      "payment_method": "cash",
+      "order_items": [
+        {
+          "id": 1,
+          "product": {
+            "id": 1,
+            "name": "Falling Leaves Lamp",
+            "slug": "falling-leaves-lamp",
+            "category": "Lamp",
+            "price": "49.99",
+            "description": "Designed in Belgium. Casanha exclusive.\r\nProduct Information\r\nColor: Gold\r\nMaterial: Metal/Ironwork\r\nDimensions: D42.5 x H120cm - 6.27kg\r\nLamp socket: E27\r\nMaximum wattage: 40.00 W",
+            "origin": "Belgium",
+            "colors": [
+              "Gold#d4af37"
+            ],
+            "sizes": [
+              "D42.5 x H120cm - 6.27kg"
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/8RUKQ5F.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/6czTrhB.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/htJvUSk.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/IQsVeWd.jpg"
+              }
+            ],
+            "ratings": []
+          },
+          "order": 1,
+          "quantity": 13,
+          "sub_total": "100.99"
+        },
+        {
+          "id": 2,
+          "product": {
+            "id": 2,
+            "name": "Zapata Lamp",
+            "slug": "zapata-lamp",
+            "category": "Lamp",
+            "price": "99.99",
+            "description": "Product Information\r\n\r\nColor: Blue, white raw wood\r\nMaterial: Steel, glass wood\r\nPlug: Type C\r\nLamp cap: E\r\nBulb not included\r\nCompatible with low energy bulb\r\n\r\nProduct Dimension\r\nDimension: D25 x H161 cm\r\n\r\nDelivery Packaging -1 package: Box  - W x D x Hcm, 3.8 kg\r\n178917",
+            "origin": "USA",
+            "colors": [
+              "Gold#d4af37"
+            ],
+            "sizes": [
+              "D25 x H161 cm"
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/9lVzDez.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/D0YQ4D1.jpg"
+              }
+            ],
+            "ratings": []
+          },
+          "order": 1,
+          "quantity": 31,
+          "sub_total": "100.99"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "address": "KTX khu A - DHQG-HCM, Linh Trung, Thu Duc, Ho Chi Minh",
+      "order_date": "2023-04-03",
+      "expected_delivery_date": null,
+      "delivery_date": null,
+      "mobile": "+84335570069",
+      "discount": 0,
+      "total_price": "1313.99",
+      "status": "processing",
+      "payment_method": "cash",
+      "order_items": [
+        {
+          "id": 3,
+          "product": {
+            "id": 3,
+            "name": "Parabol Lamp",
+            "slug": "parabol-lamp",
+            "category": "Lamp",
+            "price": "79.99",
+            "description": "Product Information\r\n\r\nColor: Black & gold\r\nMaterial: Metal\r\nPlug: Type C\r\nLamp cap: E27\r\nBulb not included\r\nCompatible with low energy bulb\r\n\r\nProduct Dimension\r\nDimension: W56.4 x D56.4 x H152.5 cm\r\n\r\nDelivery Packaging - 2 packages: W47 x D47 x H28; W120 x D28 x H15 cm, 4.1 kg\r\n148178",
+            "origin": "France",
+            "colors": [
+              "Wood Riff#b48f49"
+            ],
+            "sizes": [
+              "W56.4 x D56.4 x H152.5 cm"
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/ugxT9DQ.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/kGwhMPy.jpg"
+              }
+            ],
+            "ratings": [
+              {
+                "id": 1,
+                "stars": 5,
+                "comment": "San pham siuuuu dinhhhhhhhhh",
+                "created_at": "2023-03-23T10:00:17.628436Z",
+                "updated_at": "2023-03-23T10:38:29.100592Z",
+                "user": {
+                  "id": 4,
+                  "first_name": "Duy",
+                  "last_name": "Hoàng",
+                  "username": "duy.hoang.af299e7b",
+                  "profile": null
+                },
+                "images": []
+              }
+            ]
+          },
+          "order": 2,
+          "quantity": 13,
+          "sub_total": "100.99"
+        },
+        {
+          "id": 4,
+          "product": {
+            "id": 5,
+            "name": "Laora Armchair",
+            "slug": "laora-armchair",
+            "category": "Armchair",
+            "price": "159.99",
+            "description": "Product Information\r\nColor: Natural blue\r\nMaterial: Rattan metal\r\n\r\nProduct Dimension\r\nDimension: W70 x D60 x H80 cm\r\nSeat height: 42cm\r\n\r\nDelivery Packaging\r\n1 package:  Box  - W x D x H, 8.13 kg",
+            "origin": "Italy",
+            "colors": [
+              "Green Blue#0087a0"
+            ],
+            "sizes": [
+              "W70 x D60 x H80 cm, 42cm"
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/xgIEhWR.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/w6ZSQIE.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/tbEXy45.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/9gwMe1V.jpg"
+              }
+            ],
+            "ratings": []
+          },
+          "order": 2,
+          "quantity": 31,
+          "sub_total": "100.99"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "address": "KTX khu A - DHQG-HCM, Linh Trung, Thu Duc, Ho Chi Minh",
+      "order_date": "2023-04-03",
+      "expected_delivery_date": null,
+      "delivery_date": null,
+      "mobile": "+84335570069",
+      "discount": 0,
+      "total_price": "1313.99",
+      "status": "processing",
+      "payment_method": "cash",
+      "order_items": [
+        {
+          "id": 5,
+          "product": {
+            "id": 7,
+            "name": "Tami Armchair",
+            "slug": "tami-armchair",
+            "category": "Armchair",
+            "price": "239.99",
+            "description": "Product Information\r\n\r\nLegs: Solid teck\r\nSeat: Rattan\r\nBackrest: Rattan\r\nWarranty: 1 Year\r\nColor variance: Disclaimer\r\nDelivery condition: Assembled\r\n\r\nProduct Dimension\r\n\r\nDimension: W65 x D80 x H71 cm\r\n\r\nDelivery at home\r\n\r\nThe product will be delivered to you by appointment, even upstairs! Warning ! Please check that the openings (doors, stairs, lifts) will allow the passage of the package upon delivery.",
+            "origin": "Mexico",
+            "colors": [
+              "Steeple Gray#8e9598"
+            ],
+            "sizes": [
+              "W65 x D80 x H71 cm"
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/LpQSDJo.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/tEJf54L.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/v6TI0w6.jpg"
+              }
+            ],
+            "ratings": []
+          },
+          "order": 3,
+          "quantity": 13,
+          "sub_total": "100.99"
+        },
+        {
+          "id": 6,
+          "product": {
+            "id": 8,
+            "name": "Hansen Sofas",
+            "slug": "hansen-sofas",
+            "category": "Sofas",
+            "price": "999.99",
+            "description": "Covered in comfort and coziness, the Hansen sofa is designed to provide a great relaxing experience with deep cushions, wide sofas and multi-layered luxury seat cushions.\r\n\r\nHANSEN is definitely a sofa that anyone can't resist when lying down. Lightly in structure and flexible in design, you can customize your choice of corner with the right or left corner that is best suited for your living space or habit. Spacious seating with large space to host guests, this sofa can easily fit up to four people.\r\n\r\nHansen Sofa Chair designed and manufactured with the purpose of prolonging life. High-end materials used in building a framework that ensure strength and durability will stand the test of time. An additional feature is that the lids are easily detachable and can be completely replaced. You can choose to stay in style, or feel free to choose with our wide range of fabrics and colors. This allows you to create a different look or mood for your home just by replacing your sofa cover.",
+            "origin": "Spain",
+            "colors": [
+              "Gray#b4b9bb"
+            ],
+            "sizes": [
+              "W.209 x D.93 x H.78 x SH.42 cm."
+            ],
+            "is_custom_design": false,
+            "images": [
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/r0GBskt.png"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/OHCyONq.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/mBsBWWp.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/FNGng4P.jpg"
+              },
+              {
+                "url": "http://127.0.0.1:8000/media/product_images/Chbb4MA.jpg"
+              }
+            ],
+            "ratings": []
+          },
+          "order": 3,
+          "quantity": 31,
+          "sub_total": "100.99"
+        }
+      ]
+    }
+  ]
