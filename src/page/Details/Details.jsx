@@ -375,6 +375,7 @@ const Details = () => {
           setAble(false)
         } else {
           setDetails(response)
+          console.log(details.colors)
         }
       } catch (error) {
         console.log('Failed to fetch details: ', error)
@@ -392,6 +393,31 @@ const Details = () => {
   const handleAddCard = (value) => () => {
     dispatch(addCartItem(value))
   }
+
+  const colorBoxes = (details) => {
+    if (!details.colors || !Array.isArray(details.colors)) {
+      return null;
+    }
+  
+    return details.colors.map((color) => {
+      const [name, code] = color.split('#');
+      return (
+        <Box
+          key={name}
+          style={{
+            backgroundColor: `#${code}`,
+            borderRadius: 3,
+            height: 35,
+            width: 35,
+            marginRight: 7,
+            border: '2px solid #212427',
+          }}
+        ></Box>
+      );
+    });
+  };
+
+
   return (
     <Container>
       <Typography
@@ -489,35 +515,7 @@ const Details = () => {
                 Color:{' '}
               </Typography>
             </Grid>
-            <Box
-              style={{
-                backgroundColor: '#1264A9',
-                borderRadius: 3,
-                height: 35,
-                width: 35,
-                marginRight: 7,
-                border: '2px solid #212427',
-              }}
-            ></Box>
-            <Box
-              style={{
-                backgroundColor: '#999999',
-                borderRadius: 3,
-                height: 35,
-                width: 35,
-                marginRight: 7,
-                border: '2px solid #212427',
-              }}
-            ></Box>
-            <Box
-              style={{
-                backgroundColor: '#D8D8D8',
-                borderRadius: 3,
-                height: 35,
-                width: 35,
-                border: '2px solid #212427',
-              }}
-            ></Box>
+            {colorBoxes(details)}
           </Grid>
 
           <Grid container alignItems="center">
