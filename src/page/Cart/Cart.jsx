@@ -20,12 +20,7 @@ import {setSnackbar} from 'store/appSlice'
 import {useDispatch} from 'react-redux'
 import {setCartItems} from 'store/cartSlice'
 
-const STEPS = [
-  'Review cart',
-  'Shipping address',
-  'Shipping option',
-  'Proceed payment',
-]
+const STEPS = ['Review cart', 'Shipping address', 'Proceed payment']
 const Cart = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -106,7 +101,7 @@ const Cart = () => {
           </Grid>
         )}
 
-        {step < 3 && (
+        {step < 3 && cartItems.length > 0 && (
           <Grid item>
             <Button
               color="primary"
