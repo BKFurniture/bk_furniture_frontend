@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography'
 import ChairImg from 'asset/img/chair.png'
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {addCartItem} from 'store/appSlice'
+import {addCartItem} from 'store/cartSlice'
 import {Chip} from '@mui/material'
 export default function RecipeReviewCard({item}) {
   const slug = slugify(item.name, {lower: true})

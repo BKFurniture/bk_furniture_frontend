@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import {useDispatch} from 'react-redux'
-import {setQuantityCartItem} from 'store/appSlice'
+import {setQuantityCartItem} from 'store/cartSlice'
 import {Link} from 'react-router-dom'
 const StyledIconButton = styled(IconButton)(({theme, variant, color}) => {
   const overrides = {}

@@ -15,14 +15,23 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import PhotoCamera from '@mui/icons-material/PhotoCamera'
 import CreateIcon from '@mui/icons-material/Create'
+import OrderApi from 'api/order'
 const OrderDetail = () => {
-  const cartItems = useSelector((state) => state.app.cartItems)
+  const cartItems = useSelector((state) => state.cart.cartItems)
   const [openDialog, setOpenDialog] = useState(false)
+  const [data, setData] = useState({})
+  let {id} = useParams()
+  useEffect(() => {
+    OrderApi.getById(id).then((res) => {
+      console.log(res, 'okene')
+      setData(res)
+    })
+  }, [id])
   const handleCloseDialog = () => {
     setOpenDialog(false)
   }

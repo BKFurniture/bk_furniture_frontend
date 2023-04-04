@@ -12,6 +12,13 @@ import {
 import {Box, Container} from '@mui/system'
 import React, {useState} from 'react'
 import StepContent from './StepContent'
+import Total from './Total/Total'
+import orderApi from 'api/order'
+import {useSelector} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {setSnackbar} from 'store/appSlice'
+import {useDispatch} from 'react-redux'
+import {setCartItems} from 'store/cartSlice'
 
 const STEPS = [
   'Review cart',
@@ -20,7 +27,39 @@ const STEPS = [
   'Proceed payment',
 ]
 const Cart = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [step, setStep] = useState(0)
+  const {cartItems, total, address, paymentMethod} = useSelector(
+    (state) => state.cart,
+  )
+  const handlePlaceOrder = () => {
+    orderApi
+      .checkout({
+        address: address.location,
+        mobile: address.phoneNumber,
+        discount: 0,
+        total_price: total,
+        payment_method: paymentMethod,
+        order_items: cartItems.map((item) => ({
+          product: item.id,
+          quantity: item.quantity,
+          sub_total: Number(item.quantity * item.price),
+        })),
+      })
+      .then((res) => {
+        dispatch(setCartItems([]))
+        dispatch(
+          setSnackbar({
+            open: true,
+            message: 'Place order successfully!',
+            severity: 'success',
+          }),
+        )
+
+        navigate('/orders')
+      })
+  }
   return (
     <Container>
       <Typography
@@ -44,60 +83,7 @@ const Cart = () => {
           <StepContent step={step} />
         </Grid>
         <Grid item xs={12} md={3}>
-          <Paper elevation={0} style={{padding: 10}}>
-            <Typography
-              variant="h5"
-              component="h6"
-              style={{textAlign: 'center'}}
-            >
-              Vouchers
-            </Typography>
-            <Box
-              style={{
-                width: '100%',
-                border: '1px solid #1264A9',
-                backgroundColor: '#E0F9FF',
-                height: '36px',
-                marginTop: 5,
-              }}
-            >
-              <Button>Logo | Content</Button>
-            </Box>
-            <Box
-              style={{
-                width: '100%',
-                border: '1px solid #1264A9',
-                backgroundColor: '#E0F9FF',
-                height: '36px',
-                marginTop: 5,
-              }}
-            >
-              <Button>Logo | Content</Button>
-            </Box>
-            <Divider style={{padding: '10px 0'}} />
-            <div style={{textAlign: 'center', width: '100%'}}>
-              <Link to="">Choose another voucher</Link>
-            </div>
-          </Paper>
-          <Paper elevation={0} style={{padding: 10, marginTop: 20}}>
-            <Grid container justifyContent="space-between">
-              <Grid item>Subtotal</Grid>
-              <Grid item>$250</Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-              <Grid item>Save</Grid>
-              <Grid item>$2</Grid>
-            </Grid>
-            <Divider style={{padding: '10px 0'}} />
-            <Grid container justifyContent="space-between">
-              <Grid item style={{fontWeight: 600}}>
-                Total
-              </Grid>
-              <Grid item style={{color: '#1264A9', fontWeight: 600}}>
-                $248
-              </Grid>
-            </Grid>
-          </Paper>
+          <Total />
         </Grid>
       </Grid>
       <Grid
@@ -130,6 +116,17 @@ const Cart = () => {
               }}
             >
               Next Step
+            </Button>
+          </Grid>
+        )}
+        {step === 3 && (
+          <Grid item>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handlePlaceOrder}
+            >
+              Place order
             </Button>
           </Grid>
         )}

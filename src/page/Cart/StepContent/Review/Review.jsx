@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import CartItem from 'component/CartItem'
 import {useSelector} from 'react-redux'
 const Review = () => {
-  const cartItems = useSelector((state) => state.app.cartItems)
+  const cartItems = useSelector((state) => state.cart.cartItems)
   return (
     <div>
       <Paper elevation={0} style={{padding: 10}}>

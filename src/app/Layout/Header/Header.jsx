@@ -27,7 +27,7 @@ import {getRefreshToken} from 'helpers'
 const MENU_LINK = ['/', '/', '/products', '/', '/', '/design']
 const Header = () => {
   const isUser = !!useSelector((state) => state.user.accessToken)
-  const countCart = useSelector((state) => state.app.cartItems.length)
+  const countCart = useSelector((state) => state.cart.cartItems.length)
   const refreshToken = useSelector((state) => state.user.refreshToken)
   const navigate = useNavigate()
   const dispatch = useDispatch()

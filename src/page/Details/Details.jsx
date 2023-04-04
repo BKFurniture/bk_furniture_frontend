@@ -22,7 +22,7 @@ import IconButton from '@mui/material/IconButton'
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
 import detailsApi from 'api/details'
 import {useDispatch} from 'react-redux'
-import {addCartItem} from 'store/appSlice'
+import {addCartItem} from 'store/cartSlice'
 
 const detail = {
   id: 10,

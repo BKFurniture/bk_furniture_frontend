@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Outlet, useNavigate} from 'react-router-dom'
 import {setUser} from 'store/userSlice'
 import userApi from 'api/user'
-import {setCartItems} from 'store/appSlice'
+import {setCartItems} from 'store/cartSlice'
 const AppProvider = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
