@@ -35,6 +35,7 @@
     "react-map-gl-geocoder": "^2.2.0",
     "react-material-ui-form-validator": "^3.0.1",
     "react-paypal-button-v2": "^2.6.3",
+    "react-paypal-js": "^0.0.1-security",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "latest",

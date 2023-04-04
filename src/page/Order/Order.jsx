@@ -13,6 +13,7 @@ import {
   Tab,
   Box,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import ordersApi from "api/orders";
 
 const Order = () => {
@@ -142,7 +143,9 @@ const Order = () => {
                 }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  {order.id}
+                  <Link to={`/order/${order.id}`} style={{ color: "black" }}>
+                    {order.id}
+                  </Link>
                 </TableCell>
                 <TableCell align="center">{order.order_date}</TableCell>
                 <TableCell align="left">
