@@ -8912,6 +8912,11 @@ react-paypal-button-v2@^2.6.3:
     prop-types "^15.7.2"
     rimraf "^3.0.0"
 
+react-paypal-js@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/react-paypal-js/-/react-paypal-js-0.0.1-security.tgz#a8a741ec276955c6dcf4ffc2e58854da016ba00c"
+  integrity sha512-mryql7EN5LyHtM0WmOE7bwlybGJBVpzXIg+fDPc8TwXs/jPkxm+MFoK35oNYPiBLZ8CHsdO0pNqyKet8McHXxg==
+
 react-redux@^7.2.4:
   version "7.2.9"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-7.2.9.tgz"
