@@ -14,30 +14,30 @@ import {
   TextareaAutosize,
   TextField,
   Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import CreateIcon from "@mui/icons-material/Create";
-import OrderApi from "api/order";
+} from '@mui/material'
+import React, {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
+import {Link, useParams} from 'react-router-dom'
+import PhotoCamera from '@mui/icons-material/PhotoCamera'
+import CreateIcon from '@mui/icons-material/Create'
+import OrderApi from 'api/order'
 const OrderDetail = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [data, setData] = useState({});
-  let { id } = useParams();
+  const cartItems = useSelector((state) => state.cart.cartItems)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [data, setData] = useState({})
+  let {id} = useParams()
   useEffect(() => {
     OrderApi.getById(id).then((res) => {
-      console.log(res, "okene");
-      setData(res);
-      console.log(res.order_items);
-    });
-  }, [id]);
+      console.log(res, 'okene')
+      setData(res)
+      console.log(res.order_items)
+    })
+  }, [id])
   const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+    setOpenDialog(false)
+  }
   const renderItems = (orderItems) => {
-    const item = orderItems.product;
+    const item = orderItems.product
 
     return (
       <Grid container alignItems="center">
@@ -46,31 +46,31 @@ const OrderDetail = () => {
             <Grid item xs={4}>
               <CardMedia
                 component="img"
-                sx={{ width: 120, height: 100, padding: "0 15px" }}
+                sx={{width: 120, height: 100, padding: '0 15px'}}
                 image={item?.images[0]?.url || LOGO}
               />
             </Grid>
             <Grid item xs={8}>
-              <div style={{ fontWeight: 600 }}>
+              <div style={{fontWeight: 600}}>
                 <Link
                   to={`/details/${item.slug}`}
-                  style={{ textDecoration: "none", color: "#1264A9" }}
+                  style={{textDecoration: 'none', color: '#1264A9'}}
                 >
                   <Typography
                     sx={{
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      display: "-webkit-box",
-                      WebkitLineClamp: "1",
-                      WebkitBoxOrient: "vertical",
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: '1',
+                      WebkitBoxOrient: 'vertical',
                     }}
                   >
                     {item.name}
                   </Typography>
                 </Link>
               </div>
-              <div style={{ margin: "5px 0" }}>
-                {" "}
+              <div style={{margin: '5px 0'}}>
+                {' '}
                 Variation: {item.colors[0]}, {item.sizes[0]}
               </div>
               <div>
@@ -79,7 +79,7 @@ const OrderDetail = () => {
                   startIcon={<CreateIcon />}
                   size="small"
                   onClick={() => {
-                    setOpenDialog(true);
+                    setOpenDialog(true)
                   }}
                 >
                   Write review
@@ -88,79 +88,79 @@ const OrderDetail = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid sx={{ textAlign: "center" }} xs={2} item>
+        <Grid sx={{textAlign: 'center'}} xs={2} item>
           $ {item.price}
         </Grid>
-        <Grid xs={2} sx={{ textAlign: "center" }}>
+        <Grid xs={2} sx={{textAlign: 'center'}}>
           {orderItems.quantity}
         </Grid>
-        <Grid xs={2} sx={{ textAlign: "center" }}>
+        <Grid xs={2} sx={{textAlign: 'center'}}>
           <Typography
             style={{
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitLineClamp: "1",
-              WebkitBoxOrient: "vertical",
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical',
             }}
           >
             ${`${orderItems.sub_total}`}
           </Typography>
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
   return (
     <Container>
       <Typography
         variant="h5"
         component="h2"
-        style={{ color: "#1264A9", fontWeight: 700, marginBottom: 20 }}
+        style={{color: '#1264A9', fontWeight: 700, marginBottom: 20}}
       >
         Order Detail
       </Typography>
-      <Grid container style={{ marginBottom: 20 }} spacing={2}>
+      <Grid container style={{marginBottom: 20}} spacing={2}>
         <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{ padding: 10, height: "100%" }}>
-            <div>Name: Nguyễn Văn A</div>
-            <div style={{ marginTop: 5 }}>Address: {data.address}</div>
-            <div style={{ marginTop: 5 }}> Phone number: {data.mobile}</div>
+          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
+            <div>Name: {data.recipient_name}</div>
+            <div style={{marginTop: 5}}>Address: {data.address}</div>
+            <div style={{marginTop: 5}}> Phone number: {data.mobile}</div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{ padding: 10, height: "100%" }}>
+          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
             <div>Order date: 31/12/2020</div>
-            <div style={{ marginTop: 5 }}>
+            <div style={{marginTop: 5}}>
               Payment method: {data.payment_method}
             </div>
-            <div style={{ marginTop: 5 }}> Status: {data.status}</div>
+            <div style={{marginTop: 5}}> Status: {data.status}</div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{ padding: 10, height: "100%" }}>
+          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
             <div>Shipping option: Standard</div>
-            <div style={{ marginTop: 5 }}>
+            <div style={{marginTop: 5}}>
               Expected delivery date: {data.expected_delivery_date}
             </div>
-            <div style={{ marginTop: 5 }}>
-              {" "}
+            <div style={{marginTop: 5}}>
+              {' '}
               Delivery date: {data.delivery_date}
             </div>
           </Paper>
         </Grid>
       </Grid>
-      <Paper elevation={0} style={{ padding: 10 }}>
+      <Paper elevation={0} style={{padding: 10}}>
         <Grid container>
-          <Grid xs={6} item style={{ fontWeight: 600 }}>
+          <Grid xs={6} item style={{fontWeight: 600}}>
             Products
           </Grid>
-          <Grid xs={2} item style={{ fontWeight: 600, textAlign: "center" }}>
+          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
             Price
           </Grid>
-          <Grid xs={2} item style={{ fontWeight: 600, textAlign: "center" }}>
+          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
             Quantity
           </Grid>
-          <Grid xs={2} item style={{ fontWeight: 600, textAlign: "center" }}>
+          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
             Total
           </Grid>
         </Grid>
@@ -168,13 +168,13 @@ const OrderDetail = () => {
         {data &&
           data.order_items &&
           data.order_items.map((item) => (
-            <div style={{ marginTop: 10 }}>{renderItems(item)}</div>
+            <div style={{marginTop: 10}}>{renderItems(item)}</div>
           ))}
-        <Divider style={{ margin: "10px 0" }} />
+        <Divider style={{margin: '10px 0'}} />
         <Grid container justifyContent="end">
           <Grid xs={12} sm={6}>
-            <Grid container justifyContent={"space-between"} spacing={1}>
-              <Grid item style={{ color: "#1264A9", fontWeight: 500 }}>
+            <Grid container justifyContent={'space-between'} spacing={1}>
+              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
                 Sub Total
               </Grid>
               <Grid item>${data.total_price}</Grid>
@@ -191,19 +191,19 @@ const OrderDetail = () => {
               </Grid>
               <Grid item>$ 299.40</Grid>
             </Grid> */}
-            <Grid container justifyContent={"space-between"} spacing={1}>
-              <Grid item style={{ color: "#1264A9", fontWeight: 500 }}>
+            <Grid container justifyContent={'space-between'} spacing={1}>
+              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
                 Shipping discount
               </Grid>
               <Grid item>$ {data.discount}</Grid>
             </Grid>
-            <Grid container justifyContent={"space-between"} spacing={1}>
-              <Grid item style={{ color: "#1264A9", fontWeight: 500 }}>
+            <Grid container justifyContent={'space-between'} spacing={1}>
+              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
                 Total
               </Grid>
               <Grid
                 item
-                style={{ color: "#D02828", fontWeight: 500, fontSize: 24 }}
+                style={{color: '#D02828', fontWeight: 500, fontSize: 24}}
               >
                 $ {data.total_price}
               </Grid>
@@ -219,38 +219,38 @@ const OrderDetail = () => {
               <Grid item xs={4}>
                 <CardMedia
                   component="img"
-                  sx={{ width: 120, height: 100, padding: "0 15px" }}
-                  image={"LOGO"}
+                  sx={{width: 120, height: 100, padding: '0 15px'}}
+                  image={'LOGO'}
                 />
               </Grid>
               <Grid item xs={8}>
-                <div style={{ fontWeight: 600 }}>
+                <div style={{fontWeight: 600}}>
                   <Link
                     to={`/details/ `}
-                    style={{ textDecoration: "none", color: "#1264A9" }}
+                    style={{textDecoration: 'none', color: '#1264A9'}}
                   >
                     <Typography>[T2022-000001] IKEA - Vintage table</Typography>
                   </Link>
                 </div>
-                <div style={{ margin: "5px 0" }}> Variation: Red, 80cm</div>
+                <div style={{margin: '5px 0'}}> Variation: Red, 80cm</div>
               </Grid>
             </Grid>
           </DialogContentText>
-          <Grid container justifyContent={"center"}>
+          <Grid container justifyContent={'center'}>
             <Rating
               name="simple-controlled"
               value={3}
               onChange={(event, newValue) => {
                 // setValue(newValue);
               }}
-              style={{ margin: "20px 0" }}
+              style={{margin: '20px 0'}}
             />
           </Grid>
-          <TextareaAutosize style={{ width: "100%", height: 100 }} />
+          <TextareaAutosize style={{width: '100%', height: 100}} />
           <Button
             variant="outlined"
             startIcon={<PhotoCamera />}
-            style={{ margin: "10px 0" }}
+            style={{margin: '10px 0'}}
           >
             Add image
             <input hidden accept="image/*" multiple type="file" />
@@ -263,7 +263,7 @@ const OrderDetail = () => {
         </DialogActions>
       </Dialog>
     </Container>
-  );
-};
+  )
+}
 
-export default OrderDetail;
+export default OrderDetail

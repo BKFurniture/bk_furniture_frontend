@@ -31,6 +31,7 @@ const Cart = () => {
   const handlePlaceOrder = () => {
     orderApi
       .checkout({
+        recipient_name: address.fullName,
         address: address.location,
         mobile: address.phoneNumber,
         discount: 0,
@@ -101,7 +102,7 @@ const Cart = () => {
           </Grid>
         )}
 
-        {step < 3 && cartItems.length > 0 && (
+        {step < 2 && cartItems.length > 0 && (
           <Grid item>
             <Button
               color="primary"
@@ -114,7 +115,7 @@ const Cart = () => {
             </Button>
           </Grid>
         )}
-        {step === 3 && (
+        {step === 2 && (
           <Grid item>
             <Button
               color="primary"
