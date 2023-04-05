@@ -47,6 +47,7 @@ const ProductList = () => {
   const [filter, setFilter] = useState({
     offset: 0,
     limit: 12,
+    ordering: 'price',
   })
   const [anchorEl, setAnchorEl] = React.useState(null)
   useEffect(() => {
@@ -190,7 +191,7 @@ const ProductList = () => {
                     marks={marks}
                     style={{
                       width: 300,
-                      margin: '20px',
+                      margin: '20px 30px',
                       padding: '40px 10px 10px 10px',
                     }}
                   />
