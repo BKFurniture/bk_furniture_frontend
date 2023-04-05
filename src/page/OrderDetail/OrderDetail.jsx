@@ -282,13 +282,14 @@ const OrderDetail = () => {
                 order_item_id: itemRating.id,
               }).then((res) => {
                 let newData = {...data}
-                newData?.order_items?.map((item) => {
+                newData.order_items = newData?.order_items?.map((item) => {
                   if (item.id == itemRating.id) {
-                    return {...item, rating: res}
+                    const newItem = {...item, rating: res}
+                    return newItem
                   } else return item
                 })
 
-                setData(newData)
+                setData({...newData})
               })
             }}
           >
