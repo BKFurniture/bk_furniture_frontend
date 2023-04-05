@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormGroup,
@@ -7,28 +8,52 @@ import {
   InputLabel,
   MenuItem,
   Pagination,
+  Popover,
   Select,
+  Slider,
   Stack,
   Tab,
   Tabs,
+  TextField,
   Typography,
 } from '@mui/material'
 import CardProduct from 'component/CardProduct'
 import React, {useEffect, useState} from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import productApi from 'api/product'
+const marks = [
+  {
+    value: 0,
+    label: '$0',
+  },
 
-const TAB_VALUE = ['', '', 'price', '-price']
+  {
+    value: 1000,
+    label: '1000$',
+  },
+  {
+    value: 10000,
+    label: '10 000$',
+  },
+]
+const TAB_VALUE = ['price', '-price']
 const ProductList = () => {
   const matches = useMediaQuery('(max-width:450px)')
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
+  const [categories, setCategories] = useState([])
   const [tab, setTab] = useState(0)
+  const [priceRange, setPriceRange] = React.useState([0, 10000])
   const [filter, setFilter] = useState({
     offset: 0,
     limit: 12,
   })
-
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  useEffect(() => {
+    productApi.getCategories({}).then((res) => {
+      setCategories(res)
+    })
+  }, [])
   useEffect(() => {
     productApi.getList(filter).then((res) => {
       if (res.results) setData(res.results)
@@ -36,12 +61,36 @@ const ProductList = () => {
     })
   }, [filter])
 
+  const handleChangePriceRange = (event, newValue, activeThumb) => {
+    const minDistance = 10
+    if (!Array.isArray(newValue)) {
+      return
+    }
+
+    if (activeThumb === 0) {
+      setPriceRange([
+        Math.min(newValue[0], priceRange[1] - minDistance),
+        priceRange[1],
+      ])
+    } else {
+      setPriceRange([
+        priceRange[0],
+        Math.max(newValue[1], priceRange[0] + minDistance),
+      ])
+    }
+  }
+  const handleClickPrice = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
   const handleChangePage = (event, value) => {
     setFilter({...filter, offset: (Number(value) - 1) * filter.limit})
   }
   const handleChangeTab = (event, value) => {
     setTab(value)
     setFilter({...filter, ordering: TAB_VALUE[value]})
+  }
+  const handleChangeCategory = (event) => {
+    setFilter({...filter, category_slug: event.target.value})
   }
   return (
     <Container>
@@ -67,12 +116,13 @@ const ProductList = () => {
                 sx={{width: 100}}
                 labelId="category"
                 id="category"
-                value={18}
+                value={filter?.category_slug || null}
+                onChange={handleChangeCategory}
                 label="Category"
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {categories.map((item) => (
+                  <MenuItem value={item.slug}>{item.title}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -94,18 +144,58 @@ const ProductList = () => {
           </Grid>
           <Grid item>
             <FormControl size="small">
-              <InputLabel id="price">Price</InputLabel>
-              <Select
-                sx={{width: 100}}
-                labelId="price"
-                id="price"
-                value={18}
-                label="Price"
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
+              <div>
+                <TextField
+                  aria-describedby={'price-range'}
+                  label="Price"
+                  variant="outlined"
+                  size="small"
+                  onClick={handleClickPrice}
+                  value={`${priceRange[0]}$-${priceRange[1]}$`}
+                />
+                {/* <Button
+                  aria-describedby={'price-range'}
+                  variant="outlined"
+                  onClick={() => {}}
+                >
+                  <div>Choose Price</div>
+                </Button> */}
+                <Popover
+                  id={'price-range'}
+                  open={!!anchorEl}
+                  anchorEl={anchorEl}
+                  onClose={() => {
+                    setAnchorEl(null)
+                    setFilter({
+                      ...filter,
+                      price: `${priceRange[0]}-${priceRange[1]}`,
+                    })
+                  }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                >
+                  <Slider
+                    getAriaLabel={() => 'Temperature range'}
+                    value={priceRange}
+                    onChange={handleChangePriceRange}
+                    valueLabelDisplay="auto"
+                    getAriaValueText={(value) => {
+                      return `${value}°C`
+                    }}
+                    min={0}
+                    step={1}
+                    max={10000}
+                    marks={marks}
+                    style={{
+                      width: 300,
+                      margin: '20px',
+                      padding: '40px 10px 10px 10px',
+                    }}
+                  />
+                </Popover>
+              </div>
             </FormControl>
           </Grid>
           <Grid item>
@@ -134,8 +224,8 @@ const ProductList = () => {
           variant="scrollable"
           scrollButtons="auto"
         >
-          <Tab label="Popular" style={{textTransform: 'none'}} />
-          <Tab label="Latest" style={{textTransform: 'none'}} />
+          {/* <Tab label="Popular" style={{textTransform: 'none'}} />
+          <Tab label="Latest" style={{textTransform: 'none'}} /> */}
           <Tab label="Price low to high" style={{textTransform: 'none'}} />
           <Tab label="Price high to low" style={{textTransform: 'none'}} />
         </Tabs>

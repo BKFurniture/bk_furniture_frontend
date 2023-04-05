@@ -21,9 +21,12 @@ import {Link, useParams} from 'react-router-dom'
 import PhotoCamera from '@mui/icons-material/PhotoCamera'
 import CreateIcon from '@mui/icons-material/Create'
 import OrderApi from 'api/order'
+import RatingApi from 'api/rating'
 const OrderDetail = () => {
   const cartItems = useSelector((state) => state.cart.cartItems)
   const [openDialog, setOpenDialog] = useState(false)
+  const [itemRating, setItemRating] = useState(null)
+
   const [data, setData] = useState({})
   let {id} = useParams()
   useEffect(() => {
@@ -38,6 +41,7 @@ const OrderDetail = () => {
   }
   const renderItems = (orderItems) => {
     const item = orderItems.product
+    const {id, rating} = orderItems
 
     return (
       <Grid container alignItems="center">
@@ -78,8 +82,10 @@ const OrderDetail = () => {
                   variant="outlined"
                   startIcon={<CreateIcon />}
                   size="small"
+                  disabled={!!rating}
                   onClick={() => {
                     setOpenDialog(true)
+                    setItemRating({...item, id, rating})
                   }}
                 >
                   Write review
@@ -220,7 +226,7 @@ const OrderDetail = () => {
                 <CardMedia
                   component="img"
                   sx={{width: 120, height: 100, padding: '0 15px'}}
-                  image={'LOGO'}
+                  image={itemRating?.images[0]?.url}
                 />
               </Grid>
               <Grid item xs={8}>
@@ -229,24 +235,32 @@ const OrderDetail = () => {
                     to={`/details/ `}
                     style={{textDecoration: 'none', color: '#1264A9'}}
                   >
-                    <Typography>[T2022-000001] IKEA - Vintage table</Typography>
+                    <Typography>[T2022-000001] {itemRating?.name}</Typography>
                   </Link>
                 </div>
-                <div style={{margin: '5px 0'}}> Variation: Red, 80cm</div>
+                <div style={{margin: '5px 0'}}>
+                  {' '}
+                  Variation: {itemRating?.colors[0]}, {itemRating?.sizes[0]}
+                </div>
               </Grid>
             </Grid>
           </DialogContentText>
           <Grid container justifyContent={'center'}>
             <Rating
               name="simple-controlled"
-              value={3}
+              value={itemRating?.rating || 5}
               onChange={(event, newValue) => {
-                // setValue(newValue);
+                setItemRating({...itemRating, rating: newValue})
               }}
               style={{margin: '20px 0'}}
             />
           </Grid>
-          <TextareaAutosize style={{width: '100%', height: 100}} />
+          <TextareaAutosize
+            style={{width: '100%', height: 100}}
+            onChange={(event) => {
+              setItemRating({...itemRating, comment: event.target.value})
+            }}
+          />
           <Button
             variant="outlined"
             startIcon={<PhotoCamera />}
@@ -259,7 +273,27 @@ const OrderDetail = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleCloseDialog}>Submit</Button>
+          <Button
+            onClick={() => {
+              handleCloseDialog()
+              RatingApi.create({
+                stars: itemRating.rating || 5,
+                comment: itemRating.comment,
+                order_item_id: itemRating.id,
+              }).then((res) => {
+                let newData = {...data}
+                newData?.order_items?.map((item) => {
+                  if (item.id == itemRating.id) {
+                    return {...item, rating: res}
+                  } else return item
+                })
+
+                setData(newData)
+              })
+            }}
+          >
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </Container>
