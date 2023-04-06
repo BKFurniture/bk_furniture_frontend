@@ -333,9 +333,7 @@ const product = {
   origin: "Germany",
 };
 
-function QuantityButton() {
-  const [quantity, setQuantity] = useState(1);
-
+function QuantityButton({ quantity, setQuantity }) {
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -365,6 +363,7 @@ function QuantityButton() {
 const Details = () => {
   const { name } = useParams();
   const [details, setDetails] = useState({});
+  const [quantity, setQuantity] = useState(1);
   const [able, setAble] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -547,7 +546,7 @@ const Details = () => {
               </Typography>
             </Grid>
             <Grid xs={5} alignItems="center">
-              <QuantityButton />
+              <QuantityButton quantity={quantity} setQuantity={setQuantity} />
             </Grid>
           </Grid>
           <Box mb={0.5} />
@@ -597,8 +596,9 @@ const Details = () => {
             height={100}
             sx={{ borderRadius: "10px", height: "60px" }}
             endIcon={<ShoppingBagIcon />}
-            onClick={handleAddCard({ ...details, quantity: 1 })}
+            onClick={handleAddCard({ ...details, quantity:  quantity})}
           >
+            
             <Typography
               fontSize={18}
               variant="button"
