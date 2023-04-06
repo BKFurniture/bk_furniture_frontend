@@ -121,7 +121,7 @@ const ProductList = () => {
                 onChange={handleChangeCategory}
                 label="Category"
               >
-                {categories.map((item) => (
+                {categories.map && categories.map((item) => (
                   <MenuItem value={item.slug}>{item.title}</MenuItem>
                 ))}
               </Select>
