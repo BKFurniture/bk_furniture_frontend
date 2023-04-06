@@ -48,7 +48,7 @@ export default function RecipeReviewCard({item}) {
         title={
           <Link
             component={RouterLink}
-            to={`/details/${slug}`}
+            to={`/products/${slug}`}
             style={{
               overflow: 'hidden',
               textOverflow: 'ellipsis',
