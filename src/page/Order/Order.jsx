@@ -44,11 +44,11 @@ const Order = () => {
   const filteredOrders =
     filter === "All"
       ? orders
-      : orders.filter((order) => {
-          if (filter === "To Pay") {
-            return order.status === "to pay";
+      : orders.filter && orders.filter((order) => {
+          if (filter === "Processing") {
+            return order.status === "processing";
           } else if (filter === "On Delivery") {
-            return order.status === "processing" || order.status === "shipping";
+            return order.status === "on_delivery";
           } else if (filter === "Delivered") {
             return order.status === "delivered";
           } else if (filter === "Canceled") {
@@ -87,7 +87,7 @@ const Order = () => {
           }}
         >
           <Tab label="All" value="All" sx={{ color: "#000000" }} />
-          <Tab label="To Pay" value="To Pay" sx={{ color: "#000000" }} />
+          <Tab label="Processing" value="Processing" sx={{ color: "#000000" }} />
           <Tab
             label="On Delivery"
             value="On Delivery"
@@ -135,7 +135,7 @@ const Order = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOrders.map((order, index) => (
+            {filteredOrders.map && filteredOrders.map((order, index) => (
               <TableRow
                 key={order.id}
                 style={{
