@@ -23,96 +23,35 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import IconButton from "@mui/material/IconButton";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import detailsApi from "api/details";
+import RatingApi from "api/rating";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "store/cartSlice";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const detail = {
-  id: 10,
   rating: 4.5,
-  colors: ["White Cream", "Blue Black"],
 };
 
-const customer = { name: "Lam Thanh Duong", avatar: Avt };
-
-const productRatings = [
-  {
-    ctm: customer.name,
-    id: 1,
-    variation: "Ebony, size 2 meters",
-    rating: 1,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Terrible product",
-  },
-  {
-    ctm: customer.name,
-    id: 2,
-    variation: "Ebony, size 2 meters",
-    rating: 2,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Not great, not terrible",
-  },
-  {
-    ctm: customer.name,
-    id: 3,
-    variation: "Ebony, size 2 meters",
-    rating: 3,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Average product",
-  },
-  {
-    ctm: customer.name,
-    id: 4,
-    variation: "Ebony, size 2 meters",
-    rating: 4,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Great product",
-  },
-  {
-    ctm: customer.name,
-    id: 5,
-    variation: "Ebony, size 2 meters",
-    rating: 5,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Excellent product",
-  },
-];
-
-const RatingBox = () => {
+const RatingBox = ({rate, ratings}) => {
   const [selectedRating, setSelectedRating] = useState(null);
 
   const handleRatingFilter = (rating) => {
     setSelectedRating(rating);
   };
 
-  const ratingGroups = productRatings.reduce((acc, cur) => {
+  const ratingGroups = ratings.reduce((acc, cur) => {
     const { rating } = cur;
     acc[rating] = (acc[rating] || 0) + 1;
     return acc;
   }, {});
 
   const filteredRatings = selectedRating
-    ? productRatings.filter((rating) => rating.rating === selectedRating)
-    : productRatings;
+    ? ratings.filter((rating) => rating.stars === selectedRating)
+    : ratings;
 
   // const averageRating =
-  //   productRatings.reduce((total, rating) => total + rating.rating, 0) /
-  //   productRatings.length;
+  //   ratings.reduce((total, rating) => total + rating.rating, 0) /
+  //   ratings.length;
 
   return (
     <Grid>
@@ -226,32 +165,34 @@ const RatingBox = () => {
       <Grid>
         <Box sx={{ mt: 2 }}>
           {filteredRatings.map((rating) => (
-            <Box key={rating.id} sx={{ my: 12 }}>
+            
+            <Box sx={{ my: 8 }}>
               <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-                <Avatar
-                  src={customer.avatar}
-                  alt={customer.name}
-                  sx={{ mr: 2, width: 64, height: 64 }}
-                />
+              <Avatar
+  src={rating.user?.profile?.avatar}
+  alt={rating.user?.first_name + " " + rating.user?.last_name}
+  sx={{ mr: 2, width: 64, height: 64 }}
+/>
+                {console.log(rating)}
                 <Box>
                   <Typography
                     variant="subtitle2"
                     sx={{ mb: 0.5, fontSize: "18px", fontWeight: "bold" }}
                   >
-                    {rating.ctm}
+                    {rating.user.first_name + " " + rating.user.last_name}
                   </Typography>
                   <Typography
                     variant="caption"
                     sx={{ mb: 1, fontSize: "14px" }}
-                  >{`${rating.date.getFullYear()}-${(rating.date.getMonth() + 1)
+                  >{`${new Date(rating.created_at).getFullYear()}-${(new Date(rating.created_at).getMonth() + 1)
                     .toString()
-                    .padStart(2, "0")}-${rating.date
+                    .padStart(2, "0")}-${new Date(rating.created_at)
                     .getDate()
                     .toString()
-                    .padStart(2, "0")} ${rating.date
+                    .padStart(2, "0")} ${new Date(rating.created_at)
                     .getHours()
                     .toString()
-                    .padStart(2, "0")}:${rating.date
+                    .padStart(2, "0")}:${new Date(rating.created_at)
                     .getMinutes()
                     .toString()
                     .padStart(2, "0")}`}</Typography>
@@ -265,14 +206,15 @@ const RatingBox = () => {
                     }}
                   >
                     <span style={{ fontWeight: "bold" }}>Variation:</span>{" "}
-                    {rating.variation}
+                    Something
                   </Typography>
                   <Typography variant="body2" sx={{ mb: 2, fontSize: "18px" }}>
                     {rating.comment}
                   </Typography>
                   <Box sx={{ display: "flex" }}>
-                    <img
-                      src={rating.imgSrc}
+                    {rating.images.map((image) => (
+                      <img
+                      src={image}
                       alt="Product review image"
                       style={{
                         width: "120px",
@@ -281,30 +223,12 @@ const RatingBox = () => {
                         marginRight: "8px",
                       }}
                     />
-                    <img
-                      src={rating.imgSrc1}
-                      alt="Product review image"
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        objectFit: "contain",
-                        marginRight: "8px",
-                      }}
-                    />
-                    <img
-                      src={rating.imgSrc2}
-                      alt="Product review image"
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        objectFit: "contain",
-                      }}
-                    />
+                    ))}
                   </Box>
-                  <ThumbUpAltOutlinedIcon
+                  {/* <ThumbUpAltOutlinedIcon
                     color="primary"
                     sx={{ cursor: "pointer" }}
-                  />
+                  /> */}
                 </Box>
               </Box>
             </Box>
@@ -363,6 +287,7 @@ function QuantityButton({ quantity, setQuantity }) {
 const Details = () => {
   const { name } = useParams();
   const [details, setDetails] = useState({});
+  const [ratings, setRatings] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [able, setAble] = useState(true);
   const navigate = useNavigate();
@@ -372,12 +297,14 @@ const Details = () => {
     const fetchDetails = async () => {
       try {
         const response = await detailsApi.get(name);
+        // console.log(response)
+        // console.log(response.slug)
 
         if (response.code === 404) {
           setAble(false);
         } else {
           setDetails(response);
-          console.log(details.colors);
+          // console.log(details.slug)
         }
       } catch (error) {
         console.log("Failed to fetch details: ", error);
@@ -386,11 +313,33 @@ const Details = () => {
     fetchDetails();
   }, [name]);
 
+  // useEffect(() => {
+  //   if (!able) {
+  //     navigate("/");
+  //   }
+  // }, [able, navigate]);
+
+ 
+
+  
   useEffect(() => {
-    if (!able) {
-      navigate("/");
+    if (details && details.slug) {
+      const slg = details.slug;
+      const fetchRatings = async () => {
+        try {
+          const response = await RatingApi.getBySlug(slg);
+          if (response.code === 404) {
+            setAble(false);
+          } else {
+            setRatings(response);
+          }
+        } catch (error) {
+          console.log("Failed to fetch ratings: ", error);
+        }
+      };
+      fetchRatings();
     }
-  }, [able, navigate]);
+  }, [details.slug]);
 
   const handleAddCard = (value) => () => {
     dispatch(addCartItem(value));
@@ -436,14 +385,6 @@ const Details = () => {
   return (
     <Container>
       <MyBreadcrumbs/>
-      <Typography
-        variant="h5"
-        component="h2"
-        style={{ color: "#1264A9", fontWeight: 700 }}
-        margin="40px"
-      >
-        Product detail
-      </Typography>
       <Box
         margin="40px"
         padding={5}
@@ -628,7 +569,7 @@ const Details = () => {
             <Box mb={1.4} />
           </Grid>
           <Grid item xs={12}>
-            <RatingBox rating={detail.rating} />
+            <RatingBox rate={detail.rating} ratings={ratings} />
           </Grid>
         </Grid>
       </Box>
