@@ -29,70 +29,8 @@ import { addCartItem } from "store/cartSlice";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const detail = {
-  id: 10,
   rating: 4.5,
-  colors: ["White Cream", "Blue Black"],
 };
-
-const customer = { name: "Lam Thanh Duong", avatar: Avt };
-
-const productRatings = [
-  {
-    ctm: customer.name,
-    id: 1,
-    variation: "Ebony, size 2 meters",
-    rating: 1,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Terrible product",
-  },
-  {
-    ctm: customer.name,
-    id: 2,
-    variation: "Ebony, size 2 meters",
-    rating: 2,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Not great, not terrible",
-  },
-  {
-    ctm: customer.name,
-    id: 3,
-    variation: "Ebony, size 2 meters",
-    rating: 3,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Average product",
-  },
-  {
-    ctm: customer.name,
-    id: 4,
-    variation: "Ebony, size 2 meters",
-    rating: 4,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Great product",
-  },
-  {
-    ctm: customer.name,
-    id: 5,
-    variation: "Ebony, size 2 meters",
-    rating: 5,
-    date: new Date("2022-02-04T23:59:00Z"),
-    imgSrc: ImageReview,
-    imgSrc1: ImageReview,
-    imgSrc2: ImageReview,
-    comment: "Excellent product",
-  },
-];
 
 const RatingBox = ({rate, ratings}) => {
   const [selectedRating, setSelectedRating] = useState(null);
@@ -230,11 +168,11 @@ const RatingBox = ({rate, ratings}) => {
             
             <Box sx={{ my: 8 }}>
               <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-                <Avatar
-                  src={rating.user.profile.avatar}
-                  alt={rating.user.first_name + " " + rating.user.last_name}
-                  sx={{ mr: 2, width: 64, height: 64 }}
-                />
+              <Avatar
+  src={rating.user?.profile?.avatar}
+  alt={rating.user?.first_name + " " + rating.user?.last_name}
+  sx={{ mr: 2, width: 64, height: 64 }}
+/>
                 {console.log(rating)}
                 <Box>
                   <Typography
@@ -447,14 +385,6 @@ const Details = () => {
   return (
     <Container>
       <MyBreadcrumbs/>
-      <Typography
-        variant="h5"
-        component="h2"
-        style={{ color: "#1264A9", fontWeight: 700 }}
-        margin="40px"
-      >
-        Product detail
-      </Typography>
       <Box
         margin="40px"
         padding={5}
