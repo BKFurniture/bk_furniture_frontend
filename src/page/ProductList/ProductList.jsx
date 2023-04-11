@@ -121,9 +121,10 @@ const ProductList = () => {
                 onChange={handleChangeCategory}
                 label="Category"
               >
-                {categories.map && categories.map((item) => (
-                  <MenuItem value={item.slug}>{item.title}</MenuItem>
-                ))}
+                {categories.map &&
+                  categories.map((item) => (
+                    <MenuItem value={item.slug}>{item.title}</MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Grid>
@@ -241,7 +242,7 @@ const ProductList = () => {
 
       <Grid container justifyContent="end">
         <Pagination
-          count={total / filter.limit}
+          count={Math.ceil(total / filter.limit)}
           page={filter.offset / filter.limit + 1}
           onChange={handleChangePage}
           variant="text"
