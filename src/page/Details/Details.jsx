@@ -15,24 +15,17 @@ import { useNavigate } from "react-router-dom";
 import RecipeReviewCard from "component/CardDetails";
 import { styled } from "@mui/material/styles";
 import ChairImg from "asset/img/chair.png";
-import ImageReview from "asset/img/imgcmt.jpg";
-import Avt from "asset/img/avtcus.jpg";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import IconButton from "@mui/material/IconButton";
-import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import detailsApi from "api/details";
 import RatingApi from "api/rating";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "store/cartSlice";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-const detail = {
-  rating: 4.5,
-};
-
-const RatingBox = ({rate, ratings}) => {
+const RatingBox = ({ rate, ratings }) => {
   const [selectedRating, setSelectedRating] = useState(null);
 
   const handleRatingFilter = (rating) => {
@@ -40,18 +33,15 @@ const RatingBox = ({rate, ratings}) => {
   };
 
   const ratingGroups = ratings.reduce((acc, cur) => {
-    const { rating } = cur;
-    acc[rating] = (acc[rating] || 0) + 1;
+    const { stars } = cur;
+    acc[stars] = (acc[stars] || 0) + 1;
+    console.log(acc);
     return acc;
   }, {});
 
   const filteredRatings = selectedRating
     ? ratings.filter((rating) => rating.stars === selectedRating)
     : ratings;
-
-  // const averageRating =
-  //   ratings.reduce((total, rating) => total + rating.rating, 0) /
-  //   ratings.length;
 
   return (
     <Grid>
@@ -75,7 +65,7 @@ const RatingBox = ({rate, ratings}) => {
                   variant="h6"
                   sx={{ color: "#F5B000", fontSize: "36px" }}
                 >
-                  {detail.rating}
+                  {rate}
                 </Typography>
               </Grid>
               <Grid item>
@@ -102,7 +92,7 @@ const RatingBox = ({rate, ratings}) => {
               </Grid>
             </Grid>
             <Grid item container justifyContent="center" alignItems="center">
-              <Rating value={detail.rating} precision={0.5} readOnly />
+              <Rating value={rate} precision={0.5} readOnly />
             </Grid>
           </Grid>
           <Grid
@@ -127,17 +117,16 @@ const RatingBox = ({rate, ratings}) => {
               >
                 All
               </Button>
-              {[1, 2, 3].map((rating) => (
-                <Button
-                  key={rating}
-                  variant={selectedRating === rating ? "contained" : "outlined"}
-                  onClick={() => handleRatingFilter(rating)}
-                  sx={{ px: 1.5, mx: 1 }}
-                >
-                  {rating === 1 ? "1 star" : `${rating} stars`} (
-                  {ratingGroups[rating] || 0})
-                </Button>
-              ))}
+              {[1, 2, 3].map((starValue) => (
+  <Button
+    key={starValue}
+    variant={selectedRating === starValue ? "contained" : "outlined"}
+    onClick={() => handleRatingFilter(starValue)}
+    sx={{ px: 1.5, mx: 1 }}
+  >
+    {starValue === 1 ? "1 star" : `${starValue} stars`} ({ratingGroups[starValue] || 0})
+  </Button>
+))}
             </Grid>
             <Grid
               container
@@ -165,15 +154,13 @@ const RatingBox = ({rate, ratings}) => {
       <Grid>
         <Box sx={{ mt: 2 }}>
           {filteredRatings.map((rating) => (
-            
             <Box sx={{ my: 8 }}>
               <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-              <Avatar
-  src={rating.user?.profile?.avatar}
-  alt={rating.user?.first_name + " " + rating.user?.last_name}
-  sx={{ mr: 2, width: 64, height: 64 }}
-/>
-                {console.log(rating)}
+                <Avatar
+                  src={rating.user?.profile?.avatar}
+                  alt={rating.user?.first_name + " " + rating.user?.last_name}
+                  sx={{ mr: 2, width: 64, height: 64 }}
+                />
                 <Box>
                   <Typography
                     variant="subtitle2"
@@ -181,10 +168,14 @@ const RatingBox = ({rate, ratings}) => {
                   >
                     {rating.user.first_name + " " + rating.user.last_name}
                   </Typography>
+                  <Rating name="my-rating" value={rating.stars} readOnly />
+                  <Box />
                   <Typography
                     variant="caption"
                     sx={{ mb: 1, fontSize: "14px" }}
-                  >{`${new Date(rating.created_at).getFullYear()}-${(new Date(rating.created_at).getMonth() + 1)
+                  >{`${new Date(rating.created_at).getFullYear()}-${(
+                    new Date(rating.created_at).getMonth() + 1
+                  )
                     .toString()
                     .padStart(2, "0")}-${new Date(rating.created_at)
                     .getDate()
@@ -214,15 +205,15 @@ const RatingBox = ({rate, ratings}) => {
                   <Box sx={{ display: "flex" }}>
                     {rating.images.map((image) => (
                       <img
-                      src={image}
-                      alt="Product review image"
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        objectFit: "contain",
-                        marginRight: "8px",
-                      }}
-                    />
+                        src={image}
+                        alt="Product review image"
+                        style={{
+                          width: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          marginRight: "8px",
+                        }}
+                      />
                     ))}
                   </Box>
                   {/* <ThumbUpAltOutlinedIcon
@@ -319,9 +310,6 @@ const Details = () => {
   //   }
   // }, [able, navigate]);
 
- 
-
-  
   useEffect(() => {
     if (details && details.slug) {
       const slg = details.slug;
@@ -370,7 +358,12 @@ const Details = () => {
 
   function MyBreadcrumbs() {
     return (
-      <Breadcrumbs marginLeft="40px" color='#1264A9' separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
+      <Breadcrumbs
+        marginLeft="40px"
+        color="#1264A9"
+        separator={<NavigateNextIcon fontSize="small" />}
+        aria-label="breadcrumb"
+      >
         <Link color="inherit" href="/">
           Home
         </Link>
@@ -384,7 +377,7 @@ const Details = () => {
 
   return (
     <Container>
-      <MyBreadcrumbs/>
+      <MyBreadcrumbs />
       <Box
         margin="40px"
         padding={5}
@@ -430,8 +423,9 @@ const Details = () => {
           <Box mb={0.5} />
           <StyledRating
             name="my-rating"
-            value={product.rating}
+            value={details.avg_rating ? details.avg_rating : 0}
             max={5}
+            precision={0.5}
             readOnly
           />
           <Box mb={1.5} />
@@ -537,9 +531,8 @@ const Details = () => {
             height={100}
             sx={{ borderRadius: "10px", height: "60px" }}
             endIcon={<ShoppingBagIcon />}
-            onClick={handleAddCard({ ...details, quantity:  quantity})}
+            onClick={handleAddCard({ ...details, quantity: quantity })}
           >
-            
             <Typography
               fontSize={18}
               variant="button"
@@ -569,7 +562,10 @@ const Details = () => {
             <Box mb={1.4} />
           </Grid>
           <Grid item xs={12}>
-            <RatingBox rate={detail.rating} ratings={ratings} />
+            <RatingBox
+              rate={details.avg_rating ? details.avg_rating : 0}
+              ratings={ratings}
+            />
           </Grid>
         </Grid>
       </Box>
