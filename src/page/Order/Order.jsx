@@ -135,7 +135,7 @@ const Order = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredOrders.map && filteredOrders.map((order, index) => (
+            {filteredOrders?.map && filteredOrders.map((order, index) => (
               <TableRow
                 key={order.id}
                 style={{
