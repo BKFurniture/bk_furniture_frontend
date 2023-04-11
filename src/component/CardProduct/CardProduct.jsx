@@ -70,6 +70,7 @@ export default function RecipeReviewCard({item}) {
         height="300"
         image={item.images[0]?.url || ChairImg}
         alt={item.name}
+        style={{objectFit: 'contain'}}
       />
 
       <CardActions
