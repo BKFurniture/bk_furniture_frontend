@@ -41,6 +41,10 @@ export const router = createBrowserRouter([
                 path: 'design',
                 element: <Design />,
               },
+              {
+                path: 'cart',
+                element: <Cart />,
+              },
             ],
           },
           {
@@ -57,10 +61,7 @@ export const router = createBrowserRouter([
             element: <Details />,
             exact: true,
           },
-          {
-            path: 'cart',
-            element: <Cart />,
-          },
+           
         ],
       },
       {
