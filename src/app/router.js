@@ -23,6 +23,27 @@ export const router = createBrowserRouter([
         element: <Layout />,
         children: [
           {
+            element: <CheckedUser accessPage={true} />,
+            children: [
+              {
+                path: 'account',
+                element: <Account />,
+              },
+              {
+                path: 'orders',
+                element: <Order />,
+              },
+              {
+                path: 'order/:id',
+                element: <OrderDetail />,
+              },
+              {
+                path: 'design',
+                element: <Design />,
+              },
+            ],
+          },
+          {
             path: '/',
             element: <Home />,
           },
@@ -30,10 +51,7 @@ export const router = createBrowserRouter([
             path: 'products',
             element: <ProductList />,
           },
-          {
-            path: 'account',
-            element: <Account />,
-          },
+
           {
             path: 'products/:name',
             element: <Details />,
@@ -42,18 +60,6 @@ export const router = createBrowserRouter([
           {
             path: 'cart',
             element: <Cart />,
-          },
-          {
-            path: 'orders',
-            element: <Order />,
-          },
-          {
-            path: 'order/:id',
-            element: <OrderDetail />,
-          },
-          {
-            path: 'design',
-            element: <Design />,
           },
         ],
       },
