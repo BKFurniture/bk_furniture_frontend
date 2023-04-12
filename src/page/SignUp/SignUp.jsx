@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid'
 import {createTheme} from '@mui/material/styles'
 
 import Typography from '@mui/material/Typography'
+import {mailerSignUp} from 'api/mailer'
 import userApi from 'api/user'
 import FaceImg from 'asset/img/Facebook.svg'
 import GoogleImg from 'asset/img/Google.svg'
@@ -89,6 +90,7 @@ export default function SignUp() {
             severity: 'success',
           }),
         )
+        mailerSignUp({username: rest.username, email: rest.email})
         navigate('/sign-in')
       }
     })
