@@ -19,6 +19,7 @@ import {useNavigate} from 'react-router-dom'
 import {setSnackbar} from 'store/appSlice'
 import {useDispatch} from 'react-redux'
 import {setCartItems} from 'store/cartSlice'
+import {mailerCheckout} from 'api/mailer'
 
 const STEPS = ['Review cart', 'Shipping address', 'Proceed payment']
 const Cart = () => {
@@ -28,6 +29,7 @@ const Cart = () => {
   const {cartItems, total, address, paymentMethod} = useSelector(
     (state) => state.cart,
   )
+  const {email, username} = useSelector((state) => state.user)
   const handlePlaceOrder = () => {
     orderApi
       .checkout({
@@ -52,7 +54,30 @@ const Cart = () => {
             severity: 'success',
           }),
         )
-
+        mailerCheckout(username, email, {
+          address: res.address,
+          phone: res.mobile,
+          payMethod: res.payment_method,
+          shippingOption: 'GHTK',
+          deliveryDate: res.delivery_date,
+          subTotal: res.total_price,
+          productDiscount: res.discount,
+          shippingFee: 3.5,
+          shippingDiscount: 1.3,
+          total: res.total_price,
+          payProducts: [
+            {
+              name: 'Chair used to sit',
+              brand: 'Calvin Klein',
+              variation: '80cm',
+              imgUrl:
+                'https://image.architonic.com/img_pro2-4/100/2837/oswald_lang_06_b_sat.jpg',
+              unitPrice: 5.2,
+              quantity: 2,
+              subTotal: 12.3,
+            },
+          ],
+        })
         navigate('/orders')
       })
   }

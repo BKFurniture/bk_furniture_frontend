@@ -11,3 +11,6 @@ const axiosMailer = axios.create({
 export function mailerSignUp({username, email}) {
   return axiosMailer.get(`/mailer/${email}/${username}/sign-up`)
 }
+export function mailerCheckout(username, email, data) {
+  return axiosMailer.post(`/mailer/${email}/${username}/checkout`, data)
+}
