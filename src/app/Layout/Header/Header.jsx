@@ -87,7 +87,7 @@ const Header = () => {
                     display: {xs: 'none', sm: 'block'},
                   }}
                 >
-                  <SearchBar />
+                  {/* <SearchBar /> */}
                 </Box>
                 <div>
                   {!isUser ? (
