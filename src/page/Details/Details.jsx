@@ -65,7 +65,9 @@ const RatingBox = ({ rate, ratings }) => {
                   variant="h6"
                   sx={{ color: "#F5B000", fontSize: "36px" }}
                 >
-                  {rate}
+                  {typeof rate === "number"
+                    ? parseFloat(rate.toFixed(1))
+                    : rate}
                 </Typography>
               </Grid>
               <Grid item>
@@ -118,15 +120,18 @@ const RatingBox = ({ rate, ratings }) => {
                 All
               </Button>
               {[1, 2, 3].map((starValue) => (
-  <Button
-    key={starValue}
-    variant={selectedRating === starValue ? "contained" : "outlined"}
-    onClick={() => handleRatingFilter(starValue)}
-    sx={{ px: 1.5, mx: 1 }}
-  >
-    {starValue === 1 ? "1 star" : `${starValue} stars`} ({ratingGroups[starValue] || 0})
-  </Button>
-))}
+                <Button
+                  key={starValue}
+                  variant={
+                    selectedRating === starValue ? "contained" : "outlined"
+                  }
+                  onClick={() => handleRatingFilter(starValue)}
+                  sx={{ px: 1.5, mx: 1 }}
+                >
+                  {starValue === 1 ? "1 star" : `${starValue} stars`} (
+                  {ratingGroups[starValue] || 0})
+                </Button>
+              ))}
             </Grid>
             <Grid
               container
@@ -235,18 +240,6 @@ const StyledRating = styled(Rating)({
     color: "#1264A9",
   },
 });
-
-const product = {
-  id: 1,
-  category: "Sofa",
-  name: "Glossy Cube",
-  description:
-    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  rating: 3,
-  price: 49.9,
-  src: ChairImg,
-  origin: "Germany",
-};
 
 function QuantityButton({ quantity, setQuantity }) {
   const handleIncrement = () => {
