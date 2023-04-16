@@ -57,7 +57,7 @@ const OrderDetail = () => {
             <Grid item xs={8}>
               <div style={{fontWeight: 600}}>
                 <Link
-                  to={`/details/${item.slug}`}
+                  to={`/products/${item.slug}`}
                   style={{textDecoration: 'none', color: '#1264A9'}}
                 >
                   <Typography
