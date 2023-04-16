@@ -37,7 +37,16 @@ const Address = () => {
           return {...el, isActive: !item.isActive}
         }),
       ])
-    } else setItems([...items, {...item, id: items.length}])
+    } else {
+      if (item.isActive) {
+        setItems([
+          ...items.map((el) => {
+            return {...el, isActive: false}
+          }),
+          {...item, id: items.length},
+        ])
+      } else setItems([...items, {...item, id: items.length}])
+    }
   }
   const handleSelectAddress = (id) => (e) => {
     setItems([

@@ -115,7 +115,13 @@ function NewAddressModal(props) {
         <FormControlLabel
           label="Set as default address"
           control={
-            <Checkbox color="success" onChange={() => setIsDefault(true)} />
+            <Checkbox
+              color="success"
+              value={isDefault}
+              onChange={() => {
+                setIsDefault(!isDefault)
+              }}
+            />
           }
         />
         <div style={{display: 'flex', justifyContent: 'end'}}>
