@@ -14,6 +14,9 @@ export class Product {
   async getCategories(filters) {
     return axiosClient.get(`${this.endpoint}/category-list/`, {params: filters})
   }
+  async uploadCustomDesign(data) {
+    return axiosClient.post(`${this.endpoint}/custom-design/`, data)
+  }
 }
 
 export default new Product()

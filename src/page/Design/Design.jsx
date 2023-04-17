@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { TextField, Typography, Button, Stack } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import SendIcon from "@mui/icons-material/Send";
+import {useSelector} from 'react-redux'
+import productApi from 'api/product'
+import {mailerCustomDesign} from 'api/mailer'
 
 const Design = () => {
   const [images, setImages] = useState([]);
@@ -11,25 +14,36 @@ const Design = () => {
     setImages([...images, ...newImages]);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // prevent default form submission behavior
+  const {email, username} = useSelector((state) => state.user)
+  const [description, setDescription] = useState("");
+  const [uploadedImages, setUploadedImages] = useState([]);
 
-    // prepare the request data
-    const formData = new FormData();
-    images.forEach((image) => formData.append("images", image));
-    formData.append("description", description);
-
-    // make the API request
-    try {
-      await axios.post(
-        `/mailer/${gmail}/${userFullName}/design/${numDay}`,
-        formData
-      );
-      // display a success message or redirect to a success page
-    } catch (error) {
-      // handle the error
-    }
-  };
+  const handleSendRequest = () => {
+    productApi
+      .uploadCustomDesign({
+        description: "asdasd",
+        upload_images: [
+          "C:/Users/Thanh Dat/Pictures/710501.png",
+        ],
+      })
+      // .then((res) => {
+      //   dispatch(setCartItems([]))
+      //   dispatch(
+      //     setSnackbar({
+      //       open: true,
+      //       message: 'Place order successfully!',
+      //       severity: 'success',
+      //     }),
+      //   )
+        mailerCustomDesign(username, email, {
+          imgUrls: [
+            "https://bk-furniture-frontend.vercel.app/static/media/poster-home.e9c2c25e21e638b64ee4.png",
+          ],
+          descriptions: 'asdad'
+        })
+        navigate('/')
+      // })
+  }
 
   return (
     <Stack spacing="20px">
@@ -100,6 +114,8 @@ const Design = () => {
               borderColor: "#1264A9",
               borderRadius: "5px",
             }}
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </div>
       </div>
@@ -129,6 +145,7 @@ const Design = () => {
               fontSize={18}
               variant="button"
               style={{ textTransform: "none" }}
+              
             >
               Upload design
             </Typography>
@@ -146,7 +163,7 @@ const Design = () => {
             width: "180px",
           }}
           endIcon={<SendIcon />}
-          onClick={handleSubmit}
+          onClick={handleSendRequest}
         >
           <Typography
             fontSize={18}
