@@ -10,3 +10,6 @@ export function mailerSignUp({username, email}) {
 export function mailerCheckout(username, email, data) {
   return axiosMailer.post(`/mailer/${email}/${username}/checkout`, data)
 }
+export function mailerCustomDesign(username, email, data) {
+  return axiosMailer.post(`/mailer/${email}/${username}/design`, data)
+}

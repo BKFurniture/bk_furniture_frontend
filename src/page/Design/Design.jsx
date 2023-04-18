@@ -2,34 +2,101 @@ import React, { useState } from "react";
 import { TextField, Typography, Button, Stack } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import SendIcon from "@mui/icons-material/Send";
+import { useSelector } from "react-redux";
+import productApi from "api/product";
+import { mailerCustomDesign } from "api/mailer";
 
 const Design = () => {
   const [images, setImages] = useState([]);
+  const [filteredImages, setFilteredImages] = useState([]);
+  const { email, username } = useSelector((state) => state.user);
+  const [description, setDescription] = useState("");
+  // const [uploadedImages, setUploadedImages] = useState([]);
 
   const handleImageChange = (e) => {
     const newImages = Array.from(e.target.files);
-    setImages([...images, ...newImages]);
+    const filteredImages = newImages.filter((image) => image);
+    setImages([...images, ...filteredImages]);
+    setFilteredImages(filteredImages);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // prevent default form submission behavior
+  // const handleImageChange = (event) => {
+  //   const files = event.target.files;
+  //   const selectedImages = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     selectedImages.push(files[i]);
+  //   }
+  //   // call your function to upload the images here, passing in the selectedImages array
+  // };
 
-    // prepare the request data
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleSendRequest = () => {
+    // console.log("description: ", description);
     const formData = new FormData();
-    images.forEach((image) => formData.append("images", image));
     formData.append("description", description);
 
-    // make the API request
-    try {
-      await axios.post(
-        `/mailer/${gmail}/${userFullName}/design/${numDay}`,
-        formData
-      );
-      // display a success message or redirect to a success page
-    } catch (error) {
-      // handle the error
+    // console.log(filteredImages);
+
+    for (let i = 0; i < filteredImages.length; i++) {
+      formData.append(`uploaded_images[${i}]`, filteredImages[i]);
     }
+
+    // for (const pair of formData.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
+
+    // const uploadedImages = formData.getAll("uploaded_images");
+    // console.log(uploadedImages);
+
+    productApi
+      .uploadCustomDesign(formData)
+      .then((response) => {
+        console.log(response);
+        console.log(response.custom_design_images);
+        console.log(response.description);
+        const urls =
+          response.custom_design_images?.map((image) => image.url) ?? [];
+        mailerCustomDesign(username, email, {
+          imgUrls: urls,
+          description: response.description,
+        });
+        // navigate('/design')
+        // })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  // const handleSendRequest = () => {
+  //   productApi
+  //     .uploadCustomDesign({
+  //       description: "asdasd",
+  //       upload_images: [
+  //         "",// pass all image here
+  //       ],
+  //     })
+  //     // .then((res) => {
+  //     //   dispatch(setCartItems([]))
+  //     //   dispatch(
+  //     //     setSnackbar({
+  //     //       open: true,
+  //     //       message: 'Place order successfully!',
+  //     //       severity: 'success',
+  //     //     }),
+  //     //   )
+  //       mailerCustomDesign(username, email, {
+  //         imgUrls: [
+  //           "https://bk-furniture-frontend.vercel.app/static/media/poster-home.e9c2c25e21e638b64ee4.png",
+  //         ],
+  //         descriptions: 'asdad'
+  //       })
+  //       navigate('/')
+  //     // })
+  // }
 
   return (
     <Stack spacing="20px">
@@ -100,6 +167,8 @@ const Design = () => {
               borderColor: "#1264A9",
               borderRadius: "5px",
             }}
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </div>
       </div>
@@ -146,7 +215,7 @@ const Design = () => {
             width: "180px",
           }}
           endIcon={<SendIcon />}
-          onClick={handleSubmit}
+          onClick={handleSendRequest}
         >
           <Typography
             fontSize={18}

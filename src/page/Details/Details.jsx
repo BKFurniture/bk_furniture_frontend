@@ -97,61 +97,44 @@ const RatingBox = ({ rate, ratings }) => {
               <Rating value={rate} precision={0.5} readOnly />
             </Grid>
           </Grid>
-          <Grid
+          <Grid     
             item
             xs={6}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
+            
           >
             <Grid
               container
-              item
+              spacing={2}
               justifyContent="center"
               alignItems="center"
               paddingBottom={0.5}
             >
-              <Button
+            <Grid item>  <Button
                 variant={selectedRating === null ? "contained" : "outlined"}
                 onClick={() => handleRatingFilter(null)}
-                sx={{ px: 2, mx: 2 }}
+           
               >
-                All
-              </Button>
-              {[1, 2, 3].map((starValue) => (
-                <Button
-                  key={starValue}
-                  variant={
-                    selectedRating === starValue ? "contained" : "outlined"
-                  }
-                  onClick={() => handleRatingFilter(starValue)}
-                  sx={{ px: 1.5, mx: 1 }}
-                >
-                  {starValue === 1 ? "1 star" : `${starValue} stars`} (
-                  {ratingGroups[starValue] || 0})
-                </Button>
-              ))}
-            </Grid>
-            <Grid
-              container
-              item
-              justifyContent="center"
-              alignItems="center"
-              paddingTop={1.5}
+                All 
+              </Button></Grid>
+              {[1, 2, 3,4,5].map((starValue) => (
+              <Grid item>  <Button
+              key={starValue}
+              variant={
+                selectedRating === starValue ? "contained" : "outlined"
+              }
+              onClick={() => handleRatingFilter(starValue)}
+             
             >
-              {[4, 5].map((rating) => (
-                <Button
-                  key={rating}
-                  variant={selectedRating === rating ? "contained" : "outlined"}
-                  onClick={() => handleRatingFilter(rating)}
-                  sx={{ px: 2, mx: 2 }}
-                >
-                  {rating === 1 ? "1 star" : `${rating} stars`} (
-                  {ratingGroups[rating] || 0})
-                </Button>
+              {starValue === 1 ? "1 star" : `${starValue} stars`} (
+              {ratingGroups[starValue] || 0})
+            </Button></Grid>
               ))}
             </Grid>
+        
           </Grid>
         </Grid>
       </Box>

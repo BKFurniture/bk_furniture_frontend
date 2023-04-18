@@ -1,0 +1,108 @@
+{
+    "user": {
+        "id": 26,
+        "first_name": "Du",
+        "last_name": "Đạt",
+        "username": "dat",
+        "email": "dat.dtnhcse@gmail.com",
+        "profile": null
+    },
+    "description": "",
+    "custom_design_images": [
+        {
+            "url": "http://127.0.0.1:8000/media/custom_design_images/710501_LU4TESs.png"
+        },
+        {
+            "url": "http://127.0.0.1:8000/media/custom_design_images/h1lib.jpg"
+        },
+        {
+            "url": "http://127.0.0.1:8000/media/custom_design_images/h3.jpg"
+        }
+    ]
+}
+
+{
+    "message": "Request failed with status code 400",
+    "name": "AxiosError",
+    "stack": "AxiosError: Request failed with status code 400\n    at settle (http://localhost:3000/static/js/bundle.js:196215:12)\n    at XMLHttpRequest.onloadend (http://localhost:3000/static/js/bundle.js:194910:66)",
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "adapter": [
+            "xhr",
+            "http"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "http://localhost:8081",
+        "method": "post",
+        "url": "/mailer/dat.dtnhcse@gmail.com/dat/design",
+        "data": "{\"imgUrls\":{},\"descriptions\":\"asdasd\"}"
+    },
+    "code": "ERR_BAD_REQUEST",
+    "status": 400
+}
+
+{
+    "custom_design_images": [
+        "http://127.0.0.1:8000/media/custom_design_images/hawk_k2H8Trw.jpg",
+        "http://127.0.0.1:8000/media/custom_design_images/tan_A3OA1Pm.jpg",
+        "http://127.0.0.1:8000/media/custom_design_images/tanjiro_jRXtd56.jpg"
+    ]
+}
+
+{
+    "message": "Request failed with status code 400",
+    "name": "AxiosError",
+    "stack": "AxiosError: Request failed with status code 400\n    at settle (http://localhost:3000/static/js/bundle.js:196215:12)\n    at XMLHttpRequest.onloadend (http://localhost:3000/static/js/bundle.js:194910:66)",
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "adapter": [
+            "xhr",
+            "http"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "http://localhost:8081",
+        "method": "post",
+        "url": "/mailer/dat.dtnhcse@gmail.com/dat/design",
+        "data": "{\"imgUrls\":{\"urls\":[\"http://127.0.0.1:8000/media/custom_design_images/hawk_mLLdV7l.jpg\",\"http://127.0.0.1:8000/media/custom_design_images/tan_wbCdDQu.jpg\",\"http://127.0.0.1:8000/media/custom_design_images/tanjiro_flXcBHZ.jpg\"]},\"descriptions\":\"Ok nhes\"}"
+    },
+    "code": "ERR_BAD_REQUEST",
+    "status": 400
+}
