@@ -1,8 +1,15 @@
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic'
 import {Avatar, Grid, IconButton, Typography} from '@mui/material'
-import {Widget} from 'react-chat-widget'
+import {Widget, addResponseMessage} from 'react-chat-widget'
 import 'react-chat-widget/lib/styles.css'
+import chatBoxApi from 'api/chat-box'
 const ChatBox = () => {
+  const handleNewUserMessage = (newMessage) => {
+    console.log(`New message incoming! ${newMessage}`)
+    chatBoxApi.sendMessage(newMessage).then((res) => {
+      addResponseMessage(res.response)
+    })
+  }
   const getCustomLauncher = (handleToggle) => (
     <Grid container justifyContent={'end'}>
       <IconButton
@@ -28,6 +35,7 @@ const ChatBox = () => {
           <Typography variant="h6">Customer care</Typography>
         </Grid>
       }
+      handleNewUserMessage={handleNewUserMessage}
       subtitle=" "
       launcher={(handleToggle) => getCustomLauncher(handleToggle)}
     />
