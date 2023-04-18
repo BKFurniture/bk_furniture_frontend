@@ -51,6 +51,9 @@ export const CartSlice = createSlice({
     setPaymentMethod(state, action) {
       state.paymentMethod = action.payload
     },
+    setDiscountCode(state, action) {
+      state.discount = action.payload
+    },
   },
 })
 export const {
@@ -60,6 +63,7 @@ export const {
   setTotalPrice,
   setAddress,
   setPaymentMethod,
+  setDiscountCode,
 } = CartSlice.actions
 
 export default CartSlice.reducer

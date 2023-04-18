@@ -11,6 +11,9 @@ export class Order {
   async checkout(data) {
     return axiosClient.post(`${this.endpoint}/checkout/`, data)
   }
+  async checkCode(code) {
+    return axiosClient.get(`promotions/coupon-check/${code}/`)
+  }
 }
 
 export default new Order()

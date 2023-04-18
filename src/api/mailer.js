@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const DOMAIN_MAILER = 'http://localhost:8081'
+const DOMAIN_MAILER = process.env.REACT_APP_DOMAIN_MAILER
 const axiosMailer = axios.create({
   baseURL: DOMAIN_MAILER,
 })

@@ -26,18 +26,25 @@ const Cart = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [step, setStep] = useState(0)
-  const {cartItems, total, address, paymentMethod} = useSelector(
+  const {cartItems, total, address, paymentMethod, discount} = useSelector(
     (state) => state.cart,
   )
   const {email, username} = useSelector((state) => state.user)
   const handlePlaceOrder = () => {
+    const orderField = {total_price: total}
+    if (discount?.code) {
+      ;(orderField.discount = discount.code),
+        (orderField.total_price = (
+          (total * (100 - discount.percent)) /
+          100
+        ).toFixed(2))
+    }
     orderApi
       .checkout({
+        ...orderField,
         recipient_name: address.fullName,
         address: address.location,
         mobile: address.phoneNumber,
-        discount: 0,
-        total_price: total,
         payment_method: paymentMethod,
         order_items: cartItems.map((item) => ({
           product: item.id,
