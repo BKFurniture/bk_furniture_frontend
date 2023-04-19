@@ -8,13 +8,14 @@ import {
   Avatar,
   Breadcrumbs,
   Link,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RecipeReviewCard from "component/CardDetails";
 import { styled } from "@mui/material/styles";
-import ChairImg from "asset/img/chair.png";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -35,7 +36,6 @@ const RatingBox = ({ rate, ratings }) => {
   const ratingGroups = ratings.reduce((acc, cur) => {
     const { stars } = cur;
     acc[stars] = (acc[stars] || 0) + 1;
-    console.log(acc);
     return acc;
   }, {});
 
@@ -97,14 +97,13 @@ const RatingBox = ({ rate, ratings }) => {
               <Rating value={rate} precision={0.5} readOnly />
             </Grid>
           </Grid>
-          <Grid     
+          <Grid
             item
             xs={6}
             container
             direction="column"
             alignItems="center"
             justifyContent="center"
-            
           >
             <Grid
               container
@@ -113,28 +112,31 @@ const RatingBox = ({ rate, ratings }) => {
               alignItems="center"
               paddingBottom={0.5}
             >
-            <Grid item>  <Button
-                variant={selectedRating === null ? "contained" : "outlined"}
-                onClick={() => handleRatingFilter(null)}
-           
-              >
-                All 
-              </Button></Grid>
-              {[1, 2, 3,4,5].map((starValue) => (
-              <Grid item>  <Button
-              key={starValue}
-              variant={
-                selectedRating === starValue ? "contained" : "outlined"
-              }
-              onClick={() => handleRatingFilter(starValue)}
-             
-            >
-              {starValue === 1 ? "1 star" : `${starValue} stars`} (
-              {ratingGroups[starValue] || 0})
-            </Button></Grid>
+              <Grid item>
+                {" "}
+                <Button
+                  variant={selectedRating === null ? "contained" : "outlined"}
+                  onClick={() => handleRatingFilter(null)}
+                >
+                  All
+                </Button>
+              </Grid>
+              {[1, 2, 3, 4, 5].map((starValue) => (
+                <Grid item>
+                  {" "}
+                  <Button
+                    key={starValue}
+                    variant={
+                      selectedRating === starValue ? "contained" : "outlined"
+                    }
+                    onClick={() => handleRatingFilter(starValue)}
+                  >
+                    {starValue === 1 ? "1 star" : `${starValue} stars`} (
+                    {ratingGroups[starValue] || 0})
+                  </Button>
+                </Grid>
               ))}
             </Grid>
-        
           </Grid>
         </Grid>
       </Box>
@@ -251,6 +253,48 @@ function QuantityButton({ quantity, setQuantity }) {
   );
 }
 
+function SizeSelector({ sizes }) {
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+
+  return (
+    <Grid
+      justifyContent="center"
+
+    >
+      <ToggleButtonGroup 
+        value={selectedSize} 
+        exclusive 
+        onChange={handleChange} 
+        style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
+      >
+        {!sizes ||
+          sizes.map((size) => (
+            <Grid item key={size}>
+              <ToggleButton 
+                value={size} 
+                style={{ 
+                  whiteSpace: 'nowrap', 
+                  borderWidth: '2px', 
+                  borderColor: '#000000', 
+                  color: '#000000', 
+                  fontSize: '12px', 
+                  height: '28x',
+                  padding: '0 10px'
+                }}
+              >
+                {size}
+              </ToggleButton>
+            </Grid>
+          ))}
+      </ToggleButtonGroup>
+    </Grid>
+  );
+}
+
 const Details = () => {
   const { name } = useParams();
   const [details, setDetails] = useState({});
@@ -264,7 +308,7 @@ const Details = () => {
     const fetchDetails = async () => {
       try {
         const response = await detailsApi.get(name);
-        // console.log(response)
+        console.log(response)
         // console.log(response.slug)
 
         if (response.code === 404) {
@@ -458,6 +502,22 @@ const Details = () => {
             </Grid>
             <Grid xs={5} alignItems="center">
               <QuantityButton quantity={quantity} setQuantity={setQuantity} />
+            </Grid>
+          </Grid>
+          <Box mb={0.5} />
+          <Grid container alignItems="center">
+            <Grid xs={5}>
+              <Typography
+                fontSize={24}
+                variant="h6"
+                component="h2"
+                style={{ color: "#1264A9" }}
+              >
+                Size:
+              </Typography>
+            </Grid>
+            <Grid xs={5} alignItems="center">
+              <SizeSelector sizes={details.sizes} />
             </Grid>
           </Grid>
           <Box mb={0.5} />
