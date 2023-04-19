@@ -61,7 +61,7 @@ const Total = () => {
             label="code"
             variant="outlined"
             size="small"
-            fullWidth="true"
+            fullWidth
             onChange={handleChangeCode}
             value={code}
           />
