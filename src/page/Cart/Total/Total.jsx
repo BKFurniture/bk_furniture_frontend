@@ -83,7 +83,7 @@ const Total = () => {
           <Grid item>Subtotal</Grid>
           <Grid item>${total}</Grid>
         </Grid>
-        {discount.percent && (
+        {discount?.percent && (
           <Grid container justifyContent="space-between">
             <Grid item>Discount</Grid>
             <Grid item>{discount.percent}%</Grid>
