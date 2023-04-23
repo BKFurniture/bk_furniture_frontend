@@ -71,18 +71,9 @@ function NewAddressModal(props) {
   }
   const handleChangeFieldItem = (field) => (e) => {
     const newItem = {...item}
-    if (field === 'phoneNumber' && !regexPhoneNumber(e.target.value)) {
-      dispatch(
-        setSnackbar({
-          open: true,
-          message: 'Phone number invalid!',
-          severity: 'error',
-        }),
-      )
-    } else {
-      newItem[field] = e.target.value
-      setItem(newItem)
-    }
+
+    newItem[field] = e.target.value
+    setItem(newItem)
   }
   return (
     <Modal
@@ -152,7 +143,14 @@ function NewAddressModal(props) {
           </Button>
           <Button
             color="primary"
-            disabled={!(item.phoneNumber && item.fullName && item.location)}
+            disabled={
+              !(
+                item.phoneNumber &&
+                item.fullName &&
+                item.location &&
+                !regexPhoneNumber(item.phoneNumber)
+              )
+            }
             variant="contained"
             onClick={handleAddNewAddress}
           >
