@@ -135,7 +135,7 @@ const OrderDetail = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper elevation={0} style={{padding: 10, height: '100%'}}>
-            <div>Order date: 31/12/2020</div>
+            <div>Order date: {data.order_date}</div>
             <div style={{marginTop: 5}}>
               Payment method: {data.payment_method}
             </div>

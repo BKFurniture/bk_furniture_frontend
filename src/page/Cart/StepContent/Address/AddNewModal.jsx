@@ -9,6 +9,8 @@ import {
 } from '@mui/material'
 import {useEffect, useState} from 'react'
 import Mapbox from './Mapbox'
+import {useDispatch} from 'react-redux'
+import {setSnackbar} from 'store/appSlice'
 
 const style = {
   position: 'absolute',
@@ -27,6 +29,7 @@ const style = {
 function NewAddressModal(props) {
   const [item, setItem] = useState({})
   const [isDefault, setIsDefault] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setItem({...props.item})
@@ -61,10 +64,25 @@ function NewAddressModal(props) {
 
     props.handleClose()
   }
+  const regexPhoneNumber = (phone) => {
+    const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g
+
+    return phone.match(regexPhoneNumber) ? true : false
+  }
   const handleChangeFieldItem = (field) => (e) => {
     const newItem = {...item}
-    newItem[field] = e.target.value
-    setItem(newItem)
+    if (field === 'phoneNumber' && !regexPhoneNumber(e.target.value)) {
+      dispatch(
+        setSnackbar({
+          open: true,
+          message: 'Phone number invalid!',
+          severity: 'error',
+        }),
+      )
+    } else {
+      newItem[field] = e.target.value
+      setItem(newItem)
+    }
   }
   return (
     <Modal
