@@ -68,7 +68,9 @@ const Cart = () => {
           shippingOption: 'GHTK',
           deliveryDate: res.delivery_date,
           subTotal: res.total_price,
-          productDiscount: res.discount,
+          productDiscount: discount?.percent
+            ? ((total * discount.percent) / 100).toFixed(2)
+            : 0,
           shippingFee: 3.5,
           shippingDiscount: 1.3,
           total: res.total_price,
