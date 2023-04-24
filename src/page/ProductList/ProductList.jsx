@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   FormGroup,
@@ -10,6 +11,7 @@ import {
   Pagination,
   Popover,
   Select,
+  Skeleton,
   Slider,
   Stack,
   Tab,
@@ -43,6 +45,7 @@ const ProductList = () => {
   const [total, setTotal] = useState(0)
   const [categories, setCategories] = useState([])
   const [tab, setTab] = useState(0)
+  const [loading, setLoading] = useState(false)
   const [priceRange, setPriceRange] = React.useState([0, 10000])
   const [filter, setFilter] = useState({
     offset: 0,
@@ -56,7 +59,10 @@ const ProductList = () => {
     })
   }, [])
   useEffect(() => {
+    setLoading(true)
+
     productApi.getList(filter).then((res) => {
+      setLoading(false)
       if (res.results) setData(res.results)
       if (res.count) setTotal(res.count)
     })
@@ -232,12 +238,19 @@ const ProductList = () => {
           <Tab label="Price high to low" style={{textTransform: 'none'}} />
         </Tabs>
       </Box>
+
       <Grid container style={{padding: '20px 0'}} spacing={2}>
-        {data.map((item) => (
-          <Grid lg={3} md={4} sm={6} xs={12} item>
-            <CardProduct item={item} />
+        {loading ? (
+          <Grid container justifyContent="center">
+            <CircularProgress />
           </Grid>
-        ))}
+        ) : (
+          data.map((item) => (
+            <Grid lg={3} md={4} sm={6} xs={12} item>
+              <CardProduct item={item} />
+            </Grid>
+          ))
+        )}
       </Grid>
 
       <Grid container justifyContent="end">
