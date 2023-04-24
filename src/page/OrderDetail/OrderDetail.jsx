@@ -1,6 +1,7 @@
 import {
   Button,
   CardMedia,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -26,14 +27,17 @@ const OrderDetail = () => {
   const cartItems = useSelector((state) => state.cart.cartItems)
   const [openDialog, setOpenDialog] = useState(false)
   const [itemRating, setItemRating] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const [data, setData] = useState({})
   let {id} = useParams()
   useEffect(() => {
+    setLoading(true)
     OrderApi.getById(id).then((res) => {
       console.log(res, 'okene')
       setData(res)
       console.log(res.order_items)
+      setLoading(false)
     })
   }, [id])
   const handleCloseDialog = () => {
@@ -125,98 +129,108 @@ const OrderDetail = () => {
       >
         Order Detail
       </Typography>
-      <Grid container style={{marginBottom: 20}} spacing={2}>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
-            <div>Name: {data.recipient_name}</div>
-            <div style={{marginTop: 5}}>Address: {data.address}</div>
-            <div style={{marginTop: 5}}> Phone number: {data.mobile}</div>
-          </Paper>
+      {loading ? (
+        <Grid container justifyContent="center">
+          <CircularProgress />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
-            <div>Order date: {data.order_date}</div>
-            <div style={{marginTop: 5}}>
-              Payment method: {data.payment_method}
-            </div>
-            <div style={{marginTop: 5}}> Status: {data.status}</div>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={0} style={{padding: 10, height: '100%'}}>
-            <div>Shipping option: Standard</div>
-            <div style={{marginTop: 5}}>
-              Expected delivery date: {data.expected_delivery_date}
-            </div>
-            <div style={{marginTop: 5}}>
-              {' '}
-              Delivery date: {data.delivery_date}
-            </div>
-          </Paper>
-        </Grid>
-      </Grid>
-      <Paper elevation={0} style={{padding: 10}}>
-        <Grid container>
-          <Grid xs={6} item style={{fontWeight: 600}}>
-            Products
-          </Grid>
-          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
-            Price
-          </Grid>
-          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
-            Quantity
-          </Grid>
-          <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
-            Total
-          </Grid>
-        </Grid>
-        <Divider />
-        {data &&
-          data.order_items &&
-          data.order_items.map((item) => (
-            <div style={{marginTop: 10}}>{renderItems(item)}</div>
-          ))}
-        <Divider style={{margin: '10px 0'}} />
-        <Grid container justifyContent="end">
-          <Grid xs={12} sm={6}>
-            <Grid container justifyContent={'space-between'} spacing={1}>
-              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
-                Sub Total
-              </Grid>
-              <Grid item>${data.total_price}</Grid>
+      ) : (
+        <>
+          {' '}
+          <Grid container style={{marginBottom: 20}} spacing={2}>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={0} style={{padding: 10, height: '100%'}}>
+                <div>Name: {data.recipient_name}</div>
+                <div style={{marginTop: 5}}>Address: {data.address}</div>
+                <div style={{marginTop: 5}}> Phone number: {data.mobile}</div>
+              </Paper>
             </Grid>
-            {/* <Grid container justifyContent={'space-between'} spacing={1}>
-              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
-                Product discount
-              </Grid>
-              <Grid item>$ 299.40</Grid>
-            </Grid> */}
-            {/* <Grid container justifyContent={'space-between'} spacing={1}>
-              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
-                Shipping fee
-              </Grid>
-              <Grid item>$ 299.40</Grid>
-            </Grid> */}
-            <Grid container justifyContent={'space-between'} spacing={1}>
-              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
-                Shipping discount
-              </Grid>
-              <Grid item>$ {data.discount}</Grid>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={0} style={{padding: 10, height: '100%'}}>
+                <div>Order date: {data.order_date}</div>
+                <div style={{marginTop: 5}}>
+                  Payment method: {data.payment_method}
+                </div>
+                <div style={{marginTop: 5}}> Status: {data.status}</div>
+              </Paper>
             </Grid>
-            <Grid container justifyContent={'space-between'} spacing={1}>
-              <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+            <Grid item xs={12} md={4}>
+              <Paper elevation={0} style={{padding: 10, height: '100%'}}>
+                <div>Shipping option: Standard</div>
+                <div style={{marginTop: 5}}>
+                  Expected delivery date: {data.expected_delivery_date}
+                </div>
+                <div style={{marginTop: 5}}>
+                  {' '}
+                  Delivery date: {data.delivery_date}
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
+          <Paper elevation={0} style={{padding: 10}}>
+            <Grid container>
+              <Grid xs={6} item style={{fontWeight: 600}}>
+                Products
+              </Grid>
+              <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
+                Price
+              </Grid>
+              <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
+                Quantity
+              </Grid>
+              <Grid xs={2} item style={{fontWeight: 600, textAlign: 'center'}}>
                 Total
               </Grid>
-              <Grid
-                item
-                style={{color: '#D02828', fontWeight: 500, fontSize: 24}}
-              >
-                $ {data.total_price}
+            </Grid>
+            <Divider />
+            {data &&
+              data.order_items &&
+              data.order_items.map((item) => (
+                <div style={{marginTop: 10}}>{renderItems(item)}</div>
+              ))}
+            <Divider style={{margin: '10px 0'}} />
+            <Grid container justifyContent="end">
+              <Grid xs={12} sm={6}>
+                <Grid container justifyContent={'space-between'} spacing={1}>
+                  <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+                    Sub Total
+                  </Grid>
+                  <Grid item>${data.total_price}</Grid>
+                </Grid>
+                {/* <Grid container justifyContent={'space-between'} spacing={1}>
+                <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+                  Product discount
+                </Grid>
+                <Grid item>$ 299.40</Grid>
+              </Grid> */}
+                {/* <Grid container justifyContent={'space-between'} spacing={1}>
+                <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+                  Shipping fee
+                </Grid>
+                <Grid item>$ 299.40</Grid>
+              </Grid> */}
+                <Grid container justifyContent={'space-between'} spacing={1}>
+                  <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+                    Shipping discount
+                  </Grid>
+                  <Grid item>$ {data.discount}</Grid>
+                </Grid>
+                <Grid container justifyContent={'space-between'} spacing={1}>
+                  <Grid item style={{color: '#1264A9', fontWeight: 500}}>
+                    Total
+                  </Grid>
+                  <Grid
+                    item
+                    style={{color: '#D02828', fontWeight: 500, fontSize: 24}}
+                  >
+                    $ {data.total_price}
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
+          </Paper>
+        </>
+      )}
+
       <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
         <DialogTitle>RATING PRODUCT</DialogTitle>
         <DialogContent>

@@ -14,9 +14,9 @@ import ChairImg from 'asset/img/chair.png'
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {addCartItem} from 'store/cartSlice'
-import {Chip} from '@mui/material'
+import {Chip, Skeleton} from '@mui/material'
 export default function RecipeReviewCard({item}) {
-  const slug = slugify(item.name, {lower: true})
+  const slug = slugify(item?.name || 'name', {lower: true})
   const dispatch = useDispatch()
   const handleAddCard = (value) => () => {
     dispatch(addCartItem(value))
@@ -38,52 +38,82 @@ export default function RecipeReviewCard({item}) {
     >
       <CardHeader
         action={
-          <IconButton
-            onClick={handleAddCard({...item, quantity: 1})}
-            sx={{backgroundColor: '#fff'}}
-          >
-            <AddShoppingCartIcon style={{color: '#1264A9'}} />
-          </IconButton>
+          !item ? (
+            <Skeleton
+              animation="wave"
+              variant="circular"
+              width={40}
+              height={40}
+            />
+          ) : (
+            <IconButton
+              onClick={handleAddCard({...item, quantity: 1})}
+              sx={{backgroundColor: '#fff'}}
+            >
+              <AddShoppingCartIcon style={{color: '#1264A9'}} />
+            </IconButton>
+          )
         }
         title={
-          <Link
-            component={RouterLink}
-            to={`/products/${slug}`}
-            style={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: '1',
-              WebkitBoxOrient: 'vertical',
-              color: '#1264A9',
-              fontWeight: 700,
-              textDecoration: 'none',
-            }}
-          >
-            {item.name}
-          </Link>
+          !item ? (
+            <Skeleton animation="wave" height={30} width="80%" />
+          ) : (
+            <Link
+              component={RouterLink}
+              to={`/products/${slug}`}
+              style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '1',
+                WebkitBoxOrient: 'vertical',
+                color: '#1264A9',
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              {item?.name}
+            </Link>
+          )
         }
-        subheader={item.category}
+        subheader={
+          !item ? (
+            <Skeleton animation="wave" height={30} width="40%" />
+          ) : (
+            item?.category
+          )
+        }
       />
-      <CardMedia
-        component="img"
-        height="300"
-        image={item.images[0]?.url || ChairImg}
-        alt={item.name}
-        style={{objectFit: 'contain'}}
-      />
-
-      <CardActions
-        disableSpacing
-        style={{position: 'absolute', left: 20, bottom: 20}}
-      >
-        <Chip
-          label={
-            <div style={{fontWeight: 700, color: '#1264A9'}}>{item.price}$</div>
-          }
-          style={{backgroundColor: 'rgba(255, 255, 255, 0.45)'}}
+      {!item ? (
+        <Skeleton sx={{height: 300}} animation="wave" variant="rectangular" />
+      ) : (
+        <CardMedia
+          component="img"
+          height="300"
+          image={item?.images[0]?.url || ChairImg}
+          alt={item?.name}
+          style={{objectFit: 'contain'}}
         />
-      </CardActions>
+      )}
+      {
+        <CardActions
+          disableSpacing
+          style={{position: 'absolute', left: 20, bottom: 20}}
+        >
+          {!item ? (
+            <Skeleton animation="wave" height={30} width="40%" />
+          ) : (
+            <Chip
+              label={
+                <div style={{fontWeight: 700, color: '#1264A9'}}>
+                  {item?.price}$
+                </div>
+              }
+              style={{backgroundColor: 'rgba(255, 255, 255, 0.45)'}}
+            />
+          )}
+        </CardActions>
+      }
     </Card>
   )
 }

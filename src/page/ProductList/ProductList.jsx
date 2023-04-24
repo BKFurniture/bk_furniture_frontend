@@ -240,17 +240,11 @@ const ProductList = () => {
       </Box>
 
       <Grid container style={{padding: '20px 0'}} spacing={2}>
-        {loading ? (
-          <Grid container justifyContent="center">
-            <CircularProgress />
+        {(loading ? Array.from(new Array(4)) : data).map((item) => (
+          <Grid lg={3} md={4} sm={6} xs={12} item>
+            <CardProduct item={item} />
           </Grid>
-        ) : (
-          data.map((item) => (
-            <Grid lg={3} md={4} sm={6} xs={12} item>
-              <CardProduct item={item} />
-            </Grid>
-          ))
-        )}
+        ))}
       </Grid>
 
       <Grid container justifyContent="end">
