@@ -74,18 +74,15 @@ const Cart = () => {
           shippingFee: 3.5,
           shippingDiscount: 1.3,
           total: res.total_price,
-          payProducts: [
-            {
-              name: 'Chair used to sit',
-              brand: 'Calvin Klein',
-              variation: '80cm',
-              imgUrl:
-                'https://image.architonic.com/img_pro2-4/100/2837/oswald_lang_06_b_sat.jpg',
-              unitPrice: 5.2,
-              quantity: 2,
-              subTotal: 12.3,
-            },
-          ],
+          payProducts: cartItems.map((item) => ({
+            name: item?.name,
+            size: item?.sizes[0],
+            color: item?.colors[0],
+            imgUrl: item.images[0].url,
+            unitPrice: item.price,
+            quantity: item.quantity,
+            subTotal: item.price * item.quantity,
+          })),
         })
         navigate('/orders')
       })
